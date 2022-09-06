@@ -101,6 +101,9 @@ void function Bleedout_StartPlayerBleedout( entity player, entity attacker )
 	//if the player is already bleeding don't restart bleeding logic.
 	if ( file.isBleeding[ player ] )
 		return
+		
+	if ( IsFallLTM() )
+		return
 
 	player.Signal( "BleedOut_StopBleeding" )
 	player.Signal( "BleedOut_OnStartDying" )

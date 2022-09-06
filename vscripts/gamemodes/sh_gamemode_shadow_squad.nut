@@ -5,11 +5,11 @@ global function IsShadowVictory
 global function IsPlayerShadowSquad
 global function Gamemode_ShadowSquad_RegisterNetworking
 global function PlayerCanRespawnAsShadow
-
+global function GivePlayerShadowSkin
 //
 
-#if(false)
-
+#if SERVER
+global function GivePlayerShadowHands
 
 
 
@@ -211,118 +211,20 @@ struct
 //
 void function ShGameModeShadowSquad_Init()
 {
-	#if(false)
-//
-//
-
-
-#endif //
-
-
 	if ( !IsFallLTM() )
 		return
 
 	AddCallback_EntitiesDidLoad( EntitiesDidLoad )
-
-	//
-	//
-
 	#if(CLIENT)
 		SetCommsDialogueEnabled( false ) //
 		AddCallback_OnPlayerLifeStateChanged( OnPlayerLifeStateChanged )
 		AddCallback_OnVictoryCharacterModelSpawned( OnVictoryCharacterModelSpawned )
 		thread ShadowVictorySequenceSetup()
-		//
-		//
-		//
 		AddCreateCallback( "player", ShadowSquad_OnPlayerCreated )
 
 		Obituary_SetIndexOffset( 2 ) //
 
 	#endif //
-
-	#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-#endif //
 }
 //
 
@@ -389,13 +291,6 @@ void function ShadowVictorySequenceSetup()
 
 
 }
-#endif //
-
-#if(false)
-
-
-
-
 #endif //
 
 #if(false)
@@ -560,13 +455,13 @@ void function Gamemode_ShadowSquad_RegisterNetworking()
 	if ( !IsFallLTM() )
 	{
 		//
-		Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity", "bool" )
+		Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity" )
 		return
 	}
 
 	RegisterNetworkedVariable( "livingShadowPlayerCount", SNDC_GLOBAL, SNVT_INT )
 	Remote_RegisterClientFunction( "ServerCallback_ModeShadowSquad_AnnouncementSplash", "int", 0, 999, "float", 0.0, 5000.0, 16 )
-	Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity", "bool" )
+	Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity" )
 	Remote_RegisterClientFunction( "ServerCallback_PlaySpectatorAudio", "bool" )
 	Remote_RegisterClientFunction( "ServerCallback_ModeShadowSquad_RestorePlayerHealthFx", "bool" )
 	RegisterNetworkedVariable( "playerCanRespawnAsShadow", SNDC_PLAYER_GLOBAL, SNVT_BOOL, false )
@@ -1139,7 +1034,6 @@ void function ServerCallback_PlaySpectatorAudio( bool playRespawnMusic )
 	//
 	//
 	//
-	if ( !playRespawnMusic && GetGameState() == eGameState.Playing )
 	{
 		//
 		array <string> dialogueChoices
@@ -1164,10 +1058,6 @@ void function EmitSoundOnEntityDelayed( entity player, string alias, float delay
 
 	if ( !IsValid( player ) )
 		return
-
-	if ( GetGameState() != eGameState.Playing )
-		return
-
 
 	EmitSoundOnEntity( player, alias )
 }
@@ -1683,46 +1573,59 @@ void function ShadowSquadThreatVision( entity player )
 
 
 #if(CLIENT)
-void function ServerCallback_ShadowClientEffectsEnable( entity player, bool enableFx )
+void function ServerCallback_ShadowClientEffectsEnable( entity player )
 {
-	thread ShadowClientEffectsEnable( player, enableFx )
+	thread ShadowFuncs( player )
 }
 #endif //
 
 
-#if(CLIENT)
-void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVictorySequence = false )
+void function GivePlayerShadowSkin(entity player)
 {
-	AssertIsNewThread()
-	wait 0.25
-
+	wait 0.01
+	
 	if ( !IsValid( player ) )
 		return
 
-	bool isLocalPlayer = ( player == GetLocalViewPlayer() )
+	player.SetSkin( player.GetSkinIndexByName( "ShadowSqaud" ) )
+}
+
+#if SERVER
+void function GivePlayerShadowHands(entity player)
+{
+	wait 0.01
+	
+	if ( !IsValid( player ) )
+		return
+	
+	player.TakeOffhandWeapon(OFFHAND_MELEE)
+	player.TakeNormalWeaponByIndexNow( WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+	player.TakeOffhandWeapon( OFFHAND_TACTICAL )
+	player.TakeOffhandWeapon( OFFHAND_ULTIMATE )
+	player.TakeOffhandWeapon( OFFHAND_SLOT_FOR_CONSUMABLES )
+	GivePassive( player, ePassives.PAS_TRACKING_VISION )
+    player.GiveWeapon( "mp_weapon_shadow_squad_hands_primary", WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+    player.GiveOffhandWeapon( "melee_shadowsquad_hands", OFFHAND_MELEE )
+	player.SetHealth( 30 )
+	player.SetMaxHealth( 30 )
+}
+
+#endif //
+#if CLIENT
+void function ShadowFuncs( entity player, bool enableFx = true, bool isVictorySequence = false )
+{
 	vector playerOrigin = player.GetOrigin()
 	int playerTeam = player.GetTeam()
-
-	//
-	//
-	//
 	if ( enableFx )
 	{
-		//
-		//
-		//
-		if ( isLocalPlayer )
 		{
 			HealthHUD_StopUpdate( player )
-
-			//
-			//
-			//
 			EmitSoundOnEntity( player, "ShadowLegend_Shadow_Loop_1P" )
 
 			entity cockpit = player.GetCockpit()
 			if ( !IsValid( cockpit ) )
 				return
+
 
 			int fxHandle = StartParticleEffectOnEntity( cockpit, GetParticleSystemIndex( SHADOW_SCREEN_FX ), FX_PATTACH_ABSORIGIN_FOLLOW, -1 )
 			EffectSetIsWithCockpit( fxHandle, true )
@@ -1733,64 +1636,11 @@ void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVi
 			if ( !( playerTeam in file.playerClientFxHandles) )
 				file.playerClientFxHandles[ playerTeam ] <- []
 			file.playerClientFxHandles[playerTeam].append( fxHandle )
-
-			//
-			//
-			//
-			//
-
 		}
-
-		//
-		//
-		//
-		else
-		{
-			//
-			entity clientAG = CreateClientSideAmbientGeneric( player.GetOrigin() + <0,0,16>, "ShadowLegend_Shadow_Loop_3P", 0 )
-			SetTeam( clientAG, player.GetTeam() )
-			clientAG.SetSegmentEndpoints( player.GetOrigin() + <0,0,16>, playerOrigin + <0, 0, 72> )
-			clientAG.SetEnabled( true )
-			clientAG.RemoveFromAllRealms()
-			clientAG.AddToOtherEntitysRealms( player )
-			clientAG.SetParent( player, "", true, 0.0 )
-			clientAG.SetScriptName( STRING_SHADOW_SOUNDS )
-		}
-
-
-		//
-		//
-		//
-
-
-
-
-		//
-		/*
-
-
-
-
-
-
-
-
-
-
-
-*/
-
 	}
 
-	//
-	//
-	//
 	else
 	{
-		//
-		//
-		//
-		if ( isLocalPlayer )
 		{
 			StopSoundOnEntity( player, "ShadowLegend_Shadow_Loop_1P" )
 
@@ -1808,15 +1658,6 @@ void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVi
 				delete file.playerClientFxHandles[ playerTeam ]
 			}
 		}
-
-		//
-		//
-		//
-
-
-		//
-		//
-		//
 		array<entity> children = player.GetChildren()
 		foreach( childEnt in children )
 		{
@@ -1829,12 +1670,10 @@ void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVi
 				continue
 			}
 		}
-
-
 	}
+	thread ShadowSquad_SetHUD( player )
 }
-#endif //
-
+#endif
 
 
 #if(false)
@@ -2438,31 +2277,31 @@ void function OnVictoryCharacterModelSpawned( entity characterModel, ItemFlavor 
 #endif //
 
 
-#if(CLIENT)
+#if CLIENT
 void function ShadowSquad_OnPlayerCreated( entity player )
 {
-	//
+}
+
+void function ShadowSquad_SetHUD( entity player )
+{
 	SetCustomPlayerInfoColor( player, GetKeyColor( COLORID_MEMBER_COLOR0, 0 ) )
+	UpdatePlayerHUD( player )
+
+	{
+		SetCustomPlayerInfoCharacterIcon( player, $"rui/gamemodes/shadow_squad/generic_shadow_character" )
+		SetCustomPlayerInfoTreatment( player, $"rui/gamemodes/shadow_squad/player_info_custom_treatment" )
+		SetCustomPlayerInfoColor( player, <245, 81, 35 > )
+	}
 }
 #endif //
 
 
-#if(CLIENT)
+#if CLIENT
 void function OnPlayerLifeStateChanged( entity player, int oldState, int newState )
 {
 	if ( !IsValid( player ) )
 		return
 
-	if ( player != GetLocalClientPlayer() )
-		return
-
-
-	if ( newState != LIFE_ALIVE )
-		return
-
-	//
-	//
-	//
 	UpdatePlayerHUD( player )
 
 	if ( IsPlayerShadowSquad( player ) )
@@ -2474,25 +2313,6 @@ void function OnPlayerLifeStateChanged( entity player, int oldState, int newStat
 		SetCustomPlayerInfoTreatment( player, $"rui/gamemodes/shadow_squad/player_info_custom_treatment" )
 		SetCustomPlayerInfoColor( player, <245, 81, 35 > )
 	}
-
-	/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
 }
 #endif //
 

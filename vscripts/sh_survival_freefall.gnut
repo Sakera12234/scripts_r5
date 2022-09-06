@@ -332,7 +332,7 @@ void function SkydiveTest()
 	foreach( entity player in GetPlayerArray() )
 	{
 		player.ClearParent()
-		player.SetOrigin( <0,0,35000> )
+		player.SetOrigin( <-25800,-13580,16000> )
 		thread PlayerSkydiveFromCurrentPosition( player )
 	}
 }
@@ -413,10 +413,26 @@ void function PlayerSkyDive( entity player, vector driverViewVector, array<entit
 				StopSoundOnEntity( player, "Survival_InGameFlight_Land_Start_1P" )
 				StopSoundOnEntity( player, "Survival_InGameFlight_Land_Start_3P" )
 
+				if ( IsFallLTM() )
+				{
+					StopSoundOnEntity( player, "ShadowLegend_DropSequence_Land_Start_1P" )
+					StopSoundOnEntity( player, "ShadowLegend_DropSequence_Land_Start_3P" )
+					StopSoundOnEntity( player, "ShadowLegend_DropSequence_Travel_1P" )
+					StopSoundOnEntity( player, "ShadowLegend_DropSequence_Travel_3P" )
+					StopSoundOnEntity( player, "ShadowLegend_DropSequence_Land_Start_1P" )
+					StopSoundOnEntity( player, "ShadowLegend_DropSequence_Land_Start_3P" )
+				}
+				
+				
 				if ( jumpingFromPlane )
 				{
 					EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_DropSequence_Land_Stop_1P" )
 					EmitSoundOnEntityExceptToPlayer( player, player, "Survival_DropSequence_Land_Stop_3P" )
+				}
+				else if ( IsFallLTM() )
+				{
+					EmitSoundOnEntityOnlyToPlayer( player, player, "ShadowLegend_DropSequence_Land_Stop_1P" )
+					EmitSoundOnEntityExceptToPlayer( player, player, "ShadowLegend_DropSequence_Land_Stop_3P" )
 				}
 				else
 				{
@@ -563,6 +579,11 @@ void function PlayerSkyDive( entity player, vector driverViewVector, array<entit
 	{
 		EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_DropSequence_Travel_1P" )
 		EmitSoundOnEntityExceptToPlayer( player, player, "Survival_DropSequence_Travel_3P" )
+	}
+	else if ( IsFallLTM() )
+	{
+		EmitSoundOnEntityOnlyToPlayer( player, player, "ShadowLegend_DropSequence_Travel_1P" )
+		EmitSoundOnEntityExceptToPlayer( player, player, "ShadowLegend_DropSequence_Travel_3P" )
 	}
 	else
 	{
@@ -1001,6 +1022,11 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 				EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_DropSequence_Land_Start_1P" )
 				EmitSoundOnEntityExceptToPlayer( player, player, "Survival_DropSequence_Land_Start_3P" )
 			}
+			else if ( IsFallLTM() )
+			{
+				EmitSoundOnEntityOnlyToPlayer( player, player, "ShadowLegend_DropSequence_Land_Start_1P" )
+				EmitSoundOnEntityExceptToPlayer( player, player, "ShadowLegend_DropSequence_Land_Start_3P" )
+			}
 			else
 			{
 				EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_InGameFlight_Land_Start_1P" )
@@ -1044,6 +1070,11 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 			{
 				EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_DropSequence_Travel_1P" )
 				EmitSoundOnEntityExceptToPlayer( player, player, "Survival_DropSequence_Travel_3P" )
+			}
+			else if ( IsFallLTM() )
+			{
+				EmitSoundOnEntityOnlyToPlayer( player, player, "ShadowLegend_DropSequence_Travel_1P" )
+				EmitSoundOnEntityExceptToPlayer( player, player, "ShadowLegend_DropSequence_Travel_3P" )
 			}
 			else
 			{

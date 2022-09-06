@@ -465,23 +465,24 @@ void function LootCreepDeathSetup( entity creep, array<string> lootToSpawn )
 			creep.NotSolid()
 			thread CreepDestroyAfterDelay( creep )
 
-			foreach( ref in lootToSpawn )
+			string itemRef = SURVIVAL_GetWeightedItemFromGroup( "POI_High" )
+			LootData data = SURVIVAL_Loot_GetLootDataByRef( itemRef )
+			
 			{
-				if ( ref == "blank" )
-					continue
+				entity lootEnt = SpawnGenericLoot( itemRef, creep.GetOrigin(), <0, RandomFloat( 360.0 ), 0>, data.countPerDrop )
+				lootEnt.MakeVisible()
+				lootEnt.SetUsable()
+				lootEnt.SetModelScale( 1.0 )
 
-				vector randFwd = RandomVecInDome( <0, 0, 1> ) * 1.2 //RandomVecInDomeWithFOV( <0, 0, 1>, 45 ) * 1.2
-				vector up = creep.GetUpVector()
-				randFwd = Normalize( randFwd + ( up * 0.35 ) )
+				lootEnt.SetOrigin( lootOrigin )
+				lootEnt.SetAngles( <0, RandomFloat( 360.0 ), 0> )
 
-				LootData lootData = SURVIVAL_Loot_GetLootDataByRef( ref )
-				int amount = lootData.countPerDrop
-
-
-				printt(FUNC_NAME(), "throwing", lootOrigin, randFwd, ref, amount)
-				SURVIVAL_ThrowLootFromPoint( lootOrigin, randFwd, ref, amount )
+				vector randFwd = RandomVecInDome( <0, 0, 1> ) * 2.2
+				randFwd = Normalize( randFwd + 0.35 * creep.GetUpVector() )
+				float speed = RandomFloatRange( 150, 250 )
+				vector vel  = (randFwd * speed) + <0, 0, 100>
+				FakePhysicsThrow( null, lootEnt, vel, true )
 			}
-
 		}
 	)
 }

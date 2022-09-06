@@ -518,6 +518,25 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 
 		return
 	}
+	
+	if ( IsFallLTM() )
+	{
+		thread function() : ( victim )
+		{
+			Remote_CallFunction_NonReplay( victim, "ServerCallback_PlaySpectatorAudio", true )
+			wait 3.0
+
+			thread GivePlayerShadowSkin( victim )
+			thread GivePlayerShadowHands( victim )
+			DecideRespawnPlayer( victim )
+			thread SkydiveTest()
+			
+			Remote_CallFunction_NonReplay( victim, "ServerCallback_ShadowClientEffectsEnable", victim )
+			
+		}()
+
+		return
+	}
 
 	SetPlayerEliminated( victim )
 	PlayerStartSpectating( victim, attacker )
