@@ -39,6 +39,10 @@ global function MusicPack_GetPortraitBlend
 global function ServerCallback_PlayMatchEndMusic
 #endif
 
+#if SERVER
+global function GetCustomMusicPackForMode
+#endif
+
 struct FileStruct_LifetimeLevel
 {
 	LoadoutEntry&          musicPackSelectionSlot
@@ -152,11 +156,22 @@ bool function GetMusicPackDefaultIsSelectedLoadout( entity player )
 }
 #endif
 
-ItemFlavor function GetCustomMusicPackForMode()
+#if SERVER
+void function GetCustomMusicPackForMode( entity player )
 {
-	ItemFlavor flav = GetItemFlavorByAsset( $"settings/itemflav/musicpack/s03e01.rpak" )
-	return flav
+	if ( IsFallLTM() )
+	{
+		ItemFlavor Shadowfall_MusicPack = GetItemFlavorByAsset( $"settings/itemflav/musicpack/s03e01.rpak" )
+		SetItemFlavorLoadoutSlot( ToEHI( player ), Loadout_MusicPack(), Shadowfall_MusicPack )
+	}
+	else
+	{
+		ItemFlavor Default_MusicPack = GetItemFlavorByAsset( $"settings/itemflav/musicpack/default.rpak" )
+		SetItemFlavorLoadoutSlot( ToEHI( player ), Loadout_MusicPack(), Default_MusicPack )
+	}
 }
+#endif
+
 
 ItemFlavor function WaitForMusicPackForPlayer( entity player )
 {
@@ -195,10 +210,6 @@ string function MusicPack_GetPreviewMusic( ItemFlavor flavor )
 string function MusicPack_GetMainMenuToLobbyMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
-	
-	if ( IsFallLTM() )
-		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicMainMenuToLobby" )
-	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicMainMenuToLobby" )
 }
 #endif
@@ -208,10 +219,6 @@ string function MusicPack_GetMainMenuToLobbyMusic( ItemFlavor flavor )
 string function MusicPack_GetLobbyMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
-	
-	if ( IsFallLTM() )
-		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicLobby" )
-	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicLobby" )
 }
 #endif
@@ -221,10 +228,6 @@ string function MusicPack_GetLobbyMusic( ItemFlavor flavor )
 string function MusicPack_GetLobbyIntoCharacterSelectMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
-	
-	if ( IsFallLTM() )
-		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicLobbyToCharacterSelect" )
-	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicLobbyToCharacterSelect" )
 }
 #endif
@@ -239,8 +242,6 @@ string function MusicPack_GetCharacterSelectMusic( ItemFlavor flavor )
 		return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicCharacterSelectSolo" )
 	if ( IsDuoMode() )
 		return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicCharacterSelectDuo" )
-	if ( IsFallLTM() )
-		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicCharacterSelectSolo" )
 
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicCharacterSelect" )
 }
@@ -251,10 +252,6 @@ string function MusicPack_GetCharacterSelectMusic( ItemFlavor flavor )
 string function MusicPack_GetSkydiveMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
-	
-	if ( IsFallLTM() )
-		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicSkydive" )
-		
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicSkydive" )
 }
 #endif
@@ -264,10 +261,6 @@ string function MusicPack_GetSkydiveMusic( ItemFlavor flavor )
 string function MusicPack_GetWinMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
-
-	if ( IsFallLTM() )
-		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicWin" )
-	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicWin" )
 }
 #endif
@@ -277,10 +270,6 @@ string function MusicPack_GetWinMusic( ItemFlavor flavor )
 string function MusicPack_GetLossMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
-	
-	if ( IsFallLTM() )
-		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicLoss" )
-	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicLoss" )
 }
 #endif

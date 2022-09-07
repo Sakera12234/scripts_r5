@@ -501,6 +501,8 @@ void function OnClientConnected( entity player )
 		FlagSet( "MinPlayersReached" )
 	// Min players logic end
 
+	thread GetCustomMusicPackForMode( player )
+
 	UpdatePlayerCounts()
 
 	array<entity> playerTeam = GetPlayerArrayOfTeam( player.GetTeam() )

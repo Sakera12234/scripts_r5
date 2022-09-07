@@ -480,6 +480,16 @@ bool function IsSoloMode()
 	return GetCurrentPlaylistVarBool( "solo_mode", false )
 }
 
+bool function IsFallLTM()
+{
+	return GetCurrentPlaylistVarBool( "mode_fall_ltm", false )
+}
+
+bool function IsLobbyFallLTM()
+{
+	return GetCurrentPlaylistVarBool( "menu_fall_ltm", false )
+}
+
 bool function IsLastPlaylistSolo( entity player )
 {
 	return GetPersistentLastGameTypeFlag( player, eGameType.SOLO )
