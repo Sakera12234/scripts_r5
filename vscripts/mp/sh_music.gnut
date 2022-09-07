@@ -131,11 +131,6 @@ ItemFlavor function GetMusicPackForPlayer( entity player )
 			//
 		}
 	}
-
-	if ( GetCurrentPlaylistVarBool( "force_custom_musicpack", false ) == true )
-	{
-		flav = GetCustomMusicPackForMode()
-	}
 	#else
 	flav = __GetMusicPackForPlayer_RollTheRandom( player )
 	#endif // CLIENT
@@ -157,26 +152,11 @@ bool function GetMusicPackDefaultIsSelectedLoadout( entity player )
 }
 #endif
 
-#if CLIENT
 ItemFlavor function GetCustomMusicPackForMode()
 {
-	ItemFlavor flav
-
-	//
-	if ( IsFallLTM() )
-	{
-		flav = GetItemFlavorByAsset( $"settings/itemflav/musicpack/s03e01.rpak" )
-	}
-	else
-	{
-		Assert( 0, "Playlist has force_custom_musicpack without a script definition of the music to use for the mode" )
-	}
-
+	ItemFlavor flav = GetItemFlavorByAsset( $"settings/itemflav/musicpack/s03e01.rpak" )
 	return flav
-
 }
-#endif
-
 
 ItemFlavor function WaitForMusicPackForPlayer( entity player )
 {
@@ -215,6 +195,10 @@ string function MusicPack_GetPreviewMusic( ItemFlavor flavor )
 string function MusicPack_GetMainMenuToLobbyMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
+	
+	if ( IsFallLTM() )
+		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicMainMenuToLobby" )
+	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicMainMenuToLobby" )
 }
 #endif
@@ -224,6 +208,10 @@ string function MusicPack_GetMainMenuToLobbyMusic( ItemFlavor flavor )
 string function MusicPack_GetLobbyMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
+	
+	if ( IsFallLTM() )
+		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicLobby" )
+	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicLobby" )
 }
 #endif
@@ -233,6 +221,10 @@ string function MusicPack_GetLobbyMusic( ItemFlavor flavor )
 string function MusicPack_GetLobbyIntoCharacterSelectMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
+	
+	if ( IsFallLTM() )
+		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicLobbyToCharacterSelect" )
+	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicLobbyToCharacterSelect" )
 }
 #endif
@@ -247,6 +239,8 @@ string function MusicPack_GetCharacterSelectMusic( ItemFlavor flavor )
 		return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicCharacterSelectSolo" )
 	if ( IsDuoMode() )
 		return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicCharacterSelectDuo" )
+	if ( IsFallLTM() )
+		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicCharacterSelectSolo" )
 
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicCharacterSelect" )
 }
@@ -257,6 +251,10 @@ string function MusicPack_GetCharacterSelectMusic( ItemFlavor flavor )
 string function MusicPack_GetSkydiveMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
+	
+	if ( IsFallLTM() )
+		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicSkydive" )
+		
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicSkydive" )
 }
 #endif
@@ -266,6 +264,10 @@ string function MusicPack_GetSkydiveMusic( ItemFlavor flavor )
 string function MusicPack_GetWinMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
+
+	if ( IsFallLTM() )
+		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicWin" )
+	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicWin" )
 }
 #endif
@@ -275,6 +277,10 @@ string function MusicPack_GetWinMusic( ItemFlavor flavor )
 string function MusicPack_GetLossMusic( ItemFlavor flavor )
 {
 	Assert( ItemFlavor_GetType( flavor ) == eItemType.music_pack )
+	
+	if ( IsFallLTM() )
+		return GetGlobalSettingsString( ItemFlavor_GetAsset( GetCustomMusicPackForMode() ), "musicLoss" )
+	
 	return GetGlobalSettingsString( ItemFlavor_GetAsset( flavor ), "musicLoss" )
 }
 #endif
