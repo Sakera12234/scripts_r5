@@ -284,9 +284,6 @@ void function ClGamemodeSurvival_Init()
 {
 	Sh_ArenaDeathField_Init()
 	ClSurvivalCommentary_Init()
-	#if(false)
-
-#endif
 	BleedoutClient_Init()
 	ClSurvivalShip_Init()
 	SurvivalFreefall_Init()
@@ -309,15 +306,12 @@ void function ClGamemodeSurvival_Init()
 	FlagInit( "SquadEliminated" )
 
 	ClGameState_RegisterGameStateAsset( $"ui/gamestate_info_survival.rpak" )
-	#if(true)
-		//
-		//
-		if ( IsFallLTM() )
-		{
-			ClGameState_RegisterGameStateAsset( $"ui/gamestate_info_shadow_squad.rpak" )
-			ClGameState_RegisterGameStateFullmapAsset( $"ui/gamestate_info_fullmap_shadow_squad.rpak" )
-		}
-	#endif
+
+	if ( IsFallLTM() )
+	{
+		ClGameState_RegisterGameStateAsset( $"ui/gamestate_info_shadow_squad.rpak" )
+		ClGameState_RegisterGameStateFullmapAsset( $"ui/gamestate_info_fullmap_shadow_squad.rpak" )
+	}
 
 	AddCallback_OnClientScriptInit( OverrideMinimapPackages )
 
@@ -3187,10 +3181,9 @@ void function ServerCallback_AnnounceCircleClosing()
 
 	float duration                = 4.0
 	string circleClosingSound = "survival_circle_close_alarm_02"
-	#if(true)
-		if ( IsFallLTM() )
-			circleClosingSound = "survival_circle_close_alarm_02_ss"
-	#endif
+
+	if ( IsFallLTM() )
+		circleClosingSound = "survival_circle_close_alarm_02_ss"
 
 	AnnouncementData announcement = Announcement_Create( Localize( "#SURVIVAL_CIRCLE_STARTING" ) )
 	Announcement_SetSoundAlias( announcement, circleClosingSound )
@@ -3918,28 +3911,26 @@ void function ShowVictorySequence( bool placementMode = false )
 	if ( victoryPlatformModelData.isSet )
 	{
 		platformModel = CreateClientSidePropDynamic( file.victorySequencePosition + victoryPlatformModelData.originOffset, victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
-		#if(true)
-			//
-			if ( IsFallLTM() )
-			{
-				entity platformModel2 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -284, 1000, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
-				entity platformModel3 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -284, 0, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )					//
-				entity platformModel4 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -500, 200, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
-				entity platformModel5 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -284, 500, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
-				entity platformModel6 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, 0, 500, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )					//
-				entity platformModel7 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, 300, 300, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
-				entity platformModel8 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, 0, 1000, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
-				cleanupEnts.append( platformModel2 )
-				cleanupEnts.append( platformModel3 )
-				cleanupEnts.append( platformModel4 )
-				cleanupEnts.append( platformModel5 )
-				cleanupEnts.append( platformModel6 )
-				cleanupEnts.append( platformModel7 )
-				cleanupEnts.append( platformModel8 )
-				if ( IsShadowVictory() )
-					maxPlayersToShow = 16
-			}
-		#endif //
+
+		if ( IsFallLTM() )
+		{
+			entity platformModel2 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -284, 1000, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
+			entity platformModel3 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -284, 0, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )					//
+			entity platformModel4 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -500, 200, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
+			entity platformModel5 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, -284, 500, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
+			entity platformModel6 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, 0, 500, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )					//
+			entity platformModel7 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, 300, 300, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
+			entity platformModel8 = CreateClientSidePropDynamic( PositionOffsetFromEnt( platformModel, 0, 1000, 0 ), victoryPlatformModelData.modelAngles, victoryPlatformModelData.modelAsset )
+			cleanupEnts.append( platformModel2 )
+			cleanupEnts.append( platformModel3 )
+			cleanupEnts.append( platformModel4 )
+			cleanupEnts.append( platformModel5 )
+			cleanupEnts.append( platformModel6 )
+			cleanupEnts.append( platformModel7 )
+			cleanupEnts.append( platformModel8 )
+			if ( IsShadowVictory() )
+				maxPlayersToShow = 16
+		}
 
 		cleanupEnts.append( platformModel )
 		int playersOnPodium = 0
@@ -4000,16 +3991,13 @@ void function ShowVictorySequence( bool placementMode = false )
 			string victoryAnim = GetVictorySquadFormationActivity( i, characterModel )
 			characterModel.Anim_Play( victoryAnim )
 			characterModel.Anim_EnableUseAnimatedRefAttachmentInsteadOfRootMotion()
-			#if(true)
-				if ( IsFallLTM() )
-				{
-					//
-					float duration = characterModel.GetSequenceDuration( victoryAnim )
-					float initialTime = RandomFloatRange( 0, duration )
-					characterModel.Anim_SetInitialTime( initialTime )
-				}
-			#endif //
 
+			if ( IsFallLTM() )
+			{
+				float duration = characterModel.GetSequenceDuration( victoryAnim )
+				float initialTime = RandomFloatRange( 0, duration )
+				characterModel.Anim_SetInitialTime( initialTime )
+			}
 
 			#if R5DEV
 				if ( GetBugReproNum() == 1111 || GetBugReproNum() == 2222 )
@@ -4021,19 +4009,18 @@ void function ShowVictorySequence( bool placementMode = false )
 
 			//
 			bool createOverheadRui = true
-			#if(true)
-				if ( IsFallLTM() && IsShadowVictory() && player.GetEncodedEHandle() != data.eHandle )
-				{
-					createOverheadRui = false
-				}
-			#endif //
+
+			if ( IsFallLTM() && IsShadowVictory() && player.GetEncodedEHandle() != data.eHandle )
+			{
+				createOverheadRui = false
+			}
+
 			if ( createOverheadRui )
 			{
 				int offset = 78
-				#if(true)
-					if ( IsFallLTM() )
-						offset = offsetArray[i]
-				#endif
+
+				if ( IsFallLTM() )
+					offset = offsetArray[i]
 
 				entity overheadEnt = CreateClientSidePropDynamic( pos + (AnglesToUp( file.victorySequenceAngles ) * offset), <0, 0, 0>, $"mdl/dev/empty_model.rmdl" )
 				overheadEnt.Hide()
@@ -4182,51 +4169,49 @@ VictorySoundPackage function GetVictorySoundPackage()
 {
 	VictorySoundPackage victorySoundPackage
 
-	#if(true)
-		if ( IsFallLTM() )
+	if ( IsFallLTM() )
+	{
+		float randomFloat = RandomFloatRange( 0, 1 )
+		if ( IsShadowVictory() )
 		{
-			float randomFloat = RandomFloatRange( 0, 1 )
-			if ( IsShadowVictory() )
-			{
-				string shadowsWinAlias
-				if ( randomFloat < 0.33 )
-					shadowsWinAlias = "diag_ap_nocNotify_shadowSquadWin_01_3p"
-				else if ( randomFloat < 0.66 )
-					shadowsWinAlias = "diag_ap_nocNotify_shadowSquadWin_02_3p"
-				else
-					shadowsWinAlias = "diag_ap_nocNotify_shadowSquadWin_03_3p"
-				victorySoundPackage.youAreChampPlural = shadowsWinAlias
-				victorySoundPackage.youAreChampSingular = shadowsWinAlias
-				victorySoundPackage.theyAreChampPlural = shadowsWinAlias
-				victorySoundPackage.theyAreChampSingular = shadowsWinAlias
-			}
-			else //
-			{
-				if ( randomFloat < 0.33 )
-				{
-					victorySoundPackage.youAreChampPlural = "diag_ap_nocNotify_victorySquad_01_3p" //
-					victorySoundPackage.youAreChampSingular = "diag_ap_nocNotify_victorySolo_03_3p" //
-					victorySoundPackage.theyAreChampSingular = "diag_ap_nocNotify_victorySolo_01_3p" //
-				}
-				else if ( randomFloat < 0.66 )
-				{
-					victorySoundPackage.youAreChampPlural = "diag_ap_nocNotify_victorySquad_02_3p" //
-					victorySoundPackage.youAreChampSingular = "diag_ap_nocNotify_victorySolo_04_3p" //
-					victorySoundPackage.theyAreChampSingular = "diag_ap_nocNotify_victorySolo_02_3p" //
-				}
-				else
-				{
-					victorySoundPackage.youAreChampPlural = "diag_ap_nocNotify_victorySquad_03_3p" //
-					victorySoundPackage.youAreChampSingular = "diag_ap_nocNotify_victorySolo_05_3p" //
-					victorySoundPackage.theyAreChampSingular = "diag_ap_nocNotify_victorySolo_01_3p" //
-				}
-				victorySoundPackage.theyAreChampPlural = "diag_ap_nocNotify_victorySquad_03_3p" //
-
-			}
-
-			return victorySoundPackage
+			string shadowsWinAlias
+			if ( randomFloat < 0.33 )
+				shadowsWinAlias = "diag_ap_nocNotify_shadowSquadWin_01_3p"
+			else if ( randomFloat < 0.66 )
+				shadowsWinAlias = "diag_ap_nocNotify_shadowSquadWin_02_3p"
+			else
+				shadowsWinAlias = "diag_ap_nocNotify_shadowSquadWin_03_3p"
+			victorySoundPackage.youAreChampPlural = shadowsWinAlias
+			victorySoundPackage.youAreChampSingular = shadowsWinAlias
+			victorySoundPackage.theyAreChampPlural = shadowsWinAlias
+			victorySoundPackage.theyAreChampSingular = shadowsWinAlias
 		}
-	#endif //
+		else //
+		{
+			if ( randomFloat < 0.33 )
+			{
+				victorySoundPackage.youAreChampPlural = "diag_ap_nocNotify_victorySquad_01_3p" //
+				victorySoundPackage.youAreChampSingular = "diag_ap_nocNotify_victorySolo_03_3p" //
+				victorySoundPackage.theyAreChampSingular = "diag_ap_nocNotify_victorySolo_01_3p" //
+			}
+			else if ( randomFloat < 0.66 )
+			{
+				victorySoundPackage.youAreChampPlural = "diag_ap_nocNotify_victorySquad_02_3p" //
+				victorySoundPackage.youAreChampSingular = "diag_ap_nocNotify_victorySolo_04_3p" //
+				victorySoundPackage.theyAreChampSingular = "diag_ap_nocNotify_victorySolo_02_3p" //
+			}
+			else
+			{
+				victorySoundPackage.youAreChampPlural = "diag_ap_nocNotify_victorySquad_03_3p" //
+				victorySoundPackage.youAreChampSingular = "diag_ap_nocNotify_victorySolo_05_3p" //
+				victorySoundPackage.theyAreChampSingular = "diag_ap_nocNotify_victorySolo_01_3p" //
+			}
+			victorySoundPackage.theyAreChampPlural = "diag_ap_nocNotify_victorySquad_03_3p" //
+
+		}
+
+		return victorySoundPackage
+	}
 
 	victorySoundPackage.youAreChampPlural = "diag_ap_aiNotify_winnerFound_07" //
 	victorySoundPackage.youAreChampSingular = "diag_ap_aiNotify_winnerFound_10" //
@@ -4241,26 +4226,24 @@ VictoryCameraPackage function GetVictoryCameraPackage()
 {
 	VictoryCameraPackage victoryCameraPackage
 
-	#if(true)
-		if ( IsFallLTM() )
+	if ( IsFallLTM() )
+	{
+		if ( IsShadowVictory() )
 		{
-			if ( IsShadowVictory() )
-			{
-				victoryCameraPackage.camera_offset_start = <0, 725, 100>
-				victoryCameraPackage.camera_offset_end = <0, 400, 48>
-			}
-			else
-			{
-				victoryCameraPackage.camera_offset_start = <0, 735, 68>
-				victoryCameraPackage.camera_offset_end = <0, 625, 48>
-			}
-
-			victoryCameraPackage.camera_focus_offset = <0, 0, 36>
-			victoryCameraPackage.camera_fov = 35.5
-
-			return victoryCameraPackage
+			victoryCameraPackage.camera_offset_start = <0, 725, 100>
+			victoryCameraPackage.camera_offset_end = <0, 400, 48>
 		}
-	#endif //
+		else
+		{
+			victoryCameraPackage.camera_offset_start = <0, 735, 68>
+			victoryCameraPackage.camera_offset_end = <0, 625, 48>
+		}
+
+		victoryCameraPackage.camera_focus_offset = <0, 0, 36>
+		victoryCameraPackage.camera_fov = 35.5
+
+		return victoryCameraPackage
+	}
 
 	victoryCameraPackage.camera_offset_start = <0, 320, 68>
 	victoryCameraPackage.camera_offset_end = <0, 200, 48>
@@ -4280,50 +4263,45 @@ vector function GetVictorySquadFormationPosition( vector mainPosition, vector an
 	float offset_side = 48.0
 	float offset_back = -28.0
 
-	#if(true)
-		if ( IsFallLTM() )
+	if ( IsFallLTM() )
+	{
+		if ( IsShadowVictory() )
 		{
-			if ( IsShadowVictory() )
+			if ( index < 7 )
 			{
-				if ( index < 7 )
-				{
-					offset_side = 48.0
-					offset_back = -48.0
-				}
-				else if ( index == 7 )
-					return OffsetPointRelativeToVector( mainPosition, <24, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 8 )
-					return OffsetPointRelativeToVector( mainPosition, <48, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 9 )
-					return OffsetPointRelativeToVector( mainPosition, <72, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 10 )
-					return OffsetPointRelativeToVector( mainPosition, <96, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 11 )
-					return OffsetPointRelativeToVector( mainPosition, <120, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 12 )
-					return OffsetPointRelativeToVector( mainPosition, <-24, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 13 )
-					return OffsetPointRelativeToVector( mainPosition, <-48, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 14 )
-					return OffsetPointRelativeToVector( mainPosition, <-96, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 15 )
-					return OffsetPointRelativeToVector( mainPosition, <-120, 16, -8>, AnglesToForward( angles ) )
-				else if ( index == 16 )
-					return OffsetPointRelativeToVector( mainPosition, <12, 32, -8>, AnglesToForward( angles ) )
+				offset_side = 48.0
+				offset_back = -48.0
 			}
-			else
+			else if ( index == 7 )
+				return OffsetPointRelativeToVector( mainPosition, <24, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 8 )
+				return OffsetPointRelativeToVector( mainPosition, <48, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 9 )
+				return OffsetPointRelativeToVector( mainPosition, <72, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 10 )
+				return OffsetPointRelativeToVector( mainPosition, <96, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 11 )
+				return OffsetPointRelativeToVector( mainPosition, <120, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 12 )
+				return OffsetPointRelativeToVector( mainPosition, <-24, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 13 )
+				return OffsetPointRelativeToVector( mainPosition, <-48, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 14 )
+				return OffsetPointRelativeToVector( mainPosition, <-96, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 15 )
+				return OffsetPointRelativeToVector( mainPosition, <-120, 16, -8>, AnglesToForward( angles ) )
+			else if ( index == 16 )
+				return OffsetPointRelativeToVector( mainPosition, <12, 32, -8>, AnglesToForward( angles ) )
+		}
+		else
+		{
+			if ( index > 2 )
 			{
-				if ( index > 2 )
-				{
-					//
-					offset_side = 56.0
-					offset_back = -28.0
-
-				}
+				offset_side = 56.0
+				offset_back = -28.0
 			}
 		}
-
-	#endif //
+	}
 
 	int countBack = (index + 1) / 2
 	vector offset = < offset_side, offset_back, 0 > * countBack
@@ -4338,32 +4316,19 @@ vector function GetVictorySquadFormationPosition( vector mainPosition, vector an
 
 string function GetVictorySquadFormationActivity( int index, entity characterModel )
 {
-	#if(true)
-		if ( IsFallLTM() && IsShadowVictory() )
+	if ( IsFallLTM() && IsShadowVictory() )
+	{
+		bool animExists = characterModel.LookupSequence( "ACT_VICTORY_DANCE" ) != -1
+		if ( animExists )
+			return "ACT_VICTORY_DANCE"
+		else
 		{
-			bool animExists = characterModel.LookupSequence( "ACT_VICTORY_DANCE" ) != -1
-			if ( animExists )
-				return "ACT_VICTORY_DANCE"
-			else
-			{
-				Assert( characterModel.LookupSequence( "ACT_MP_MENU_LOBBY_SELECT_IDLE" ) != -1, "Unable to find victory idle for " + characterModel )
-				return "ACT_MP_MENU_LOBBY_SELECT_IDLE"
-			}
-
+			Assert( characterModel.LookupSequence( "ACT_MP_MENU_LOBBY_SELECT_IDLE" ) != -1, "Unable to find victory idle for " + characterModel )
+			return "ACT_MP_MENU_LOBBY_SELECT_IDLE"
 		}
-
-	#endif //
+	}
 
 	return "ACT_MP_MENU_LOBBY_SELECT_IDLE"
-	/*
-
-
-
-
-
-
-
-*/
 }
 
 

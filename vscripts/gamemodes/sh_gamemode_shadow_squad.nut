@@ -6,7 +6,7 @@ global function PlayerCanRespawnAsShadow
 global function GivePlayerShadowSkin
 
 #if SERVER
-global function GivePlayerShadowHands
+global function GivePlayerShadowPowers
 #endif //
 
 #if CLIENT
@@ -390,7 +390,7 @@ void function GivePlayerShadowSkin(entity player)
 }
 
 #if SERVER
-void function GivePlayerShadowHands(entity player)
+void function GivePlayerShadowPowers(entity player)
 {
 	player.SetPlayerNetBool( "isPlayerShadowForm", true )
 	wait 0.01

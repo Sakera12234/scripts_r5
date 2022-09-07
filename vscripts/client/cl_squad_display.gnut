@@ -109,12 +109,10 @@ void function UICallback_UpdateGladCardVisibility( var panel, var elem, int team
 		if ( info == null )
 			Hud_Hide( elem )
 
-		#if(true)
-			if ( IsFallLTM() )
-			{
-				Hud_Hide( elem )
-			}
-		#endif
+		if ( IsFallLTM() )
+		{
+			Hud_Hide( elem )
+		}
 	}
 }
 
@@ -184,13 +182,11 @@ void function UICallback_PopulateClientGladCard( var panel, var elem, var muteBu
 	{
 		PlayerInfo ornull teammateInfo = GetTeammateAtIndex( teamMemberIndex )
 
-		#if(true)
-			if ( IsFallLTM() )
-			{
-				if ( teammateInfo != null && expect PlayerInfo( teammateInfo ).ehi != GetLocalClientPlayer().GetEncodedEHandle() )
-					teammateInfo = null
-			}
-		#endif
+		if ( IsFallLTM() )
+		{
+			if ( teammateInfo != null && expect PlayerInfo( teammateInfo ).ehi != GetLocalClientPlayer().GetEncodedEHandle() )
+				teammateInfo = null
+		}
 
 		if ( teammateInfo != null )
 		{

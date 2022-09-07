@@ -1717,10 +1717,8 @@ bool function CommsMenu_CanUseMenu( entity player )
 	if ( IsCommsMenuActive() )
 		return false
 
-	#if(true)
-		if ( IsFallLTM() && IsPlayerShadowSquad( player ) )
-			return false
-	#endif
+	if ( IsFallLTM() && IsPlayerShadowSquad( player ) )
+		return false
 
 	return true
 }

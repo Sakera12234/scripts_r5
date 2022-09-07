@@ -3752,6 +3752,9 @@ bool function Survival_PickupItem( entity pickup, entity player, int pickupFlags
 
 	if ( !SURVIVAL_Loot_IsLootIndexValid( pickup.GetSurvivalInt() ) )
 		return false
+		
+	if ( IsFallLTM() && IsPlayerShadowSquad( player ) )
+		return false
 
 	bool pickedUp = false
 

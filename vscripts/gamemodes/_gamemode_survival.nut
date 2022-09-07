@@ -527,7 +527,7 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 			wait 3.0
 
 			thread GivePlayerShadowSkin( victim )
-			thread GivePlayerShadowHands( victim )
+			thread GivePlayerShadowPowers( victim )
 			DecideRespawnPlayer( victim )
 			victim.SetOrigin( <0,0,16000> )
 			thread PlayerSkydiveFromCurrentPosition( victim )
