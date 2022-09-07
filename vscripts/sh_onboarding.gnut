@@ -141,7 +141,12 @@ void function Sequence_WaitingForPlayers()
 	UpdateSequencedTimePoints( Time() )
 
 	bool introCountdownEnabled = CharSelect_GetIntroCountdownDuration() > 0.0
-
+	
+	foreach ( player in GetPlayerArray() )
+	{	
+		if ( IsFallLTM() )//TODO: REMOVE THIS FROM HERE LATER ON
+			Remote_CallFunction_NonReplay( player, "ServerCallback_PlayerLandedNOCAudio", false)
+	}
 	wait PreGame_GetWaitingForPlayersCountdown() + (introCountdownEnabled ? 0.0 : CharSelect_GetIntroMusicStartTime())
 
 	if ( !introCountdownEnabled )
@@ -286,6 +291,7 @@ void function UpdateSequencedTimePoints( float referenceTime, int gameStateOverr
 			SetGlobalNetTime( "squadPresentationStartTime", referenceTime + timeBeforeCharacterSelection + timeToSelectAllCharacters + timeAfterCharacterSelection )
 			SetGlobalNetTime( "championSquadPresentationStartTime", referenceTime + timeBeforeCharacterSelection + timeToSelectAllCharacters + timeAfterCharacterSelection + timeBeforeChampionPresentation )
 			SetGlobalNetTime( "pickLoadoutGamestateEndTime", referenceTime + timeBeforeCharacterSelection + timeToSelectAllCharacters + timeAfterCharacterSelection + timeBeforeChampionPresentation + timeAfterChampionPresentation )
+			
 			break
 	}
 }

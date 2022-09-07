@@ -519,7 +519,7 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 		return
 	}
 	
-	if ( IsFallLTM() )
+	if ( IsFallLTM() )//TODO: REMOVE THIS FROM HERE LATER ON
 	{
 		thread function() : ( victim )
 		{
@@ -529,9 +529,12 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 			thread GivePlayerShadowSkin( victim )
 			thread GivePlayerShadowHands( victim )
 			DecideRespawnPlayer( victim )
-			thread SkydiveTest()
+			victim.SetOrigin( <0,0,16000> )
+			thread PlayerSkydiveFromCurrentPosition( victim )
 			
+			wait 0.2
 			Remote_CallFunction_NonReplay( victim, "ServerCallback_ShadowClientEffectsEnable", victim )
+			Remote_CallFunction_NonReplay( victim, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.RESPAWNING_AS_SHADOW, 10 )
 			
 		}()
 

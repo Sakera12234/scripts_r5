@@ -225,10 +225,6 @@ void function SurvivalFreefall_Init()
 
 vector function GetSkydiveSmokeColorForTeam( int team ) //
 {
-	#if(false)
-
-
-#endif //
 	return skydiveSmokeColors[ team % skydiveSmokeColors.len() ]
 }
 
@@ -413,7 +409,7 @@ void function PlayerSkyDive( entity player, vector driverViewVector, array<entit
 				StopSoundOnEntity( player, "Survival_InGameFlight_Land_Start_1P" )
 				StopSoundOnEntity( player, "Survival_InGameFlight_Land_Start_3P" )
 
-				if ( IsFallLTM() )
+				if ( IsFallLTM() && IsPlayerShadowSquad(player) )
 				{
 					StopSoundOnEntity( player, "ShadowLegend_DropSequence_Land_Start_1P" )
 					StopSoundOnEntity( player, "ShadowLegend_DropSequence_Land_Start_3P" )
@@ -429,7 +425,7 @@ void function PlayerSkyDive( entity player, vector driverViewVector, array<entit
 					EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_DropSequence_Land_Stop_1P" )
 					EmitSoundOnEntityExceptToPlayer( player, player, "Survival_DropSequence_Land_Stop_3P" )
 				}
-				else if ( IsFallLTM() )
+				else if ( IsFallLTM() && IsPlayerShadowSquad(player) )
 				{
 					EmitSoundOnEntityOnlyToPlayer( player, player, "ShadowLegend_DropSequence_Land_Stop_1P" )
 					EmitSoundOnEntityExceptToPlayer( player, player, "ShadowLegend_DropSequence_Land_Stop_3P" )
@@ -580,7 +576,7 @@ void function PlayerSkyDive( entity player, vector driverViewVector, array<entit
 		EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_DropSequence_Travel_1P" )
 		EmitSoundOnEntityExceptToPlayer( player, player, "Survival_DropSequence_Travel_3P" )
 	}
-	else if ( IsFallLTM() )
+	else if ( IsFallLTM() && IsPlayerShadowSquad(player) )
 	{
 		EmitSoundOnEntityOnlyToPlayer( player, player, "ShadowLegend_DropSequence_Travel_1P" )
 		EmitSoundOnEntityExceptToPlayer( player, player, "ShadowLegend_DropSequence_Travel_3P" )
@@ -687,16 +683,21 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 	smokeFX.append( smokeTrailFX )
 
 	OnThreadEnd(
-		function() : ( player, landingFX, smokeFX, skydiveData )
+		function() : ( player, landingFX, smokeFX, skydiveData, jumpingFromPlane )
 		{
 			if ( IsValid( player ) )
 			{
-			
 				Signal( player, "FreefallEnded" )
 				player.RumbleEffect( 0, 0, 0.0 )
 				if (!player.IsBot())
 					player.SetPlayerNetBool( "freefallActive", false )
 				player.SetVelocity( skydiveData.velocity )
+				
+				if ( jumpingFromPlane && !IsPlayerShadowSquad(player) && IsFallLTM() )//TODO: REMOVE THIS FROM HERE LATER ON
+				{	
+					Remote_CallFunction_NonReplay( player, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.GAME_RULES_LAND, 10 )
+					Remote_CallFunction_NonReplay( player, "ServerCallback_PlayerLandedNOCAudio", true)
+				}
 			}
 
 			foreach( entity ent in landingFX )
@@ -1022,7 +1023,7 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 				EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_DropSequence_Land_Start_1P" )
 				EmitSoundOnEntityExceptToPlayer( player, player, "Survival_DropSequence_Land_Start_3P" )
 			}
-			else if ( IsFallLTM() )
+			else if ( IsFallLTM() && IsPlayerShadowSquad(player) )
 			{
 				EmitSoundOnEntityOnlyToPlayer( player, player, "ShadowLegend_DropSequence_Land_Start_1P" )
 				EmitSoundOnEntityExceptToPlayer( player, player, "ShadowLegend_DropSequence_Land_Start_3P" )
@@ -1071,7 +1072,7 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 				EmitSoundOnEntityOnlyToPlayer( player, player, "Survival_DropSequence_Travel_1P" )
 				EmitSoundOnEntityExceptToPlayer( player, player, "Survival_DropSequence_Travel_3P" )
 			}
-			else if ( IsFallLTM() )
+			else if ( IsFallLTM() && IsPlayerShadowSquad(player) )
 			{
 				EmitSoundOnEntityOnlyToPlayer( player, player, "ShadowLegend_DropSequence_Travel_1P" )
 				EmitSoundOnEntityExceptToPlayer( player, player, "ShadowLegend_DropSequence_Travel_3P" )
