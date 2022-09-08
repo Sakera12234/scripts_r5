@@ -15,7 +15,7 @@ global function GivePlayerShadowPowers
 	global function ServerCallback_ShadowClientEffectsEnable
 	global function ServerCallback_PlaySpectatorAudio
 	global function ServerCallback_PlayerLandedNOCAudio
-	global function ShadowFuncs
+	global function ShadowClientEffectsEnable
 
 	const asset ANNOUNCEMENT_LEGEND_ICON = $"rui/gamemodes/shadow_squad/legend_icon"
 	const asset ANNOUNCEMENT_SHADOW_ICON = $"rui/gamemodes/shadow_squad/shadow_icon_orange"
@@ -182,13 +182,13 @@ void function Gamemode_ShadowSquad_RegisterNetworking()
 {
 	if ( !IsFallLTM() )
 	{
-		Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity" )
+		Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity", "bool"  )
 		return
 	}
 
 	RegisterNetworkedVariable( "livingShadowPlayerCount", SNDC_GLOBAL, SNVT_INT )
 	Remote_RegisterClientFunction( "ServerCallback_ModeShadowSquad_AnnouncementSplash", "int", 0, 999, "float", 0.0, 5000.0, 16 )
-	Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity" )
+	Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity", "bool" )
 	Remote_RegisterClientFunction( "ServerCallback_PlaySpectatorAudio", "bool" )
 	Remote_RegisterClientFunction( "ServerCallback_PlayerLandedNOCAudio", "bool" )
 	Remote_RegisterClientFunction( "ServerCallback_ModeShadowSquad_RestorePlayerHealthFx", "bool" )
@@ -338,6 +338,9 @@ void function EmitSoundOnEntityDelayed( entity player, string alias, float delay
 	if ( !IsValid( player ) )
 		return
 
+	if ( GetGameState() != eGameState.Playing )
+		return
+
 	EmitSoundOnEntity( player, alias )
 }
 
@@ -373,9 +376,9 @@ void function ShadowSquadThreatVision( entity player )
 #endif //
 
 #if CLIENT
-void function ServerCallback_ShadowClientEffectsEnable( entity player )
+void function ServerCallback_ShadowClientEffectsEnable( entity player, bool enableFx )
 {
-	thread ShadowFuncs( player )
+	thread ShadowClientEffectsEnable( player, enableFx )
 }
 #endif //
 
@@ -412,11 +415,20 @@ void function GivePlayerShadowPowers(entity player)
 #endif //
 
 #if CLIENT
-void function ShadowFuncs( entity player, bool enableFx = true)
+void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVictorySequence = false)
 {
+	AssertIsNewThread()
+	wait 0.25
+
+	if ( !IsValid( player ) )
+		return
+
+	bool isLocalPlayer = ( player == GetLocalViewPlayer() )
+	vector playerOrigin = player.GetOrigin()
 	int playerTeam = player.GetTeam()
 	if ( enableFx )
 	{
+		if ( isLocalPlayer )
 		{
 			HealthHUD_StopUpdate( player )
 			EmitSoundOnEntity( player, "ShadowLegend_Shadow_Loop_1P" )
@@ -435,10 +447,23 @@ void function ShadowFuncs( entity player, bool enableFx = true)
 				file.playerClientFxHandles[ playerTeam ] <- []
 			file.playerClientFxHandles[playerTeam].append( fxHandle )
 		}
+		else
+		{
+			//
+			entity clientAG = CreateClientSideAmbientGeneric( player.GetOrigin() + <0,0,16>, "ShadowLegend_Shadow_Loop_3P", 0 )
+			SetTeam( clientAG, player.GetTeam() )
+			clientAG.SetSegmentEndpoints( player.GetOrigin() + <0,0,16>, playerOrigin + <0, 0, 72> )
+			clientAG.SetEnabled( true )
+			clientAG.RemoveFromAllRealms()
+			clientAG.AddToOtherEntitysRealms( player )
+			clientAG.SetParent( player, "", true, 0.0 )
+			clientAG.SetScriptName( STRING_SHADOW_SOUNDS )
+		}
 	}
 
 	else
 	{
+		if ( isLocalPlayer )
 		{
 			StopSoundOnEntity( player, "ShadowLegend_Shadow_Loop_1P" )
 
@@ -577,26 +602,39 @@ void function OnVictoryCharacterModelSpawned( entity characterModel, ItemFlavor 
 #if CLIENT
 void function ShadowSquad_OnPlayerCreated( entity player )
 {
+	SetCustomPlayerInfoColor( player, GetKeyColor( COLORID_MEMBER_COLOR0, 0 ) )
 }
 
 void function ShadowSquad_SetHUD( entity player )
 {
-	if ( !IsValid( player ) )
-		return
-
-	SetCustomPlayerInfoColor( player, GetKeyColor( COLORID_MEMBER_COLOR0, 0 ) )
-	UpdatePlayerHUD( player )
-
-	if ( IsPlayerShadowSquad( player ) )
-	{
-		SetCustomPlayerInfoCharacterIcon( player, $"rui/gamemodes/shadow_squad/generic_shadow_character" )
-		SetCustomPlayerInfoTreatment( player, $"rui/gamemodes/shadow_squad/player_info_custom_treatment" )
-		SetCustomPlayerInfoColor( player, <245, 81, 35 > )
-	}
 }
 
 void function OnPlayerLifeStateChanged( entity player, int oldState, int newState )
 {
+	if ( !IsValid( player ) )
+		return
+
+	if ( player != GetLocalClientPlayer() )
+		return
+
+
+	if ( newState != LIFE_ALIVE )
+		return
+
+	//
+	//
+	//
+	UpdatePlayerHUD( player )
+
+	if ( IsPlayerShadowSquad( player ) )
+	{
+		//
+		//
+		//
+		SetCustomPlayerInfoCharacterIcon( player, $"rui/gamemodes/shadow_squad/generic_shadow_character" )
+		SetCustomPlayerInfoTreatment( player, $"rui/gamemodes/shadow_squad/player_info_custom_treatment" )
+		SetCustomPlayerInfoColor( player, <245, 81, 35 > )
+	}
 }
 #endif //
 

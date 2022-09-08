@@ -532,8 +532,9 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 			victim.SetOrigin( <0,0,16000> )
 			thread PlayerSkydiveFromCurrentPosition( victim )
 			
+			Remote_CallFunction_NonReplay( victim, "ServerCallback_ShadowClientEffectsEnable", victim, true )
+			
 			wait 0.2
-			Remote_CallFunction_NonReplay( victim, "ServerCallback_ShadowClientEffectsEnable", victim )
 			Remote_CallFunction_NonReplay( victim, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.RESPAWNING_AS_SHADOW, 10 )
 			
 		}()
