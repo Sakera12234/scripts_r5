@@ -462,6 +462,9 @@ void function OnLootBinUse( entity lootbin, entity player, int useInputFlags )
 {
 	if ( (useInputFlags & USE_INPUT_DEFAULT) == 0 )
 		return
+		
+	if ( IsFallLTM() && IsPlayerShadowSquad(player) )
+		return
 
 	thread HandleLootbinUse( lootbin, player )
 }
