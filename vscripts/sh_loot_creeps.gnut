@@ -38,14 +38,14 @@ void function ShLootCreeps_Init()
 {
 	bool shouldInitGenericCreepAssets = false
 
-	//if ( ShouldPrecacheLootCreep( eLootCreepType.SPIDER ) )
+	if ( ShouldPrecacheLootCreep( eLootCreepType.SPIDER ) )
 	{
 		shouldInitGenericCreepAssets = true
 		PrecacheModel( MODEL_SPIDER )
 		PrecacheParticleSystem( DEATH_FX_SPIDER )
 	}
 
-	//if ( ShouldPrecacheLootCreep( eLootCreepType.INFECTED ) )
+	if ( ShouldPrecacheLootCreep( eLootCreepType.INFECTED ) )
 	{
 		shouldInitGenericCreepAssets = true
 		PrecacheModel( MODEL_INFECTED )
@@ -68,7 +68,7 @@ void function ShLootCreeps_Init()
 
 		if ( GetCurrentPlaylistVarBool( "zombie_dropship", false ) )
 		{
-			// Survival_AddCallback_OnRespawnDropshipCreated( OnRespawnDropshipCreated )
+			//Survival_AddCallback_OnRespawnDropshipCreated( OnRespawnDropshipCreated )
 		}
 		if ( GetCurrentPlaylistVarFloat( "lootbin_spiders_chance", 0 ) > 0 || GetCurrentPlaylistVarFloat( "lootbin_infected_chance", 0 ) > 0 )
 		{
