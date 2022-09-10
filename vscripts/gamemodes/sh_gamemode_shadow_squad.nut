@@ -257,7 +257,6 @@ void function ServerCallback_PlaySpectatorAudio( bool playRespawnMusic )
 
 	if ( playRespawnMusic )
 	{
-		//
 		EmitSoundOnEntity( clientPlayer, "Music_LTM_31_RespawnAndDrop" )
 		thread SkydiveRespawnCleanup( clientPlayer )
 
@@ -410,6 +409,7 @@ void function GivePlayerShadowPowers(entity player)
     player.GiveWeapon( "mp_weapon_shadow_squad_hands_primary", WEAPON_INVENTORY_SLOT_PRIMARY_2 )
     player.GiveOffhandWeapon( "melee_shadowsquad_hands", OFFHAND_MELEE )
 	player.SetHealth( 30 )
+	SetTeam( player, TEAM_IMC )
 }
 
 #endif //
