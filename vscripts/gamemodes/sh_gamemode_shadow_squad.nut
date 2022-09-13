@@ -392,8 +392,11 @@ void function GivePlayerShadowSkin(entity player)
 }
 
 #if SERVER
-void function LegendIsDied( entity legend )
+void function LegendIsDied( entity legend, entity enemy )
 {
+	if ( IsPlayerShadowSquad( enemy ) )
+		enemy.SetHealth( 30 )
+
 	legend.SetPlayerNetInt( "respawnStatus", eRespawnStatus.WAITING_FOR_DROPPOD )
 	Remote_CallFunction_NonReplay( legend, "ServerCallback_ShowDeathScreen" )
 
@@ -431,6 +434,7 @@ void function GivePlayerShadowPowers(entity player)
     player.GiveOffhandWeapon( "melee_shadowsquad_hands", OFFHAND_MELEE )
 	player.SetHealth( 30 )
 	SetTeam( player, TEAM_IMC )
+	StatusEffect_AddEndless( player, eStatusEffect.speed_boost, 0.2 )
 }
 
 #endif //

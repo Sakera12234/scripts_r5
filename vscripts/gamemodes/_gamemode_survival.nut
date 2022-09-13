@@ -521,9 +521,9 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 	
 	if ( IsFallLTM() )//TODO: REMOVE THIS FROM HERE LATER ON
 	{
-		thread function() : ( victim )
+		thread function() : ( victim, attacker )
 		{
-			thread LegendIsDied( victim )
+			thread LegendIsDied( victim, attacker )
 		}()
 
 		return
