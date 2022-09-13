@@ -523,20 +523,7 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 	{
 		thread function() : ( victim )
 		{
-			Remote_CallFunction_NonReplay( victim, "ServerCallback_PlaySpectatorAudio", true )
-			wait 3.0
-
-			thread GivePlayerShadowSkin( victim )
-			thread GivePlayerShadowPowers( victim )
-			DecideRespawnPlayer( victim )
-			victim.SetOrigin( <0,0,16000> )
-			thread PlayerSkydiveFromCurrentPosition( victim )
-			
-			Remote_CallFunction_NonReplay( victim, "ServerCallback_ShadowClientEffectsEnable", victim, true )
-			
-			wait 0.2
-			Remote_CallFunction_NonReplay( victim, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.RESPAWNING_AS_SHADOW, 10 )
-			
+			thread LegendIsDied( victim )
 		}()
 
 		return

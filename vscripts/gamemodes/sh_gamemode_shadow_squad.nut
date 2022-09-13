@@ -7,6 +7,7 @@ global function GivePlayerShadowSkin
 
 #if SERVER
 global function GivePlayerShadowPowers
+global function LegendIsDied
 #endif //
 
 #if CLIENT
@@ -257,7 +258,6 @@ void function ServerCallback_PlaySpectatorAudio( bool playRespawnMusic )
 
 	if ( playRespawnMusic )
 	{
-		EmitSoundOnEntity( clientPlayer, "Music_LTM_31_RespawnAndDrop" )
 		thread SkydiveRespawnCleanup( clientPlayer )
 
 		array <string> dialogueChoices
@@ -392,6 +392,27 @@ void function GivePlayerShadowSkin(entity player)
 }
 
 #if SERVER
+void function LegendIsDied( entity legend )
+{
+	legend.SetPlayerNetInt( "respawnStatus", eRespawnStatus.WAITING_FOR_DROPPOD )
+	Remote_CallFunction_NonReplay( legend, "ServerCallback_ShowDeathScreen" )
+
+	EmitSoundOnEntityOnlyToPlayer( legend, legend, "Music_LTM_31_RespawnAndDrop" )
+
+	wait 5.0
+	DecideRespawnPlayer( legend )
+	thread GivePlayerShadowSkin( legend )
+	thread GivePlayerShadowPowers( legend )
+	legend.SetOrigin( <RandomIntRange( -26000, 26000 ), RandomIntRange( -26000, 26000 ), 26000> )
+	thread PlayerSkydiveFromCurrentPosition( legend )
+	
+	Remote_CallFunction_NonReplay( legend, "ServerCallback_ShadowClientEffectsEnable", legend, true )
+
+	wait 0.3
+	Remote_CallFunction_NonReplay( legend, "ServerCallback_PlaySpectatorAudio", true )
+	Remote_CallFunction_NonReplay( legend, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.RESPAWNING_AS_SHADOW, 10 )
+}
+
 void function GivePlayerShadowPowers(entity player)
 {
 	player.SetPlayerNetBool( "isPlayerShadowForm", true )

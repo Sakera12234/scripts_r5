@@ -280,10 +280,6 @@ void function UpdateRespawnStatus( int respawnStatus )
 			respawnText = "#WAITING_FOR_RESPAWN"
 			respawnHint = "#HINT_PING_RESPAWN_BEACON"
 			break
-			
-		case eRespawnStatus.RESPAWNING_AS_SHADOW:
-			respawnText = "#WAITING_FOR_SHADOWSQUAD_RESPAWN"
-			break
 
 		case eRespawnStatus.PICKUP_DESTROYED:
 			respawnText = "#STATUS_PICKUP_DESTROYED"
