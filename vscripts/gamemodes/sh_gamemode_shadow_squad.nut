@@ -424,6 +424,7 @@ void function GivePlayerShadowPowers(entity player)
 	if ( !IsValid( player ) )
 		return
 	
+	TakeAllPassives( player )
 	player.TakeOffhandWeapon(OFFHAND_MELEE)
 	player.TakeNormalWeaponByIndexNow( WEAPON_INVENTORY_SLOT_PRIMARY_2 )
 	player.TakeOffhandWeapon( OFFHAND_TACTICAL )
@@ -433,7 +434,7 @@ void function GivePlayerShadowPowers(entity player)
     player.GiveWeapon( "mp_weapon_shadow_squad_hands_primary", WEAPON_INVENTORY_SLOT_PRIMARY_2 )
     player.GiveOffhandWeapon( "melee_shadowsquad_hands", OFFHAND_MELEE )
 	player.SetHealth( 30 )
-	SetTeam( player, TEAM_IMC )
+	//SetTeam( player, TEAM_IMC )//TODO: Implement this for champion screen
 	StatusEffect_AddEndless( player, eStatusEffect.speed_boost, 0.2 )
 }
 
