@@ -668,6 +668,9 @@ void function DestroySignalStruct( SignalStruct singalStruct )
 
 void function DeployableMedic_PlayerHealUpdate( entity trigger, entity player )
 {
+	if ( IsFallLTM() && IsPlayerShadowSquad(player) )
+		return
+
 	Assert ( IsNewThread(), "Must be threaded off." )
 
 	printt( "STARTING HEAL UPDATE FOR PLAYER " + player + " FOR TRIGGER " + trigger )

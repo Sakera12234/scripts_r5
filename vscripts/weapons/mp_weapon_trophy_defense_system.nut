@@ -654,6 +654,9 @@ void function Trophy_CreateTriggerArea( entity owner, entity pylon ) {
 
 void function OnTrophyShieldAreaEnter( entity trigger, entity ent )
 {
+	if ( IsFallLTM() && IsPlayerShadowSquad(ent) )
+		return
+
 	printl("[pylon] entered")
 	// this could be removed once the trigger no longer gets triggered by ents in different realms. bug R5DEV-46753
 	if ( !trigger.DoesShareRealms( ent ) )
@@ -669,6 +672,9 @@ void function OnTrophyShieldAreaEnter( entity trigger, entity ent )
 
 void function OnTrophyShieldAreaLeave( entity trigger, entity ent )
 {
+	if ( IsFallLTM() && IsPlayerShadowSquad(ent) )
+		return
+
 	printl("[pylon] leaving")
 
 	EmitSoundOnEntity( ent, TROPHY_SHIELD_REPAIR_END)
