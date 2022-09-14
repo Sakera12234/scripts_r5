@@ -407,6 +407,7 @@ void function LegendIsDied( entity legend, entity enemy )
 	thread GivePlayerShadowSkin( legend )
 	thread GivePlayerShadowPowers( legend )
 	legend.SetOrigin( <RandomIntRange( -26000, 26000 ), RandomIntRange( -26000, 26000 ), 26000> )
+	legend.SetAngles( <24, RandomIntRange( -180, 180 ), 0> )
 	thread PlayerSkydiveFromCurrentPosition( legend )
 	
 	Remote_CallFunction_NonReplay( legend, "ServerCallback_ShadowClientEffectsEnable", legend, true )

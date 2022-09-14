@@ -404,6 +404,9 @@ bool function Ping_ShouldExecutePing( entity player )
 
 	if ( !PingIsAllowed( player ) )
 		return false
+		
+	if ( IsFallLTM() && IsPlayerShadowSquad( player ) )
+		return false
 
 	return true
 }

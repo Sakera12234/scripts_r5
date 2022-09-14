@@ -39,6 +39,10 @@ global function GetSkydiveSmokeColorForTeam
 	global const asset SKYDIVE_SMOKE_COLOR_FX      = $"P_skydive_trail_CP"
 	const JUMPJET_FRIENDLY_SKYDIVE                 = $"P_surv_team_jump_jet"
 	const JUMPJET_ENEMY_SKYDIVE                    = $"P_surv_enemy_jump_jet"
+	
+	const asset SKYDIVE_SMOKE_SHDW_FX     		   = $"P_skydive_trail_shdw"
+	const JUMPJET_SHADOW_SKYDIVE                 = $"P_skydive_smoke_shdw"
+
 	const JUMPJET_LAND_FX                          = $"P_surv_team_land_jet"
 	const asset CLOUD_MODEL                        = $"mdl/fx/cloud_fill_01.rmdl"
 	const float SKYDIVE_LAUNCH_NO_CONTROL_DURATION = 1.0
@@ -186,11 +190,12 @@ void function SurvivalFreefall_Init()
 {
 	#if SERVER
 		PrecacheParticleSystem( PLAYER_WIND_FX )
-		//PrecacheParticleSystem( SKYDIVE_SMOKE_FX )
+		PrecacheParticleSystem( SKYDIVE_SMOKE_SHDW_FX )
 		PrecacheParticleSystem( SKYDIVE_SMOKE_COLOR_FX )
 		PrecacheParticleSystem( JUMPJET_FRIENDLY_SKYDIVE )
 		PrecacheParticleSystem( JUMPJET_ENEMY_SKYDIVE )
 		PrecacheParticleSystem( JUMPJET_LAND_FX )
+		PrecacheParticleSystem( JUMPJET_SHADOW_SKYDIVE )
 		PrecacheModel( CLOUD_MODEL )
 		PrecacheImpactEffectTable( "human_land_jetwash" )
 
@@ -538,18 +543,28 @@ void function PlayerSkyDive( entity player, vector driverViewVector, array<entit
 	int team = player.GetTeam()
 	foreach ( string attachment in file.jumpJetAttachments )
 	{
-		int friendlyID = GetParticleSystemIndex( JUMPJET_FRIENDLY_SKYDIVE )
-		entity friendlyFX = StartParticleEffectOnEntity_ReturnEntity( player, friendlyID, FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( attachment ) )
+		entity friendlyFX
+		if ( IsFallLTM() && IsPlayerShadowSquad(player) )
+			friendlyFX = StartParticleEffectOnEntity_ReturnEntity( player, GetParticleSystemIndex( JUMPJET_SHADOW_SKYDIVE ), FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( "CHESTFOCUS" ) )
+		else
+			friendlyFX = StartParticleEffectOnEntity_ReturnEntity( player, GetParticleSystemIndex( JUMPJET_FRIENDLY_SKYDIVE ), FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( attachment ) )
+
 		SetTeam( friendlyFX, team )
 		friendlyFX.kv.VisibilityFlags = ENTITY_VISIBLE_TO_FRIENDLY
-		EffectSetControlPointVector( friendlyFX, 1, smokeColor )
+		if ( !IsPlayerShadowSquad(player) )
+			EffectSetControlPointVector( friendlyFX, 1, smokeColor )
 		jumpJetFX.append( friendlyFX )
 
-		int enemyID = GetParticleSystemIndex( JUMPJET_ENEMY_SKYDIVE )
-		entity enemyFX = StartParticleEffectOnEntity_ReturnEntity( player, enemyID, FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( attachment ) )
+		entity enemyFX
+		if ( IsFallLTM() && IsPlayerShadowSquad(player) )
+			enemyFX = StartParticleEffectOnEntity_ReturnEntity( player, GetParticleSystemIndex( JUMPJET_SHADOW_SKYDIVE ), FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( "CHESTFOCUS" ) )
+		else
+			enemyFX = StartParticleEffectOnEntity_ReturnEntity( player, GetParticleSystemIndex( JUMPJET_ENEMY_SKYDIVE ), FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( attachment ) )
+
 		SetTeam( enemyFX, team )
 		enemyFX.kv.VisibilityFlags = ENTITY_VISIBLE_TO_ENEMY
-		EffectSetControlPointVector( enemyFX, 1, smokeColor * ENEMY_SMOKE_COLOR_MULT )
+		if ( !IsPlayerShadowSquad(player) )
+			EffectSetControlPointVector( enemyFX, 1, smokeColor * ENEMY_SMOKE_COLOR_MULT )
 		jumpJetFX.append( enemyFX )
 	}
 
@@ -678,8 +693,14 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 	// Start up the smoke effects
 	int smokeAttachID = player.LookupAttachment( "vent_center" )
 	vector smokeColor = GetSkydiveSmokeColorForTeam( player.GetTeam() )
-	entity smokeTrailFX = StartParticleEffectOnEntityWithPos_ReturnEntity( player, GetParticleSystemIndex( SKYDIVE_SMOKE_COLOR_FX ), FX_PATTACH_ABSORIGIN_FOLLOW, smokeAttachID, <0,0,0>, VectorToAngles( <0,0,-1> ) )
-	EffectSetControlPointVector( smokeTrailFX, 1, smokeColor )
+	entity smokeTrailFX
+	if ( IsFallLTM() && IsPlayerShadowSquad( player ) )
+		smokeTrailFX = StartParticleEffectOnEntityWithPos_ReturnEntity( player, GetParticleSystemIndex( SKYDIVE_SMOKE_SHDW_FX ), FX_PATTACH_ABSORIGIN_FOLLOW, smokeAttachID, <0,0,0>, VectorToAngles( <0,0,-1> ) )
+	else
+	{
+		smokeTrailFX = StartParticleEffectOnEntityWithPos_ReturnEntity( player, GetParticleSystemIndex( SKYDIVE_SMOKE_COLOR_FX ), FX_PATTACH_ABSORIGIN_FOLLOW, smokeAttachID, <0,0,0>, VectorToAngles( <0,0,-1> ) )
+		EffectSetControlPointVector( smokeTrailFX, 1, smokeColor )
+	}
 	smokeFX.append( smokeTrailFX )
 
 	OnThreadEnd(
@@ -1042,7 +1063,8 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 					int landingFXID = GetParticleSystemIndex( JUMPJET_LAND_FX )
 					entity handle = StartParticleEffectOnEntity_ReturnEntity( player, landingFXID, FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( attachment ) )
 					SetTeam( handle, player.GetTeam() )
-					EffectSetControlPointVector( handle, 1, landingFXColor )
+					if ( !IsPlayerShadowSquad(player) )
+						EffectSetControlPointVector( handle, 1, landingFXColor )
 					landingFX.append( handle )
 				}
 				landingFXOn = true
@@ -1096,8 +1118,13 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 				player.RumbleEffect( 0, 0, 0.0 )
 
 				// Start up the smoke effects again
-				smokeTrailFX = StartParticleEffectOnEntityWithPos_ReturnEntity( player, GetParticleSystemIndex( SKYDIVE_SMOKE_COLOR_FX ), FX_PATTACH_ABSORIGIN_FOLLOW, smokeAttachID, <0,0,0>, VectorToAngles( <0,0,-1> ) )
-				EffectSetControlPointVector( smokeTrailFX, 1, smokeColor )
+				if ( IsFallLTM() && IsPlayerShadowSquad( player ) )
+					smokeTrailFX = StartParticleEffectOnEntityWithPos_ReturnEntity( player, GetParticleSystemIndex( SKYDIVE_SMOKE_SHDW_FX ), FX_PATTACH_ABSORIGIN_FOLLOW, smokeAttachID, <0,0,0>, VectorToAngles( <0,0,-1> ) )
+				else
+				{
+					smokeTrailFX = StartParticleEffectOnEntityWithPos_ReturnEntity( player, GetParticleSystemIndex( SKYDIVE_SMOKE_COLOR_FX ), FX_PATTACH_ABSORIGIN_FOLLOW, smokeAttachID, <0,0,0>, VectorToAngles( <0,0,-1> ) )
+					EffectSetControlPointVector( smokeTrailFX, 1, smokeColor )
+				}
 				smokeFX.append( smokeTrailFX )
 			}
 		}
@@ -2028,7 +2055,8 @@ void function CodeCallback_PlayerFreefallBegin( entity player )
 		foreach( string attachment in file.contrailAttachments )
 		{
 			int handle = StartParticleEffectOnEntity( player, GetParticleSystemIndex( CONTRAIL_FX ), FX_PATTACH_POINT_FOLLOW_NOROTATE, player.LookupAttachment( attachment ) )
-			EffectSetControlPointVector( handle, 2, < 0, 0, 0 > )
+			if ( !IsPlayerShadowSquad(player) )
+				EffectSetControlPointVector( handle, 2, < 0, 0, 0 > )
 			player.p.freefallContrailFXHandles.append( handle )
 		}
 	}
