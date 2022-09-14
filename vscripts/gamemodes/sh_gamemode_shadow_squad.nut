@@ -8,6 +8,7 @@ global function GivePlayerShadowSkin
 #if SERVER
 global function GivePlayerShadowPowers
 global function LegendIsDied
+global function ShadowKilled
 #endif //
 
 #if CLIENT
@@ -392,38 +393,41 @@ void function GivePlayerShadowSkin(entity player)
 }
 
 #if SERVER
-void function LegendIsDied( entity legend, entity enemy )
+void function LegendIsDied( entity player, entity enemy )
 {
+	wait 0.01
 	if ( IsPlayerShadowSquad( enemy ) )
 		enemy.SetHealth( 30 )
+	else if ( IsPlayerShadowSquad( player ) )
+		thread ShadowKilled( player )
 
-	legend.SetPlayerNetInt( "respawnStatus", eRespawnStatus.WAITING_FOR_DROPPOD )
-	Remote_CallFunction_NonReplay( legend, "ServerCallback_ShowDeathScreen" )
+	player.SetPlayerNetInt( "respawnStatus", eRespawnStatus.WAITING_FOR_DELIVERY )
+	Remote_CallFunction_NonReplay( player, "ServerCallback_ShowDeathScreen" )
 
-	EmitSoundOnEntityOnlyToPlayer( legend, legend, "Music_LTM_31_RespawnAndDrop" )
+	EmitSoundOnEntityOnlyToPlayer( player, player, "Music_LTM_31_RespawnAndDrop" )
 
 	wait 5.0
-	DecideRespawnPlayer( legend )
-	thread GivePlayerShadowSkin( legend )
-	thread GivePlayerShadowPowers( legend )
-	legend.SetOrigin( <RandomIntRange( -26000, 26000 ), RandomIntRange( -26000, 26000 ), 26000> )
-	legend.SetAngles( <24, RandomIntRange( -180, 180 ), 0> )
-	thread PlayerSkydiveFromCurrentPosition( legend )
+	DecideRespawnPlayer( player )
+	thread GivePlayerShadowSkin( player )
+	thread GivePlayerShadowPowers( player )
+	player.SetOrigin( <RandomIntRange( -26000, 26000 ), RandomIntRange( -26000, 26000 ), 26000> )
+	player.SetAngles( <24, RandomIntRange( -180, 180 ), 0> )
+	thread PlayerSkydiveFromCurrentPosition( player )
+	thread StartShadowFx( player )
 	
-	Remote_CallFunction_NonReplay( legend, "ServerCallback_ShadowClientEffectsEnable", legend, true )
+	Remote_CallFunction_NonReplay( player, "ServerCallback_ShadowClientEffectsEnable", player, true )
 
 	wait 0.3
-	Remote_CallFunction_NonReplay( legend, "ServerCallback_PlaySpectatorAudio", true )
-	Remote_CallFunction_NonReplay( legend, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.RESPAWNING_AS_SHADOW, 10 )
+	Remote_CallFunction_NonReplay( player, "ServerCallback_PlaySpectatorAudio", true )
+	Remote_CallFunction_NonReplay( player, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.RESPAWNING_AS_SHADOW, 10 )
 }
 
-void function GivePlayerShadowPowers(entity player)
+void function GivePlayerShadowPowers( entity player )
 {
-	player.SetPlayerNetBool( "isPlayerShadowForm", true )
-	wait 0.01
-	
 	if ( !IsValid( player ) )
 		return
+
+	player.SetPlayerNetBool( "isPlayerShadowForm", true )
 	
 	TakeAllPassives( player )
 	player.TakeOffhandWeapon(OFFHAND_MELEE)
@@ -437,6 +441,34 @@ void function GivePlayerShadowPowers(entity player)
 	player.SetHealth( 30 )
 	//SetTeam( player, TEAM_IMC )//TODO: Implement this for champion screen
 	StatusEffect_AddEndless( player, eStatusEffect.speed_boost, 0.2 )
+}
+
+void function StartShadowFx( entity player )
+{
+	entity eyeFX
+	entity bodyFX
+	array<string> attachNames = [ "EYE_L", "EYE_R" ]
+
+	foreach ( attachName in attachNames )
+	{
+		if ( player.LookupAttachment( attachName ) > 0 )
+		{
+			eyeFX = StartParticleEffectOnEntity_ReturnEntity( player, PrecacheParticleSystem( $"P_BShadow_eye" ), FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( attachName ) )
+			eyeFX.SetOwner( player )
+			eyeFX.kv.VisibilityFlags = (ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY) // Don't show the effects to owner
+		}
+	}
+
+	bodyFX = StartParticleEffectOnEntity_ReturnEntity( player, PrecacheParticleSystem( $"P_Bshadow_body" ), FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( "CHESTFOCUS" ) )
+	bodyFX.SetOwner( player )
+	bodyFX.kv.VisibilityFlags = (ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY) // Don't show the effects to owner
+	
+	//Find a way to disable ragdolls and death anims on shadows
+}
+
+void function ShadowKilled( entity victim )
+{
+	StartParticleEffectOnEntity_ReturnEntity( victim, PrecacheParticleSystem( $"P_Bshadow_death" ), FX_PATTACH_POINT_FOLLOW, victim.LookupAttachment( "CHESTFOCUS" ) )
 }
 
 #endif //
