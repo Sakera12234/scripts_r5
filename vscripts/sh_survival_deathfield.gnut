@@ -719,6 +719,9 @@ void function DeathFieldDamage( DeathFieldData data, entity deathField )
 		{
 			if ( player.IsPhaseShifted() )
 				continue
+				
+			if ( IsPlayerShadowSquad(player) )
+				continue
 
 			float playerDist = Distance2D( player.GetOrigin(), data.center )
 			if ( playerDist > currentRadius )
