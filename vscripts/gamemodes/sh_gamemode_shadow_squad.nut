@@ -9,6 +9,7 @@ global function GivePlayerShadowSkin
 global function GivePlayerShadowPowers
 global function LegendIsDied
 global function ShadowKilled
+global function evactest
 #endif //
 
 #if CLIENT
@@ -765,6 +766,22 @@ void function UpdatePlayerHUD( entity player )
 	RuiSetColorAlpha( file.countdownRui, "timerColor", SrgbToLinear( <255,233,0> / 255.0 ), 1.0 )
 }
 #endif //
+
+#if SERVER
+void function evactest()
+{
+	entity evac_loc = GetEntArrayByScriptName( "shadowsquad_evac" ).getrandom()
+	vector origin = evac_loc.GetOrigin()
+	vector angles = evac_loc.GetAngles()
+	entity evac = CreatePropDynamic( $"mdl/vehicle/goblin_dropship/goblin_dropship.rmdl", origin, angles, SOLID_VPHYSICS )
+	thread HandleEvac( evac, origin + <0,0,700>, angles)
+	foreach( player in GetPlayerArray() )
+	{
+		gp()[0].SetOrigin(origin)
+		Remote_CallFunction_NonReplay( player, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.EVAC_ARRIVED_LEGEND, 10 )
+	}
+}
+#endif
 
 bool function IsShadowVictory()
 {

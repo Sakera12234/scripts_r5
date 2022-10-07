@@ -10,6 +10,7 @@ global function DropshipFindDropNodes
 global function AnaylsisFuncDropshipFindDropNodes
 global function AddTurret
 global function SetDropTableSpawnFuncs
+global function HandleEvac
 
 const LINEGEN_DEBUG = 0
 global const bool FLIGHT_PATH_DEBUG = false
@@ -808,7 +809,14 @@ void function HandleEvac( entity evac, vector origin, vector angles ) // entity 
 	thread PlayAnim( evac, EVAC_IDLE, origin, angles )
 
 	// Wait for correct time to warp out
-	wait evac.GetSequenceDuration( EVAC_IDLE )
+	if ( IsFallLTM() )
+	{
+		wait 2
+		evac.Anim_Stop()
+		wait 30
+	}
+	else
+		wait evac.GetSequenceDuration( EVAC_IDLE )
 	
 	// End evac.
 	waitthread PlayAnim( evac, EVAC_END, origin, angles )
