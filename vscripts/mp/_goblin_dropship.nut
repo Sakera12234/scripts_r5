@@ -634,10 +634,6 @@ function RunDropshipDropoff( CallinData Table )
 		ref.SetAngles( spawnPoint.angles )
 	}
 
-	// used for when flyers attack dropships
-	if ( "nextDropshipAttackedByFlyers" in level && level.nextDropshipAttackedByFlyers )
-		animation = FlyersAttackDropship( ref, animation )
-
 	Assert( IsNewThread(), "Must be threaded off" )
 
 	DropTable dropTable
