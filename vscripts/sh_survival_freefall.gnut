@@ -333,7 +333,7 @@ void function SkydiveTest()
 	foreach( entity player in GetPlayerArray() )
 	{
 		player.ClearParent()
-		player.SetOrigin( <-25800,-13580,16000> )
+		player.SetOrigin( <0,0,35000> )
 		thread PlayerSkydiveFromCurrentPosition( player )
 	}
 }
@@ -630,7 +630,7 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 	if ( jumpingFromPlane )
 	{
 		entity planeEnt = Sur_GetPlaneEnt()
-		#if !R5DEV
+		#if !DEVELOPER
 			Assert( IsValid( planeEnt ), "Tried to skydive but there is no plane entity" )
 		#endif
 		if ( IsValid( planeEnt ) )
@@ -742,7 +742,7 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 
 	float currentYaw = player.GetAngles().y
 
-	#if R5DEV
+	#if DEVELOPER
 		float botLastForwardInputTime = 0.0
 		float botNextForwardInputTime = 0.0
 		float botLastForwardInput = 0.0
@@ -789,7 +789,7 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 			}
 		}
 
-		#if R5DEV
+		#if DEVELOPER
 		// Bots fly random paths, turning, speeding up and slowing down
 		if ( player == leaderPlayer && player.IsBot() )
 		{
@@ -1032,7 +1032,7 @@ void function SkyDiveMovement( entity player, SkydivePlayerData skydiveData, vec
 				player.Anim_PlayOnly( "mp_pilot_freefall_fall2anticipate" )
 
 			player.Anim_DisableUpdatePosition()
-			//player.Player_BeginFreefallAnticipate()
+			player.Player_BeginFreefallAnticipate()
 
 			StopSoundOnEntity( player, "Survival_DropSequence_Travel_1P" )
 			StopSoundOnEntity( player, "Survival_DropSequence_Travel_3P" )

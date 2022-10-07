@@ -79,9 +79,9 @@ void function InitR5RCreateServerPanel( var panel )
 	file.tempserverdesc = ServerSettings.svServerDesc
 
 	//Setup Default Server Config
-	Hud_SetText(Hud_GetChild( file.panel, "PlaylistInfoEdit" ), playlisttoname[ServerSettings.svPlaylist])
+	Hud_SetText(Hud_GetChild( file.panel, "PlaylistInfoEdit" ), GetUIPlaylistName(ServerSettings.svPlaylist))
 	RuiSetImage( Hud_GetRui( Hud_GetChild( file.panel, "ServerMapImg" ) ), "loadscreenImage", GetUIMapAsset( ServerSettings.svMapName ) )
-	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), vistoname[ServerSettings.svVisibility])
+	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), GetUIVisibilityName(ServerSettings.svVisibility))
 
 	Hud_SetText(Hud_GetChild( file.panel, "MapServerNameInfoEdit" ), ServerSettings.svServerName)
 }
@@ -93,15 +93,13 @@ void function OpenSelectedPanel( var button )
 
 	if(Hud_GetScriptID( button ).tointeger() == 3 || Hud_GetScriptID( button ).tointeger() == 4)
 	{
-		Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), true )
-
 		Hud_SetText( Hud_GetChild( file.namepanel, "BtnServerName" ), ServerSettings.svServerName )
 		Hud_SetText( Hud_GetChild( file.descpanel, "BtnServerDesc" ), ServerSettings.svServerDesc )
 	}
 }
 
 void function StartNewGame( var button )
-{
+{	
 	//Start thread for starting the server
 	CreateServer(ServerSettings.svServerName, ServerSettings.svServerDesc, ServerSettings.svMapName, ServerSettings.svPlaylist, ServerSettings.svVisibility)
 }
@@ -157,7 +155,7 @@ void function SetSelectedServerVis( int vis )
 	Hud_SetVisible( file.panels[2], false )
 
 	//Set the new visibility text
-	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), vistoname[ServerSettings.svVisibility])
+	Hud_SetText(Hud_GetChild( file.panel, "VisInfoEdit" ), GetUIVisibilityName(ServerSettings.svVisibility))
 }
 
 void function ShowSelectedPanel(var panel)
@@ -184,7 +182,6 @@ void function UpdateServerName( var button )
     ServerSettings.svServerName = file.tempservername
 
 	Hud_SetVisible( file.namepanel, false )
-	Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), false )
 
 	Hud_SetText(Hud_GetChild( file.panel, "MapServerNameInfoEdit" ), ServerSettings.svServerName)
 }
@@ -199,7 +196,6 @@ void function UpdateServerDesc( var button )
     ServerSettings.svServerDesc = file.tempserverdesc
 
 	Hud_SetVisible( file.descpanel, false )
-	Hud_SetVisible( Hud_GetChild(file.menu, "FadeBackground"), false )
 }
 
 void function TempSaveDescChanges( var button )

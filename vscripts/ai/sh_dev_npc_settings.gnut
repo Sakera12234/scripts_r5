@@ -30,7 +30,7 @@ void function SetupChangeSurvivalCharacterClass()
 
 void function SetupOverrideSpawnSurvivalCharacter()
 {
-	#if(UI)
+	#if UI
 		SetupDevCommand( "Random (default)", "dev_sur_force_spawn_character random" )
 		SetupDevCommand( "Shipping only", "dev_sur_force_spawn_character special" )
 		array<ItemFlavor> characters = clone GetAllCharacters()
@@ -96,6 +96,9 @@ void function SetupWeapons()
 	SetupDevCommand( "Dev: Smart Pistol (disabled)", "give mp_weapon_smart_pistol" )
 	SetupDevCommand( "Dev: Dev Cubemap ", "give weapon_cubemap" )
 	SetupDevCommand( "Dev: Volt SMG", "give mp_weapon_volt_smg" )
+	SetupDevCommand( "Dev: Car SMG", "give mp_weapon_car" )
+	SetupDevCommand( "Dev: Rampage LMG", "give mp_weapon_dragon_lmg" )
+	SetupDevCommand( "Dev: 30-30 Repeater", "give mp_weapon_3030" )
 	#endif
 }
 
@@ -105,9 +108,9 @@ void function SetupSurvival()
 		SetupDevCommand( "Toggle Training Completed", "script GP().SetPersistentVar( \"trainingCompleted\", (GP().GetPersistentVarAsInt( \"trainingCompleted\" ) == 0 ? 1 : 0) )" )
 		SetupDevCommand( "Enable Survival Dev Mode", "playlist survival_dev" )
 		SetupDevCommand( "Disable Match Ending", "mp_enablematchending 0" )
-		SetupDevCommand( "Drop Care Package R1", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 0, null )" )
-		SetupDevCommand( "Drop Care Package R2", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 1, null )" )
-		SetupDevCommand( "Drop Care Package R3", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 2, null )" )
+		SetupDevCommand( "Drop Care Package R1", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 0 )" )
+		SetupDevCommand( "Drop Care Package R2", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 1 )" )
+		SetupDevCommand( "Drop Care Package R3", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 2 )" )
 		SetupDevCommand( "Force Circle Movement", "script FlagWait( \"DeathCircleActive\" );script svGlobal.levelEnt.Signal( \"DeathField_ShrinkNow\" );script FlagClear( \"DeathFieldPaused\" )" )
 		SetupDevCommand( "Pause Circle Movement", "script FlagSet( \"DeathFieldPaused\" )" )
 		SetupDevCommand( "Unpause Circle Movement", "script FlagClear( \"DeathFieldPaused\" )" )

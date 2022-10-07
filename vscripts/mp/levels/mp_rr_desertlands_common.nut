@@ -98,6 +98,9 @@ void function EntitiesDidLoad()
 		test_runmapchecks()
 	#endif
 
+	if( GetCurrentPlaylistVarBool( "r5reloaded_aimtrainer", false ) )
+		return
+
 	GeyserInit()
 	Updrafts_Init()
 
@@ -409,6 +412,9 @@ bool function Geyser_JumpPad_ShouldPushPlayerOrNPC( entity target )
 const string UPDRAFT_TRIGGER_SCRIPT_NAME = "skydive_dust_devil"
 void function Updrafts_Init()
 {
+	if ( GetMapName() == "mp_rr_desertlands_mu1" ) //TODO: Fix this trigger for desertlands mu1
+		return
+	
 	array<entity> triggers = GetEntArrayByScriptName( UPDRAFT_TRIGGER_SCRIPT_NAME )
 	foreach ( entity trigger in triggers )
 	{
@@ -551,7 +557,7 @@ void function SetButtonSettings( entity panel )
 	panel.UnsetUsable()
 	panel.SetSkin(1)
 	wait 0.01
-	StartParticleEffectInWorld( PrecacheParticleSystem( $"P_xo_exp_nuke_3P" ), <-24279,-4883,-2015>, <0,0,0> )
+	//StartParticleEffectInWorld( PrecacheParticleSystem( $"P_xo_exp_nuke_3P" ), <-24279,-4883,-2015>, <0,0,0> )
 	
 	wait 21
 	

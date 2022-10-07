@@ -4,14 +4,13 @@
 #base "_base_barrels.txt"
 #base "_base_mags_energy.txt"
 
-
 WeaponData
 {
 	// General
-	"printname"   									"#WPN_VOLT_SMG"
-	"shortprintname"   								"#WPN_VOLT_SMG_SHORT"
-	"description" 									"#WPN_VOLT_SMG_DESC"
-	"longdesc"										"#WPN_VOLT_SMG_LONGDESC"
+	"printname"   									"Volt SMG"
+	"shortprintname"   								"Volt"
+	"description" 									"Energy actuated SMG."
+	"longdesc"										"Energy actuated SMG."
 
 	"weapon_type_flags"								"WPT_PRIMARY"
 	"ammo_pool_type"								"special"
@@ -32,10 +31,6 @@ WeaponData
 
 	"critical_hit"									"1"
 	"critical_hit_damage_scale"						"2"
-
-	// Callbacks
-	//"OnWeaponActivate"                              "OnWeaponActivate_weapon_volt_smg"
-	// "OnWeaponDeactivate"                            "OnWeaponDeactivate_weapon_volt_smg"
 
 	// Menu
 	"menu_category"                                 "smg"
@@ -364,10 +359,16 @@ WeaponData
 
 	Mods
 	{
-		gold        {}
-		whiteset    {}
-		blueset     {}
-		purpleset   {}
+		survival_finite_ammo
+		{
+			"ammo_default_total"					"0"
+			"ammo_stockpile_max"					"36"
+			"ammo_no_remove_from_stockpile"			"0"
+
+			"low_ammo_fraction" 					"0.3"
+
+			"uses_ammo_pool"						"1"
+		}
 
 		barrel_stabilizer_l4_flash_hider
 		{
@@ -432,7 +433,7 @@ WeaponData
 			vis							player_zoomfrac
 			ammo						weapon_ammo
 			clipSize					weapon_clipSize
-			//centerOffset				weapon_ads_center_offset
+			centerOffset				weapon_ads_center_offset
 		}
 	}
 
@@ -446,6 +447,7 @@ WeaponData
 			vis							player_zoomfrac
 			ammo						weapon_ammo
 			clipSize					weapon_clipSize
+			clipCount					weapon_ammoClipCount
 		}
 	}
 

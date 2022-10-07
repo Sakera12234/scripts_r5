@@ -145,6 +145,7 @@ void function ShGameModeShadowSquad_Init()
 	if ( !IsFallLTM() )
 		return
 
+	SurvivalCommentary_SetHost( eSurvivalHostType.NOC )
 	AddCallback_EntitiesDidLoad( EntitiesDidLoad )
 	#if CLIENT
 		SetCommsDialogueEnabled( false ) //

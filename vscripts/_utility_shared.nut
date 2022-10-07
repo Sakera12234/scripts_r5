@@ -147,7 +147,7 @@ void function InitWeaponScripts()
 	MpWeaponLifelineBatonPrimary_Init()
 	MpWeaponDeployableCover_Init()
 
-	#if R5DEV
+	#if DEVELOPER
 		MeleeShadowsquadHands_Init()
 		MpWeaponShadowsquadHandsPrimary_Init()
 		MDLSpawner_Init()
@@ -4445,7 +4445,7 @@ vector function OffsetPointRelativeToVector( vector point, vector offset, vector
 #if SERVER
 float function GetRoundTimeLimit_ForGameMode()
 {
-#if R5DEV
+#if DEVELOPER
 	if ( level.devForcedTimeLimit )
 	{
 		//Make it needed to be called multiple times for RoundBasedGameModes
@@ -4561,18 +4561,18 @@ bool function PlayerIsInADS( entity player )
 	return activeWeapon.IsWeaponAdsButtonPressed() || activeWeapon.IsWeaponInAds()
 }
 
-//bool function PlayerIsInMeleeBlockingADS( entity player )
-//{
-//	entity activeWeapon = player.GetActiveWeapon( eActiveInventorySlot.mainHand )
-//
-//	if ( !IsValid( activeWeapon ) )
-//		return false
-//
-//	if ( activeWeapon.GetWeaponSettingBool( eWeaponVar.attack_button_presses_melee ) )
-//		return false
-//
-//	return activeWeapon.IsWeaponAdsButtonPressed() || activeWeapon.IsWeaponInAds()
-//}
+bool function PlayerIsInMeleeBlockingADS( entity player )
+{
+	entity activeWeapon = player.GetActiveWeapon( eActiveInventorySlot.mainHand )
+
+	if ( !IsValid( activeWeapon ) )
+		return false
+
+	if ( activeWeapon.GetWeaponSettingBool( eWeaponVar.attack_button_presses_melee ) )
+		return false
+
+	return activeWeapon.IsWeaponAdsButtonPressed() || activeWeapon.IsWeaponInAds()
+}
 
 
 //////
@@ -5330,7 +5330,6 @@ Point function CreatePoint( vector origin, vector angles )
 	data.angles = angles
 	return data
 }
-
 
 table<int, array<entity> > function ArrangePlayersByTeam( array<entity> players )
 {

@@ -535,7 +535,7 @@ PingTraceResults function DoPingTrace( entity player )
 	else
 	{
 		result.player = player
-		result.endPos = tr.endPos
+		result.endPos = SanitizePingTraceEndPos( tr.endPos )
 		result.surfaceNormal = tr.surfaceNormal
 		result.hitDist = (tr.fraction * PING_TRACE_DISTANCE)
 		result.hitEnt = tr.hitEnt
@@ -543,11 +543,21 @@ PingTraceResults function DoPingTrace( entity player )
 	}
 	result.tr = tr
 
-	#if R5DEV
+	#if DEVELOPER
 		printf( "PING (%s) -  Dist:%.1f, %s, pos:%s, norm:%s, contents:0x%x", (IsServer() ? "SERVER" : "CLIENT"), result.hitDist, (IsValid( result.hitEnt ) ? ("[" + result.hitEnt + "]   '" + result.hitEnt.GetScriptName() + "'") : ""), string( tr.endPos ), string( tr.surfaceNormal ), tr.contents )
 	#endif
 
 	return result
+}
+#endif
+
+#if SERVER || CLIENT
+vector function SanitizePingTraceEndPos(vector endPos)
+{
+	float posX = Clamp( endPos.x, -64000, 64000  )                                                                                                                                                                     
+	float posY = Clamp( endPos.y, -64000, 64000  )                                                                                                                                                                     
+	float posZ = Clamp( endPos.z, -64000, 64000  )                                                                                                                                                                     
+	return <posX, posY, posZ>
 }
 #endif
 ///////////////////////////
@@ -1710,7 +1720,7 @@ entity function GetFlyerForHitEnt( entity hitEnt )
 	if ( !IsValid( hitEnt ) )
 		return null
 
-	if ( hitEnt.GetModelName().tolower() == FLYER_MODEL.tolower() )
+	if ( IsFlyer( hitEnt ) )
 		return hitEnt
 
 	return null
@@ -2238,6 +2248,8 @@ int function GetEnemyPingCommsAction( int pingType, entity pingedEnt )
 			case "npc_boss_guts":
 			case "npc_training_dummy":
 			case "npc_dummie_combat":
+			case "npc_spider":
+			case "npc_soldier_infected":
 				// no specific callouts for these
 				break;
 
@@ -2271,14 +2283,8 @@ int function GetEnemyPingCommsAction( int pingType, entity pingedEnt )
 			case "npc_prowler":
 				return eCommsAction.PING_ENEMY_NPC_PROWLER
 
-			case "npc_spider":
-				return eCommsAction.PING_ENEMY_NPC_SPIDER
-
 			case "npc_goliath":
 				return eCommsAction.PING_ENEMY_NPC_GOLIATH
-
-			case "npc_soldier_infected":
-				return eCommsAction.PING_ENEMY_NPC_INFECTED
 
 			default:
 				Warning( "%s() - Unhandled npc type '%s'.", FUNC_NAME(), settingsName )

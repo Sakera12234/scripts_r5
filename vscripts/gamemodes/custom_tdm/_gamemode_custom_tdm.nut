@@ -278,6 +278,8 @@ LocPair function _GetVotingLocation()
     {
         case "mp_rr_canyonlands_staging":
             return NewLocPair(<26794, -6241, -27479>, <0, 0, 0>)
+        case "mp_rr_arena_skygarden":
+            return NewLocPair(<0, 1581, 3010>, <0, -90, 0>)
         case "mp_rr_ashs_redemption"://our first custom tdm map
             return NewLocPair(<-20917, 5852, -26741>, <0, -90, 0>)
 		case "mp_rr_aqueduct"://our first ported map
@@ -354,6 +356,11 @@ void function _OnPlayerConnected(entity player)
 // purpose: internal function for handling player death
 void function _OnPlayerDied( entity victim, entity attacker, var damageInfo )
 {
+    if( victim.GetObserverTarget() != null )
+		victim.SetObserverTarget( null )
+
+	victim.StartObserverMode( OBS_MODE_DEATHCAM )
+    
     switch( GetGameState() )
     {
     case eGameState.Playing:

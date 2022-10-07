@@ -481,7 +481,7 @@ void function LootCreepDeathSetup( entity creep, array<string> lootToSpawn )
 				randFwd = Normalize( randFwd + 0.35 * creep.GetUpVector() )
 				float speed = RandomFloatRange( 150, 250 )
 				vector vel  = (randFwd * speed) + <0, 0, 100>
-				FakePhysicsThrow( null, lootEnt, vel, true )
+				FakePhysicsThrow( null, lootEnt, vel )
 			}
 		}
 	)
