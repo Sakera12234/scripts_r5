@@ -131,6 +131,8 @@ void function ServerCallback_LobbyVM_UpdateUI()
 
     RunUIScript( "UpdatePlayersList" )
 
+    RunUIScript( "ServerBrowser_EnableRefreshButton", GetPlayerArray()[0] == GetLocalClientPlayer() )
+
     RunUIScript( "InPlayersLobby" , GetPlayerArray()[0] != GetLocalClientPlayer() && GetPlayerArray().len() > 1, GetPlayerArray()[0].GetPlayerName())
 }
 

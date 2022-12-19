@@ -316,8 +316,10 @@ entity function SetNodeRopeProperties( entity rope )
 	return rope
 }
 
-void function MapEditor_CreateLinkedZipline( array<vector> nodes )
+array<entity> function MapEditor_CreateLinkedZipline( array<vector> nodes )
 {
+	Assert( nodes.len() == 0, "Tried to create linked zipline with 0 nodes" )
+
 	array<entity> ropes = [ SetNodeRopeProperties( CreateEntity( "move_rope" ) ) ]
 	ropes[0].SetOrigin( nodes[0] )
 
@@ -325,16 +327,18 @@ void function MapEditor_CreateLinkedZipline( array<vector> nodes )
 	for(int i = 1; i < nodes.len(); i++) {
 		vector nodepos = nodes[i]
 		ropes.append( SetNodeRopeProperties( CreateEntity( "keyframe_rope" )  ) )
-        
+
 		ropes[i].SetOrigin( nodepos )
 	}
 
-    // link all nodes
+	// link all nodes
 	for(int i = 0; i < ropes.len(); i++) {
 		if(i + 1 < ropes.len())
 			ropes[i].LinkToEnt( ropes[i + 1]  )
 	}
 
 	foreach(entity rope in ropes)
-        DispatchSpawn( rope )
+		DispatchSpawn( rope )
+
+	return ropes
 }

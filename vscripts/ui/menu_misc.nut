@@ -69,17 +69,6 @@ void function OnMiscMenu_NavigateBack()
 	CloseActiveMenu()
 
 	if ( IsLobby() )
-	{
-		if (GetActiveMenu() != GetMenu( "R5RLobbyMenu" ) )
-			AdvanceMenu( GetMenu( "R5RLobbyMenu" ) )
-
 		UI_SetPresentationType( CurrentPresentationType )
-	}
-		
-
-	if(ISAIMTRAINER){
-		CloseAllMenus()
-		RunClientScript("ServerCallback_OpenFRChallengesMainMenu", PlayerKillsForChallengesUI)
-	}
 }
 
