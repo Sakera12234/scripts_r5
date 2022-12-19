@@ -6,6 +6,7 @@ global function SetupSurvivalLoot
 global function SetupSurvivalIncapShieldBot
 global function SetupAbilities
 global function SetupWeapons
+global function SetupR2Weapons
 
 void function SetupChangeSurvivalCharacterClass()
 {
@@ -63,7 +64,6 @@ void function SetupWeapons()
 	SetupDevCommand( "SMG: Prowler", "give mp_weapon_pdw" )
 	SetupDevCommand( "SMG: R-99", "give mp_weapon_r97" )
 	SetupDevCommand( "SMG: Volt SMG", "give mp_weapon_volt_smg" )
-	SetupDevCommand( "SMG: Car SMG", "give mp_weapon_car" )
 
 	// LMGs
 	SetupDevCommand( "LMG: Devotion", "give mp_weapon_esaw" )
@@ -87,14 +87,6 @@ void function SetupWeapons()
 	SetupDevCommand( "Pistol: P2020", "give mp_weapon_semipistol" )
 	SetupDevCommand( "Pistol: RE-45", "give mp_weapon_autopistol" )
 	SetupDevCommand( "Pistol: Wingman", "give mp_weapon_wingman" )
-	SetupDevCommand( "Pistol: Wingman Elite", "give mp_weapon_wingman_n" )
-	SetupDevCommand( "Pistol: Smart Pistol", "give mp_weapon_smart_pistol" )
-	
-	// Explosives/Launchers
-	SetupDevCommand( "Anti-Titan: Softball", "give mp_weapon_softball" )
-	SetupDevCommand( "Anti-Titan: Archer", "give mp_weapon_rocket_launcher" )
-	SetupDevCommand( "Anti-Titan: Sidewinder SMR", "give mp_weapon_smr" )
-	SetupDevCommand( "Anti-Titan: EPG", "give mp_weapon_epg" )
 	
 	// Grenades
 	SetupDevCommand( "Grenade: Arc Star", "give mp_weapon_grenade_emp" )
@@ -103,11 +95,42 @@ void function SetupWeapons()
 
 	// Dev
 	//SetupDevCommand( "Dev: Dev Tool", "give mp_weapon_mdlspawner" )
-	SetupDevCommand( "Dev: Arc Tool", "give sp_weapon_arc_tool" )
-	SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets" )
 	SetupDevCommand( "Dev: Sheila", "give mp_weapon_mobile_hmg" )
 	SetupDevCommand( "Dev: Throwing Knife", "give mp_weapon_throwingknife" )
 	SetupDevCommand( "Dev: Dev Cubemap ", "give weapon_cubemap" )
+	#endif
+}
+
+void function SetupR2Weapons()
+{
+	#if UI
+	// Rifles
+	SetupDevCommand( "R1 - Rifle: R-101", "give mp_weapon_rspn101_og" )
+
+	// SMGs
+	SetupDevCommand( "R2 - SMG: Car SMG", "give mp_weapon_car" )
+
+	// LMGs
+
+	// Snipers
+
+	// Shotguns
+
+	// Pistols
+	SetupDevCommand( "R2 - Pistol: Wingman Elite", "give mp_weapon_wingman_n" )
+	SetupDevCommand( "R2 - Pistol: Smart Pistol", "give mp_weapon_smart_pistol" )
+	
+	// Explosives/Launchers
+	SetupDevCommand( "R2 - Anti-Titan: Softball", "give mp_weapon_softball" )
+	SetupDevCommand( "R2 - Anti-Titan: Archer", "give mp_weapon_rocket_launcher" )
+	SetupDevCommand( "R2 - Anti-Titan: Sidewinder SMR", "give mp_weapon_smr" )
+	SetupDevCommand( "R2 - Anti-Titan: EPG", "give mp_weapon_epg" )
+	
+	// Grenades
+
+	// Dev
+	SetupDevCommand( "Dev: Arc Tool", "give sp_weapon_arc_tool" )
+	SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets" )
 	#endif
 }
 
