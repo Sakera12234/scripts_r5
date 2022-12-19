@@ -244,6 +244,9 @@ float function GetLootTableFloat( string ref, var datatable, int rowIndex, strin
 
 void function SURVIVAL_Loot_All_InitShared()
 {
+	if ( IsLobby())
+		return
+	
 	file.lootIndexToString.clear()
 	file.lootData.clear()
 
