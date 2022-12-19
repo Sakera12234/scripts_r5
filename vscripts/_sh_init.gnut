@@ -187,6 +187,16 @@ void function SV_CL_Init()
 	ShTutorial_Init()
 	Sh_PassiveVoices_Init()
 
+    // Zipline Utility
+        #if SERVER
+            ZiplineUtility_Init()
+        #endif
+
+        #if SERVER || CLIENT
+            ShZiplineUtility_Init()
+        #endif
+    //
+
 	#if CLIENT
 		Cl_DeathScreen_Init()
 	#endif
