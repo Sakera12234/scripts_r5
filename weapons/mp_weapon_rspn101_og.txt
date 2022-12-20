@@ -11,6 +11,8 @@ WeaponData
 
 	"menu_icon"										"rui/weapon_icons/r5/weapon_r301"
 	"hud_icon"										"rui/weapon_icons/r5/weapon_r301"
+	
+	"ammo_pool_type"								"bullet"
 
 	"weaponClass" 									"human"
 	"weaponSubClass"								"rifle"
