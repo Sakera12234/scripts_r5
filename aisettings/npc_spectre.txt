@@ -44,21 +44,21 @@ npc_spectre
 	longJumpMaxDist					700
 	longJumpHeight					300
 
-	//GibModel0						"mdl/robots/spectre/spectre_assault_d_gib_leg_l.rmdl"
-	//GibModel1						"mdl/robots/spectre/spectre_assault_d_gib_leg_r.rmdl"
-	//GibModel2						"mdl/robots/spectre/spectre_assault_d_gib_arm_l.rmdl"
-	//GibModel3						"mdl/robots/spectre/spectre_assault_d_gib_arm_r.rmdl"
-	//GibModelSoftened0				"mdl/robots/spectre/spectre_assault_d_gib_leg_l.rmdl"
-	//GibModelSoftened1				"mdl/robots/spectre/spectre_assault_d_gib_leg_r.rmdl"
-	//GibModelSoftened2				"mdl/robots/spectre/spectre_assault_d_gib_arm_l.rmdl"
-	//GibModelSoftened3				"mdl/robots/spectre/spectre_assault_d_gib_arm_r.rmdl"
-	//GibAttachment0					"left_leg"
-	//GibAttachment1					"right_leg"
-	//GibAttachment2					"left_arm"
-	//GibAttachment3					"right_arm"
-	//GibSpeed						200
-	//GibAngularSpeed					20
-	//GibMaxDist						1600
+	GibModel0						"mdl/robots/spectre/spectre_assault_d_gib_leg_l.rmdl"
+	GibModel1						"mdl/robots/spectre/spectre_assault_d_gib_leg_r.rmdl"
+	GibModel2						"mdl/robots/spectre/spectre_assault_d_gib_arm_l.rmdl"
+	GibModel3						"mdl/robots/spectre/spectre_assault_d_gib_arm_r.rmdl"
+	GibModelSoftened0				"mdl/robots/spectre/spectre_assault_d_gib_leg_l.rmdl"
+	GibModelSoftened1				"mdl/robots/spectre/spectre_assault_d_gib_leg_r.rmdl"
+	GibModelSoftened2				"mdl/robots/spectre/spectre_assault_d_gib_arm_l.rmdl"
+	GibModelSoftened3				"mdl/robots/spectre/spectre_assault_d_gib_arm_r.rmdl"
+	GibAttachment0					"left_leg"
+	GibAttachment1					"right_leg"
+	GibAttachment2					"left_arm"
+	GibAttachment3					"right_arm"
+	GibSpeed						200
+	GibAngularSpeed					20
+	GibMaxDist						1600
 	GibFX							"P_exp_spectre_death"
 	GibSound						"Explo_Spectre"
 
