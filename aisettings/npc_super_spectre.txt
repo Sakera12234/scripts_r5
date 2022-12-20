@@ -34,7 +34,7 @@ npc_super_spectre
 
 	BaseClass						"npc_super_spectre"
 
-	DefaultModelName				"models/robots/super_spectre/super_spectre_v1.mdl"
+	DefaultModelName				"mdl/robots/super_spectre/super_spectre_v1.rmdl"
 	DefaultWeapon					"mp_weapon_super_spectre"
 	ForceAutoPrecacheDefaultWeapon	1
 	AdditionalScriptWeapon			"mp_weapon_spectre_spawner"
