@@ -21,4 +21,5 @@ classes
 	import npc_drone_plasma.txt
 	import npc_spectre.txt
 	import npc_super_spectre.txt
+	import npc_stalker.txt
 }

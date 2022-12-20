@@ -470,6 +470,20 @@ void function DEV_SpawnSuperSpectreAtCrosshair()
 	spectre.GiveWeapon("mp_weapon_super_spectre", WEAPON_INVENTORY_SLOT_ANY)
 }
 
+void function DEV_SpawnStalkerAtCrosshair()
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity Stalker = CreateStalker( 99, origin, angles )
+	
+	DispatchSpawn( Stalker )
+	
+	Stalker.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
+}
+
 void function DEV_SpawnSpiderAtCrosshair()
 {
 	entity player = GetPlayerArray()[ 0 ]
