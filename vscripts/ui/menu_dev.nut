@@ -366,6 +366,8 @@ void function SetupDefaultDevCommandsMP()
 
 	SetupDevMenu( "Prototypes", SetDevMenu_Prototypes )
 	SetupDevMenu( "Custom Heirlooms", SetDevMenu_Heirlooms )
+	
+	SetupDevMenu( "Spawn a NPC at Crosshair", SetDevMenu_npc )
 
 	// This adds CAPTURE MODE every time you load a level.
 	// Capture mode doesn't work, so I am commenting this out.
@@ -807,6 +809,11 @@ void function SetupPrototypesDevMenu()
 void function SetDevMenu_Heirlooms( var _ )
 {
 	thread ChangeToThisMenu( SetupHeirloomsDevMenu )
+}
+
+void function SetDevMenu_npc( var _ )
+{
+	thread ChangeToThisMenu( SetupNPCDevMenu )
 }
 
 void function SetupHeirloomsDevMenu()

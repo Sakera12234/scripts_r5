@@ -336,14 +336,14 @@ void function DEV_SpawnBTAtCrosshair( bool hotdrop = false )
 	// 	thread NPCTitanHotdrops( npc, false )
 }
 
-void function DEV_SpawnDummyAtCrosshair()
+void function DEV_SpawnDummyAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity dummy = CreateDummy( 99, origin, angles )
+	entity dummy = CreateDummy( team, origin, angles )
 
 	DispatchSpawn( dummy )
 	
@@ -354,42 +354,42 @@ void function DEV_SpawnDummyAtCrosshair()
     dummy.GiveWeapon(randomWeapon, WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnPlasmaDroneAtCrosshair()
+void function DEV_SpawnPlasmaDroneAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity drone = CreatePlasmaDrone( 99, origin, angles )
+	entity drone = CreatePlasmaDrone( team, origin, angles )
 
 	DispatchSpawn( drone )
     
     drone.GiveWeapon("mp_weapon_droneplasma", WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnRocketDroneAtCrosshair()
+void function DEV_SpawnRocketDroneAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity drone = CreateGenericDrone( 99, origin, angles )
+	entity drone = CreateGenericDrone( team, origin, angles )
 
 	DispatchSpawn( drone )
     
     drone.GiveWeapon("mp_weapon_dronerocket", WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnLegendAtCrosshair()
+void function DEV_SpawnLegendAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity legend = CreateLegend_ai( 99, origin, angles )
+	entity legend = CreateLegend_ai( team, origin, angles )
 
 	DispatchSpawn( legend )
     
@@ -398,40 +398,39 @@ void function DEV_SpawnLegendAtCrosshair()
 	legend.GiveWeapon(randomWeapon, WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnProwlerAtCrosshair()
+void function DEV_SpawnProwlerAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity prowler = CreateProwler( 99, origin, angles )
+	entity prowler = CreateProwler( team, origin, angles )
 
 	DispatchSpawn( prowler )
 	
     prowler.SetSkin(RandomInt(3))
 }
 
-void function DEV_SpawnMarvinAtCrosshair()
+void function DEV_SpawnMarvinAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
-	int team = player.GetTeam()
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
-	entity marvin = CreateMarvin( 99, origin, angles )
+	entity marvin = CreateMarvin( team, origin, angles )
 
 	DispatchSpawn( marvin )
 }
 
-void function DEV_SpawnPilotAtCrosshair()
+void function DEV_SpawnPilotAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity pilot = CreateElitePilot( 99, origin, angles )
+	entity pilot = CreateElitePilot( team, origin, angles )
 	
 	DispatchSpawn( pilot )
 	
@@ -440,14 +439,14 @@ void function DEV_SpawnPilotAtCrosshair()
 	pilot.GiveWeapon(randomWeapon, WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnSpectreAtCrosshair()
+void function DEV_SpawnSpectreAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity spectre = CreateSpectre( 99, origin, angles )
+	entity spectre = CreateSpectre( team, origin, angles )
 	
 	DispatchSpawn( spectre )
 	
@@ -456,66 +455,66 @@ void function DEV_SpawnSpectreAtCrosshair()
 	spectre.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnSuperSpectreAtCrosshair()
+void function DEV_SpawnSuperSpectreAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity spectre = CreateSuperSpectre( 99, origin, angles )
+	entity spectre = CreateSuperSpectre( team, origin, angles )
 	
 	DispatchSpawn( spectre )
 	
 	spectre.GiveWeapon("mp_weapon_super_spectre", WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnStalkerAtCrosshair()
+void function DEV_SpawnStalkerAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity Stalker = CreateStalker( 99, origin, angles )
+	entity Stalker = CreateStalker( team, origin, angles )
 	
 	DispatchSpawn( Stalker )
 	
 	Stalker.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnSpiderAtCrosshair()
+void function DEV_SpawnSpiderAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity spider = CreateSpider( 99, origin, angles )
+	entity spider = CreateSpider( team, origin, angles )
 
 	DispatchSpawn( spider )
 }
 
-void function DEV_SpawnInfectedSoldierAtCrosshair()
+void function DEV_SpawnInfectedSoldierAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity Infected = CreateInfected( 99, origin, angles )
+	entity Infected = CreateInfected( team, origin, angles )
 	Infected.SetSkin(RandomInt(3))
 	DispatchSpawn( Infected )
 }
 
-void function DEV_SpawnExplosiveTickAtCrosshair()
+void function DEV_SpawnExplosiveTickAtCrosshair( int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity tick = CreateFragDrone( 99, origin, angles )
+	entity tick = CreateFragDrone( team, origin, angles )
 
 	DispatchSpawn( tick )
 	tick.SetSkin(RandomInt(2))
