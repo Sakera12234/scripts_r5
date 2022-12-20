@@ -64,6 +64,7 @@ void function Precache_Sdk_Weapons()
 	PrecacheWeapon( $"mp_weapon_mdlspawner" )
 	PrecacheWeapon( $"sp_weapon_arc_tool" )//TEMP
 	PrecacheWeapon( $"mp_ability_3dash" )
+	PrecacheWeapon( $"mp_weapon_spectre_spawner" )
 	//PrecacheWeapon( $"mp_weapon_3030" )//Disabled til we get original models
 	//PrecacheWeapon( $"mp_weapon_dragon_lmg" )
 }

@@ -12,3 +12,4 @@ behavior_prowler
 behavior_pilot_elite
 behavior_drone
 behavior_spectre
+behavior_super_spectre
