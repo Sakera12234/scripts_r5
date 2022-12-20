@@ -19,4 +19,5 @@ classes
 	import npc_gunship.txt
 	import npc_drone.txt
 	import npc_drone_plasma.txt
+	import npc_spectre.txt
 }
