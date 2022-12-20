@@ -22,6 +22,8 @@ WeaponData
 	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
 	"minimap_reveal_distance"						"32000"
 	"leveled_pickup"								"1"
+	
+	"projectile_launch_speed"						"29000"
 
 	// Menu
 	"menu_category"                                 "ar"
@@ -95,7 +97,7 @@ WeaponData
 	"critical_hit_damage_scale"						"1"
 
 
-   "titanarmor_critical_hit_required"              "1"
+	"titanarmor_critical_hit_required"              "1"
 	"critical_hit"									"1"
 
 
