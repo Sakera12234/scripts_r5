@@ -467,9 +467,7 @@ void function DEV_SpawnSuperSpectreAtCrosshair()
 	
 	DispatchSpawn( spectre )
 	
-	//array<string> weapons = ["npc_weapon_lstar", "npc_weapon_energy_shotgun", "npc_weapon_hemlok"] //We are giving them original firing range weapons, they are shooting better this way
-	//string randomWeapon = weapons[RandomInt(weapons.len())]
-	spectre.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
+	spectre.GiveWeapon("mp_weapon_super_spectre", WEAPON_INVENTORY_SLOT_ANY)
 }
 
 void function DEV_SpawnSpiderAtCrosshair()
