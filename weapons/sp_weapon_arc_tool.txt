@@ -393,6 +393,14 @@ WeaponData
 
 	Mods
 	{
+		survival_finite_ammo
+		{
+		}
+	
+		gold
+		{
+		}
+		
 		InfiniteCharge
 		{
 			"charge_time" 									"9999999"

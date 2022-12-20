@@ -106,6 +106,7 @@ global enum eDamageSourceId
 	mp_weapon_grenade_electric_smoke
 	mp_weapon_grenade_gravity
 	mp_weapon_rspn101_og
+	sp_weapon_arc_tool
 	//
 	melee_pilot_emptyhanded
 	melee_pilot_arena
@@ -459,6 +460,7 @@ void function DamageTypes_Init()
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_wingman_n]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_wingman_elite"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_mobile_hmg]		<- $"rui/weapon_icons/r5/weapon_rampart_turret"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_smart_pistol]		<- $"rui/weapon_icons/r5/weapon_smart_pistol"
+	file.damageSourceIDToImage[eDamageSourceId.sp_weapon_arc_tool]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
 
 	file.damageSourceIDToName =
 	{
@@ -607,7 +609,8 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.mp_weapon_smart_pistol ] 	 				= "Smart Pistol",
 		[ eDamageSourceId.mp_weapon_grenade_electric_smoke ] 	 	= "Electric Smoke",
 		[ eDamageSourceId.mp_weapon_grenade_gravity ] 	 			= "Gravity Star",
-		[ eDamageSourceId.mp_weapon_rspn101_og ] 	 				= "R101"
+		[ eDamageSourceId.mp_weapon_rspn101_og ] 	 				= "R101",
+		[ eDamageSourceId.sp_weapon_arc_tool] 	 					= "Arc Tool"
 	}
 
 	#if DEVELOPER
