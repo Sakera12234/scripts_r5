@@ -6,6 +6,7 @@ global function BecomeLoba
 global function BecomeRampart
 global function BecomeRevenant
 global function BecomePilot
+global function BecomeBlisk
 
 //////////////////////////
 
@@ -82,6 +83,7 @@ void function Precache_Sdk_Models()
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_rampart.rmdl" )
 	PrecacheModel( $"mdl/props/rampart_gum/rampart_bubblegum.rmdl" )
 	PrecacheModel( $"mdl/props/loba_loot_stick/loba_loot_stick.rmdl" )
+	PrecacheModel( $"mdl/humans/pilots/imc_hero_blisk.rmdl" )
 }
 
 void function Precache_Lobby_Models()
@@ -167,6 +169,15 @@ void function BecomePilot(entity player)
 
 	player.SetBodyModelOverride($"mdl/humans/pilots/pilot_medium_reaper_m.rmdl" )
 	player.SetArmsModelOverride($"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
+}
+
+void function BecomeBlisk(entity player)
+{
+	if(!IsValid(player))
+		return
+
+	player.SetBodyModelOverride($"mdl/humans/pilots/imc_hero_blisk.rmdl" )
+	//player.SetArmsModelOverride($"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
 }
 
 void function BecomeLoba(entity player)
