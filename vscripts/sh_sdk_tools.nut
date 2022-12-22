@@ -7,6 +7,10 @@ global function BecomeRampart
 global function BecomeRevenant
 global function BecomePilot
 global function BecomeBlisk
+global function TestAnimation
+
+global const asset TEST_MODEL = $"mdl/Humans/class/medium/combat_dummie_medium.rmdl"
+global const string TEST_ANIM= "Walldeath"
 
 //////////////////////////
 
@@ -248,5 +252,24 @@ void function DEV_ToggleAkimboWeaponAlt(entity player)
 		player.TakeNormalWeaponByIndex( dualslot )
 		else
 		player.GiveWeapon( otherWeapon.GetWeaponClassName(), dualslot, otherWeapon.GetMods() )
+}
+
+void function TestAnimation( asset model = TEST_MODEL, string animation = TEST_ANIM )
+{
+    entity player = gp()[0]
+    entity prop = CreatePropDynamic(model, player.GetOrigin(), <0,0,0> )
+
+    thread PlayAnim( prop, animation )
+
+    thread function( entity prop ) : (animation)
+    {
+        if( IsValid( prop ) )
+        {
+            wait prop.GetSequenceDuration( animation )
+
+            if( IsValid(prop) )
+                prop.Destroy()
+        }
+    }( prop )
 }
 #endif
