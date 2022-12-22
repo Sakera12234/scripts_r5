@@ -256,7 +256,7 @@ void function DEV_ToggleAkimboWeaponAlt(entity player)
 
 void function TestAnimation( asset model = TEST_MODEL, string animation = TEST_ANIM )
 {
-    entity player = GetPlayerArray()
+    entity player = gp()[0]
     entity prop = CreatePropDynamic(model, player.GetOrigin(), <0,0,0> )
 
 	wait 5
