@@ -267,6 +267,7 @@ void function TestAnimation( asset model = TEST_MODEL, string animation = TEST_A
         if( IsValid( prop ) )
         {
             wait prop.GetSequenceDuration( animation )
+			wait 3
 
             if( IsValid(prop) )
                 prop.Destroy()
