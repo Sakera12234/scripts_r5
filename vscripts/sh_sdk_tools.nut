@@ -7,6 +7,7 @@ global function BecomeRampart
 global function BecomeRevenant
 global function BecomePilot
 global function BecomeBlisk
+global function BecomeAsh
 global function TestAnimation
 
 global const asset TEST_MODEL = $"mdl/Humans/class/medium/combat_dummie_medium.rmdl"
@@ -88,6 +89,8 @@ void function Precache_Sdk_Models()
 	PrecacheModel( $"mdl/props/rampart_gum/rampart_bubblegum.rmdl" )
 	PrecacheModel( $"mdl/props/loba_loot_stick/loba_loot_stick.rmdl" )
 	PrecacheModel( $"mdl/humans/pilots/imc_hero_blisk.rmdl" )
+	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_w.rmdl" )
+	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_v.rmdl" )
 }
 
 void function Precache_Lobby_Models()
@@ -182,6 +185,15 @@ void function BecomeBlisk(entity player)
 
 	player.SetBodyModelOverride($"mdl/humans/pilots/imc_hero_blisk.rmdl" )
 	//player.SetArmsModelOverride($"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
+}
+
+void function BecomeAsh(entity player)
+{
+	if(!IsValid(player))
+		return
+
+	player.SetBodyModelOverride($"mdl/techart/mshop/characters/legends/ash/ash_base_w.rmdl" )
+	player.SetArmsModelOverride($"mdl/techart/mshop/characters/legends/ash/ash_base_v.rmdl" )
 }
 
 void function BecomeLoba(entity player)

@@ -804,6 +804,7 @@ void function SetupPrototypesDevMenu()
 	SetupDevCommand( "Change Player Model - Revenant", "script BecomeRevenant(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Loba", "script BecomeLoba(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Rampart", "script BecomeRampart(gp()[0])" )
+	SetupDevCommand( "Change Player Model - Ash", "script BecomeAsh(gp()[0])" )
 	// SetupDevCommand( "Change to Shadow Squad", "script Dev_ShadowFormEnable( GP() )" )
 }
 
