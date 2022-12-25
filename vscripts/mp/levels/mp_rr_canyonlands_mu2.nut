@@ -2,7 +2,7 @@ global function CodeCallback_MapInit
 
 void function CodeCallback_MapInit()
 {
-	thread S5_Quest()
+	//thread S5_Quest()
 	Canyonlands_MU1_CommonMapInit()
 		
 	PrecacheModel( $"mdl/props/quest_s05/object.rmdl" )
