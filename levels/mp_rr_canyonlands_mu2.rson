@@ -11,8 +11,8 @@ Scripts:
 When: "SERVER"
 Scripts:
 [
-	//mp/levels/mp_rr_canyonlands_mu1.nut
-	//mp/levels/mp_rr_canyonlands_mu1_common.nut
+	mp/levels/mp_rr_canyonlands_mu2.nut
+	mp/levels/mp_rr_canyonlands_mu1_common.nut
 	mp/levels/survival_preprocess/mp_rr_canyonlands_mu1.nut
 ]
 When: "CLIENT"

@@ -140,7 +140,6 @@ struct{
 void function Canyonlands_MU1_CommonMapInit()
 {
 	Canyonlands_MapInit_Common()
-	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu1.rpak" )
 
 	AddCallback_EntitiesDidLoad( MU1_EntitiesDidLoad )
 	AddCallback_GameStateEnter( eGameState.Playing, Leviathan_OptimizeUpperBoneFollowersWhenAllPlayersHaveLanded )
@@ -151,6 +150,11 @@ void function Canyonlands_MU1_CommonMapInit()
 
 	thread InitWraithAudioLog()
 	thread PlaceOctaneTownTakeoverLoot()
+	
+	if ( GetMapName() == "mp_rr_canyonlands_mu2" )
+		return
+	else
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu1.rpak" )
 }
 
 void function MU1_EntitiesDidLoad()
@@ -274,7 +278,9 @@ void function CreateOctaneTTRingOfFireStatsTrigger()
 
 void function LeviathansInit()
 {
-
+	if ( GetMapName() == "mp_rr_canyonlands_mu2" )
+		return
+	
 	file.leviathan_zone_6 = GetEntByScriptName( "leviathan_zone_6" )
 	file.leviathan_zone_9 = GetEntByScriptName( "leviathan_zone_9" )
 
