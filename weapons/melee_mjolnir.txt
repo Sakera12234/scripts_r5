@@ -16,7 +16,7 @@ WeaponData
 	
 	// Models
 	"viewmodel"   									"mdl/Weapons/mjolnir/ptpov_mjolnir.rmdl"
-	"playermodel" 									"mdl/weapons/empty_handed/w_empty_handed_human.rmdl"
+	"playermodel" 									"mdl/Weapons/mjolnir/w_mjolnir.rmdl"
 
 	//"OnWeaponActivate"							"OnWeaponActivate_melee_bloodhound_axe"
 	//"OnWeaponDeactivate"						"OnWeaponDeactivate_melee_bloodhound_axe"

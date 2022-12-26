@@ -16,11 +16,9 @@ WeaponData
 
 	// Models
 	"viewmodel"   									"mdl/Weapons/mjolnir/ptpov_mjolnir.rmdl"
-	"playermodel" 									"mdl/weapons/empty_handed/w_empty_handed_human.rmdl"
+	"playermodel" 									"mdl/Weapons/mjolnir/w_mjolnir.rmdl"
 
-	"holster_type"									"pistol"
-	"holster_offset"						    	"2 0 2"
-	"holster_angles_offset"						    "115 -10 -10"  // "pitch roll yaw"
+	"viewmodel_offset_hip"							"0 2 0"
 
 	"is_heirloom"									"1"
 	
