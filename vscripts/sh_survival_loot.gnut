@@ -304,11 +304,13 @@ global enum eAttachmentTag
 	LAUNCHER
 	ALL
 	BARREL
+	MARKSMAN
 }
 
 global const table<string, int> weaponClassToTag = {
 	pistol    = eAttachmentTag.PISTOL
 	assault   = eAttachmentTag.ASSAULT
+	marksman  = eAttachmentTag.MARKSMAN
 	shotgun   = eAttachmentTag.SHOTGUN
 	lmg       = eAttachmentTag.LMG
 	sniper    = eAttachmentTag.SNIPER
@@ -3554,6 +3556,8 @@ string function GetStringForTagId( int tagId )
 			return "#TAG_SNIPER"
 		case eAttachmentTag.ASSAULT:
 			return "#TAG_ASSAULT"
+		case eAttachmentTag.MARKSMAN:
+			return "#TAG_MARKSMAN"
 		case eAttachmentTag.PISTOL:
 			return "#TAG_PISTOL"
 		case eAttachmentTag.ALL:

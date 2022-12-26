@@ -270,6 +270,7 @@ void function SetupDefaultDevCommandsMP()
 {
 	SetupDevMenu( "Abilities", SetDevMenu_Abilities )
 	SetupDevMenu( "Equip Weapon", SetDevMenu_Weapons )
+	SetupDevMenu( "Equip Retail Weapon", SetDevMenu_RetailWeapons )
 	SetupDevMenu( "Equip Titanfall Weapon", SetDevMenu_r2_Weapons )
 	SetupDevMenu( "TDM Weapon", SetDevMenu_TDMWeapons )
 	//SetupDevMenu( "MDLSpawner", SetDevMenu_ModelSpawner )
@@ -410,6 +411,10 @@ void function SetDevMenu_Abilities( var _ )
 void function SetDevMenu_Weapons( var _ )
 {
 	thread ChangeToThisMenu( SetupWeapons )
+}
+void function SetDevMenu_RetailWeapons( var _ )
+{
+	thread ChangeToThisMenu( SetupRetailWeapons )
 }
 void function SetDevMenu_r2_Weapons( var _ )
 {
@@ -820,11 +825,11 @@ void function SetDevMenu_npc( var _ )
 
 void function SetupHeirloomsDevMenu()
 {
-	SetupDevCommand( "Dataknife Kunai", "script thread SetupHeirloom(true)" )
-	SetupDevCommand( "Boxing Ring Gloves", "script thread SetupHeirloom(false,true)" )
-	SetupDevCommand( "Bolo Sword", "script thread SetupHeirloom()" )
-	SetupDevCommand( "Kral's Mjolnir", "script thread SetupHeirloom(false,false,false,true)" )
-	SetupDevCommand( "Combat Katana", "script thread SetupHeirloom(false,false,true)" )
+	SetupDevCommand( "Dataknife Kunai", "giveheirloom 1" )
+	SetupDevCommand( "Boxing Ring Gloves", "giveheirloom 2" )
+	SetupDevCommand( "Bolo Sword", "giveheirloom 3" )
+	SetupDevCommand( "Kral's Mjolnir", "giveheirloom 4" )
+	SetupDevCommand( "Combat Katana", "giveheirloom 5" )
 }
 
 void function RunCodeDevCommandByAlias( string alias )

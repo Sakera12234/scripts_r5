@@ -45,6 +45,7 @@ void function Precache_Sdk_Weapons()
 	PrecacheWeapon( $"mp_weapon_volt_smg" )
 	PrecacheWeapon( $"mp_weapon_car" )
 	PrecacheWeapon( $"mp_weapon_rspn101_og" )
+	PrecacheWeapon( $"mp_weapon_3030" )
 	//////////////////////////////////////////////////
 	PrecacheWeapon( $"mp_weapon_defender_sustained" )
 	PrecacheWeapon( $"weapon_cubemap" )
@@ -70,12 +71,11 @@ void function Precache_Sdk_Weapons()
 	PrecacheWeapon( $"mp_weapon_frag_drone" )
 	PrecacheWeapon( $"mp_weapon_clickweapon")
 	PrecacheWeapon( $"mp_weapon_mdlspawner" )
-	PrecacheWeapon( $"sp_weapon_arc_tool" )//TEMP
+	PrecacheWeapon( $"sp_weapon_arc_tool" )
 	PrecacheWeapon( $"mp_ability_3dash" )
 	PrecacheWeapon( $"mp_weapon_spectre_spawner" )
 	PrecacheWeapon( $"mp_weapon_super_spectre" )
-	//PrecacheWeapon( $"mp_weapon_3030" )//Disabled til we get original models
-	//PrecacheWeapon( $"mp_weapon_dragon_lmg" )
+	//PrecacheWeapon( $"mp_weapon_dragon_lmg" )//Disabled til we get original models
 }
 
 void function Precache_Sdk_Models()

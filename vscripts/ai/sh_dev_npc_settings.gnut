@@ -6,6 +6,7 @@ global function SetupSurvivalLoot
 global function SetupSurvivalIncapShieldBot
 global function SetupAbilities
 global function SetupWeapons
+global function SetupRetailWeapons
 global function SetupR2Weapons
 global function SetupNPCDevMenu
 
@@ -97,6 +98,9 @@ void function SetupWeapons()
 	SetupDevCommand( "Rifle: Havoc", "give mp_weapon_energy_ar" )
 	SetupDevCommand( "Rifle: Hemlok", "give mp_weapon_hemlok" )
 	SetupDevCommand( "Rifle: R-301", "give mp_weapon_rspn101" )
+	
+	// Marksman
+	SetupDevCommand( "Rifle: 30-30 Repeater", "give mp_weapon_3030" )
 
 	// SMGs
 	SetupDevCommand( "SMG: Alternator", "give mp_weapon_alternator_smg" )
@@ -137,6 +141,56 @@ void function SetupWeapons()
 	SetupDevCommand( "Dev: Sheila", "give mp_weapon_mobile_hmg" )
 	SetupDevCommand( "Dev: Throwing Knife", "give mp_weapon_throwingknife" )
 	SetupDevCommand( "Dev: Dev Cubemap ", "give weapon_cubemap" )
+	#endif
+}
+
+void function SetupRetailWeapons()
+{
+	#if UI
+	// Rifles
+	SetupDevCommand( "Rifle: Flatline", "give mp_weapon_vinson_retail" )
+	SetupDevCommand( "Rifle: Havoc", "give mp_weapon_energy_ar_retail" )
+	SetupDevCommand( "Rifle: Hemlok", "give mp_weapon_hemlok_retail" )
+	SetupDevCommand( "Rifle: R-301", "give mp_weapon_rspn101_retail" )
+	
+	// Marksman
+	SetupDevCommand( "Marksman: 30-30 Repeater", "give mp_weapon_3030" )
+	SetupDevCommand( "Marksman: G7 Scout", "give mp_weapon_g2_retail" )
+	SetupDevCommand( "Marksman: Triple Take", "give mp_weapon_doubletake_retail" )
+
+	// SMGs
+	SetupDevCommand( "SMG: Alternator", "give mp_weapon_alternator_smg_retail" )
+	SetupDevCommand( "SMG: Prowler", "give mp_weapon_pdw_retail" )
+	SetupDevCommand( "SMG: R-99", "give mp_weapon_r97_retail" )
+	SetupDevCommand( "SMG: Volt SMG", "give mp_weapon_volt_smg" )
+
+	// LMGs
+	SetupDevCommand( "LMG: Devotion", "give mp_weapon_esaw_retail" )
+	SetupDevCommand( "LMG: L-Star", "give mp_weapon_lstar_retail" )
+	SetupDevCommand( "LMG: Spitfire", "give mp_weapon_lmg_retail" )
+	SetupDevCommand( "LMG: Rampage", "give mp_weapon_dragon" )
+
+	// Snipers
+	SetupDevCommand( "Sniper: Charge Rifle", "give mp_weapon_defender_retail" )
+	SetupDevCommand( "Sniper: Kraber", "give mp_weapon_sniper_retail" )
+	SetupDevCommand( "Sniper: Longbow", "give mp_weapon_dmr_retail" )
+	SetupDevCommand( "Sniper: Sentinel", "give mp_weapon_sentinel" )
+
+	// Shotguns
+	SetupDevCommand( "Shotgun: EVA-8 Auto", "give mp_weapon_shotgun_retail" )
+	SetupDevCommand( "Shotgun: Mastiff", "give mp_weapon_mastiff_retail" )
+	SetupDevCommand( "Shotgun: Mozambique", "give mp_weapon_shotgun_pistol_retail" )
+	SetupDevCommand( "Shotgun: Peacekeeper", "give mp_weapon_energy_shotgun_retail" )
+
+	// Pistols
+	SetupDevCommand( "Pistol: P2020", "give mp_weapon_semipistol_retail" )
+	SetupDevCommand( "Pistol: RE-45", "give mp_weapon_autopistol_retail" )
+	SetupDevCommand( "Pistol: Wingman", "give mp_weapon_wingman_retail" )
+	
+	// Grenades
+	SetupDevCommand( "Grenade: Arc Star", "give mp_weapon_grenade_emp_retail" )
+	SetupDevCommand( "Grenade: Frag", "give mp_weapon_frag_grenade_retail" )
+	SetupDevCommand( "Grenade: Thermite", "give mp_weapon_thermite_grenade_retail" )
 	#endif
 }
 

@@ -1061,6 +1061,7 @@ bool function HasWeaponForTag( entity player, int tagId )
 			case eAttachmentTag.LMG:
 			case eAttachmentTag.SNIPER:
 			case eAttachmentTag.SMG:
+			case eAttachmentTag.MARKSMAN:
 			case eAttachmentTag.LAUNCHER:
 				if ( weaponClassToTag[weaponData.lootTags[0]] == tagId )
 					return true

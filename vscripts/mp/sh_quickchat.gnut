@@ -154,6 +154,7 @@ void function RegisterCustomComs()
 	RegisterCustomCom( eCommsAction.PING_WEAPON_SENTINEL,      "ping_foundSentinel")
 	RegisterCustomCom( eCommsAction.PING_WEAPON_THROWINGKNIFE, "ping_foundWeapon")
 	RegisterCustomCom( eCommsAction.PING_WEAPON_CAR,           "ping_foundCarSmg")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_3030,          "ping_found3030")
 
     // npcs
 

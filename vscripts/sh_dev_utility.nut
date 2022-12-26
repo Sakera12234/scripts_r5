@@ -29,6 +29,7 @@ void function ShDevUtility_Init()
 	#if SERVER
 		AddClientCommandCallback( "respawn", ClientCommand_Respawn )
 		AddClientCommandCallback( "set_respawn_override", ClientCommand_SetRespawnOverride )
+		AddClientCommandCallback( "giveheirloom", ClientCommand_GiveHeirloom )
 	#endif
 
 	#if CLIENT
@@ -39,6 +40,73 @@ void function ShDevUtility_Init()
 #endif
 
 #if SERVER
+bool function ClientCommand_GiveHeirloom( entity commandPlayer, array<string> argList )
+{
+	if ( !GetConVarInt( "sv_cheats" ) || !IsValid( commandPlayer ))
+		return true
+
+	if ( argList.len() == 0 )
+	{
+		Dev_PrintMessage( commandPlayer, "Invalid usage of giveheirloom", "Please pass an heirloom index example : 'giveheirloom 0-4'" )
+		return false
+	}
+
+    commandPlayer.TakeOffhandWeapon( OFFHAND_MELEE )
+    commandPlayer.TakeNormalWeaponByIndexNow( WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+
+    int selected = int(argList[0])
+
+    string primaryclass = "mp_weapon_melee_survival"
+    string meleeclass = "melee_pilot_emptyhanded"
+
+    switch (selected)
+    {
+        case 0:
+        {
+            primaryclass = "mp_weapon_dataknife_kunai_primary"
+            meleeclass = "melee_dataknife_kunai"
+            break
+        }
+		case 1:
+		{
+			primaryclass = "mp_weapon_bolo_sword_primary"
+			meleeclass = "melee_bolo_sword"
+			break
+		}
+        case 2:
+        {
+            primaryclass = "mp_weapon_melee_boxing_ring"
+            meleeclass = "melee_boxing_ring"
+            break
+        }
+		case 3:
+		{
+			primaryclass = "mp_weapon_combat_katana_primary"
+			meleeclass = "melee_combat_katana"
+			break
+		}
+		case 4:
+		{
+			primaryclass = "mp_weapon_mjolnir_primary"
+			meleeclass = "melee_mjolnir"
+			break
+		}
+
+        default:
+            break
+    }
+
+    commandPlayer.GiveWeapon( primaryclass, WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+    commandPlayer.GiveOffhandWeapon( meleeclass, OFFHAND_MELEE )
+
+    EmitSoundOnEntityOnlyToPlayer( commandPlayer, commandPlayer, "LootVault_Access" )
+
+    commandPlayer.SetActiveWeaponBySlot( eActiveInventorySlot.mainHand, WEAPON_INVENTORY_SLOT_PRIMARY_2)
+    //Dev_PrintMessage( player, "R5RELOADED CUSTOM HEIRLOOM", "Ported by @KralRindo. Powered by REPAK", 4, "LootCeremony_LootHologram_Appear_Heirloom" )
+
+    return true
+}
+
 void function SetupHeirloom( bool dk = false, bool br = false, bool kt = false, bool mj = false)
 {
 	{
@@ -633,6 +701,7 @@ bool function ClientCommand_SetRespawnOverride( entity commandPlayer, array<stri
 		Dev_PrintMessage( commandPlayer, "Invalid usage of set_respawn_override", "Please pass one of: off, allow, deny, bots" )
 		return false
 	}
+
 	devRespawnState.behaviourOverride = al[0]
 	foreach( entity player in GetPlayerArray() )
 	{

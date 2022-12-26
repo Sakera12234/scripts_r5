@@ -374,6 +374,8 @@ int function EmptyCommsAction_AttachmentForParent( string equipmentSlot, string 
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_SIGHT_SMG
 			else if ( weaponData.lootTags.contains( "assault" ) )
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_SIGHT_ASSAULT
+			else if ( weaponData.lootTags.contains( "marksman" ) )
+				return eCommsAction.INVENTORY_NEED_ATTACHMENT_SIGHT_MARKSMAN
 			else if ( weaponData.lootTags.contains( "lmg" ) )
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_SIGHT_LMG
 			else if ( weaponData.lootTags.contains( "shotgun" ) )
@@ -393,6 +395,8 @@ int function EmptyCommsAction_AttachmentForParent( string equipmentSlot, string 
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_GRIP_SMG
 			else if ( weaponData.lootTags.contains( "assault" ) )
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_GRIP_ASSAULT
+			else if ( weaponData.lootTags.contains( "marksman" ) )
+				return eCommsAction.INVENTORY_NEED_ATTACHMENT_GRIP_MARKSMAN
 			else if ( weaponData.lootTags.contains( "lmg" ) )
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_GRIP_LMG
 			else if ( weaponData.lootTags.contains( "shotgun" ) )
@@ -410,6 +414,8 @@ int function EmptyCommsAction_AttachmentForParent( string equipmentSlot, string 
 			else if ( weaponData.lootTags.contains( "smg" ) )
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_BARREL_SMG
 			else if ( weaponData.lootTags.contains( "assault" ) )
+				return eCommsAction.INVENTORY_NEED_ATTACHMENT_BARREL_ASSAULT
+			else if ( weaponData.lootTags.contains( "marksman" ) )
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_BARREL_ASSAULT
 			else if ( weaponData.lootTags.contains( "lmg" ) )
 				return eCommsAction.INVENTORY_NEED_ATTACHMENT_BARREL_LMG
