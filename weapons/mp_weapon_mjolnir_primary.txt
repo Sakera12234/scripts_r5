@@ -26,7 +26,7 @@ WeaponData
 	"dof_nearDepthEnd"							    "6.4"
 
 	// Behavior
-	"deployfirst_time"								"2.3"
+	"deployfirst_time"								"4.3"
 	
 		// Animation
 	"activitymodifier3P"							"axe"

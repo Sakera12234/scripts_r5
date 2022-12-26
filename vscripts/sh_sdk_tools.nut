@@ -169,6 +169,7 @@ void function Precache_R5_Weapons()
 	PrecacheWeapon( $"mp_weapon_grenade_defensive_bombardment" )
 	PrecacheWeapon( $"melee_shadowsquad_hands" )
 	PrecacheWeapon( $"mp_weapon_shadow_squad_hands_primary" )
+	PrecacheParticleSystem( $"P_sparks_beacon_dish" )
 }
 
 void function BecomePilot(entity player)
