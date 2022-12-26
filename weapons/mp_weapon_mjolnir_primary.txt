@@ -1,0 +1,35 @@
+#base "mp_weapon_melee_survival.txt"
+
+WeaponData
+{
+	// General
+	"printname"   									"MELEE_SKIN_KRALS_MJOLNIR_NAME"
+	"shortprintname"								"MELEE_SKIN_KRALS_MJOLNIR_NAME"
+	"description" 									"MELEE_SKIN_KRALS_MJOLNIR_NAME"
+	"longdesc"										"MELEE_SKIN_KRALS_MJOLNIR_NAME"
+
+	"weapon_type_flags"								"WPT_MELEE"
+	
+	// UI/HUD
+	"menu_icon"										"rui/menu/dpad_comms/emoji/fist"
+	"hud_icon"										"rui/menu/dpad_comms/emoji/fist"
+
+	// Models
+	"viewmodel"   									"mdl/Weapons/mjolnir/ptpov_mjolnir.rmdl"
+	"playermodel" 									"mdl/weapons/empty_handed/w_empty_handed_human.rmdl"
+
+	"holster_type"									"pistol"
+	"holster_offset"						    	"2 0 2"
+	"holster_angles_offset"						    "115 -10 -10"  // "pitch roll yaw"
+
+	"is_heirloom"									"1"
+	
+	"dof_nearDepthStart"							"0.5"
+	"dof_nearDepthEnd"							    "6.4"
+
+	// Behavior
+	"deployfirst_time"								"2.3"
+	
+		// Animation
+	"activitymodifier3P"							"axe"
+}

@@ -39,7 +39,7 @@ void function ShDevUtility_Init()
 #endif
 
 #if SERVER
-void function SetupHeirloom( bool dk = false, bool br = false, bool kt = false)
+void function SetupHeirloom( bool dk = false, bool br = false, bool kt = false, bool mj = false)
 {
 	{
 		entity player = gp()[0]
@@ -58,6 +58,9 @@ void function SetupHeirloom( bool dk = false, bool br = false, bool kt = false)
 		else if(kt)
 		{	player.GiveWeapon( "mp_weapon_combat_katana_primary", WEAPON_INVENTORY_SLOT_PRIMARY_2 )
 			player.GiveOffhandWeapon( "melee_combat_katana", OFFHAND_MELEE )	}
+		else if(mj)
+		{	player.GiveWeapon( "mp_weapon_mjolnir_primary", WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+			player.GiveOffhandWeapon( "melee_mjolnir", OFFHAND_MELEE )	}
 		else
 		{	player.GiveWeapon( "mp_weapon_bolo_sword_primary", WEAPON_INVENTORY_SLOT_PRIMARY_2 )
 			player.GiveOffhandWeapon( "melee_bolo_sword", OFFHAND_MELEE )	}

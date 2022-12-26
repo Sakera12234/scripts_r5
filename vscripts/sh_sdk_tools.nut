@@ -27,6 +27,8 @@ void function Precache_Sdk_Weapons()
 {
 	PrecacheWeapon( $"melee_bolo_sword" )
 	PrecacheWeapon( $"mp_weapon_bolo_sword_primary" )
+	PrecacheWeapon( $"melee_mjolnir" )
+	PrecacheWeapon( $"mp_weapon_mjolnir_primary" )
 	PrecacheWeapon( $"melee_combat_katana" )
 	PrecacheWeapon( $"mp_weapon_combat_katana_primary" )
 	PrecacheWeapon( $"mp_weapon_melee_boxing_ring")

@@ -136,6 +136,9 @@ global enum eDamageSourceId
 	
 	melee_bolo_sword
 	mp_weapon_bolo_sword_primary
+	
+	melee_mjolnir
+	mp_weapon_mjolnir_primary
 
 	melee_bloodhound_axe
 	mp_weapon_bloodhound_axe_primary
@@ -599,6 +602,8 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.mp_weapon_shadow_squad_hands_primary ] 	= "#DEATH_MELEE_SHADOWSQUAD_HANDS",
 		[ eDamageSourceId.melee_bolo_sword ] 						= "Bolo Sword Melee",
 		[ eDamageSourceId.mp_weapon_bolo_sword_primary ] 			= "Bolo Sword Melee",
+		[ eDamageSourceId.melee_mjolnir ] 							= "Kral's Mjolnir Melee",
+		[ eDamageSourceId.mp_weapon_mjolnir_primary ] 				= "Kral's Mjolnir Melee",
 		[ eDamageSourceId.melee_boxing_ring ] 						= "Honorable Fisticuffs",
 		[ eDamageSourceId.mp_weapon_melee_boxing_ring ] 			= "Honorable Fisticuffs",
 		[ eDamageSourceId.melee_dataknife_kunai ] 					= "Dataknife Kunai",
