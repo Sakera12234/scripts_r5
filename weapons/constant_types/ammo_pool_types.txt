@@ -10,6 +10,7 @@
 	shotgun
 	sniper
 	explosive
+	arrows
 
 	//_count
 /////////////////////////////

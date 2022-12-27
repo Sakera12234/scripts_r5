@@ -150,7 +150,6 @@ WeaponData
     "ammo_default_total"							"220"
     "ammo_stockpile_max"							"180"
     "uses_ammo_pool"								"0"
-    "ammo_no_remove_from_stockpile"            		"1"
 
     "damage_near_value"   							"28"
     "damage_far_value"								"28"
@@ -412,11 +411,11 @@ WeaponData
 
     "sway_min_roll_zoomed"   						"-1"
     "sway_max_roll_zoomed"   						"1"
-    "sway_turn_left_rotate_roll_zoomed"   			"-1"
-    "sway_turn_right_rotate_roll_zoomed"  			"1"
+    //"sway_turn_left_rotate_roll_zoomed"   			"-1"
+    //"sway_turn_right_rotate_roll_zoomed"  			"1"
 
-    "sway_move_right_rotate_roll_zoomed" 			"0.2"
-    "sway_move_left_rotate_roll_zoomed"  			"-0.2"
+    //"sway_move_right_rotate_roll_zoomed" 			"0.2"
+    //"sway_move_left_rotate_roll_zoomed"  			"-0.2"
 
     "sway_min_pitch_zoomed"  						"-0.015"
     "sway_max_pitch_zoomed"  						"0.015"

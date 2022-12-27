@@ -22,6 +22,8 @@
 	"minimap_reveal_distance"					"32000"
 	"leveled_pickup"							"1"
 	"thirdperson_fire_from_mount_point"			"1"
+	
+	"ammo_pool_type"							"arrows"
 
     "holster_type"                              "rifle"
     "holster_offset"                            "8 0 0"
@@ -451,14 +453,14 @@
 	// Bodygroups
 	//
 
-    // Bodygroup - Clip
-    "clip_bodygroup"                            "arrow"
-    "clip_bodygroup_index_shown"            "0"
-    "clip_bodygroup_index_hidden"            "1"
-    "clip_bodygroup_show_for_milestone_0"    "1"
-    "clip_bodygroup_show_for_milestone_1"    "0"
-    "clip_bodygroup_show_for_milestone_2"    "1"
-    "clip_bodygroup_show_for_milestone_3"    "1"
+	// Bodygroup - Clip
+	"clip_bodygroup"                            "at_rifle_magazine"
+	"clip_bodygroup_index_shown"                "0"
+	"clip_bodygroup_index_hidden"               "1"
+	"clip_bodygroup_show_for_milestone_0"       "1"
+	"clip_bodygroup_show_for_milestone_1"       "0"
+	"clip_bodygroup_show_for_milestone_2"       "1"
+	"clip_bodygroup_show_for_milestone_3"       "1"
 
     "bodygroup1_name"	"sight_front"
     "bodygroup1_set"	"1"

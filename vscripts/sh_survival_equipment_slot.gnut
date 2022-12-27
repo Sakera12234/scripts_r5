@@ -474,6 +474,8 @@ int function FilledCommsAction_Weapon( string equipmentSlotRef, string itemRef )
 			return eCommsAction.INVENTORY_NEED_AMMO_SNIPER
 		case "explosive":
 			return eCommsAction.INVENTORY_NEED_AMMO_EXPLOSIVE
+		case "arrows":
+			return eCommsAction.INVENTORY_NEED_AMMO_ARROWS
 	}
 
 	Warning( "GetCommsActionForEquipmentSlot() - Unhandled ammo type '" + lootData.ammoType + "'" )
