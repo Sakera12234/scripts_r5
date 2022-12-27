@@ -164,7 +164,7 @@ void function SetupRetailWeapons()
 	SetupDevCommand( "LMG: Devotion", "give mp_weapon_esaw_retail" )
 	SetupDevCommand( "LMG: L-Star", "give mp_weapon_lstar_retail" )
 	SetupDevCommand( "LMG: Spitfire", "give mp_weapon_lmg_retail" )
-	SetupDevCommand( "LMG: Rampage", "give mp_weapon_dragon" )
+	SetupDevCommand( "LMG: Rampage", "give mp_weapon_dragon_lmg" )
 
 	// Snipers
 	SetupDevCommand( "Sniper: Charge Rifle", "give mp_weapon_defender_retail" )
