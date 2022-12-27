@@ -98,6 +98,7 @@ global enum eDamageSourceId
 	mp_weapon_car
 	mp_weapon_3030
 	mp_weapon_dragon_lmg
+	mp_weapon_bow
 	mp_weapon_throwingknife
 	mp_weapon_softball
 	mp_weapon_epg
@@ -462,6 +463,9 @@ void function DamageTypes_Init()
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_smr] 				<- $"r2_ui/menus/loadout_icons/anti_titan/at_sidewinder"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_wingman_n]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_wingman_elite"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_mobile_hmg]		<- $"rui/weapon_icons/r5/weapon_rampart_turret"
+	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_dragon_lmg]		<- $"rui/weapon_icons/r5/weapon_dragon"
+	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_3030]				<- $"rui/weapon_icons/r5/weapon_3030repeater"
+	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_bow]				<- $"rui/weapon_icons/r5/weapon_bow"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_smart_pistol]		<- $"rui/weapon_icons/r5/weapon_smart_pistol"
 	file.damageSourceIDToImage[eDamageSourceId.sp_weapon_arc_tool]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
 
@@ -587,6 +591,7 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.mp_weapon_car ] 							= "Car SMG",
 		[ eDamageSourceId.mp_weapon_3030 ] 							= "30-30 Repeater",
 		[ eDamageSourceId.mp_weapon_dragon_lmg ] 					= "Rampage LMG",
+		[ eDamageSourceId.mp_weapon_bow ] 							= "Bocek Bow",
 		[ eDamageSourceId.mp_ability_octane_stim ] 					= "#WPN_OCTANE_STIM_SHORT",
 		[ eDamageSourceId.mp_weapon_tesla_trap ] 					= "#DEATH_TESLA_TRAP",
 		[ eDamageSourceId.mp_ability_crypto_drone_emp ]				= "#WPN_DRONE_EMP",
