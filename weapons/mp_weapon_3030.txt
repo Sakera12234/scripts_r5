@@ -1,7 +1,5 @@
-#base "_base_sniper.txt"
-#base "_base_sentinel_optics.txt"
+#base "_base_marksman_weapon.txt"
 #base "_base_mags_heavy.txt"
-#base "_base_stocks_sniper.txt"
 
 "WeaponData"
 {
@@ -36,7 +34,6 @@
 
 	// Script - Callbacks
 	"OnWeaponPrimaryAttack"                    "OnWeaponPrimaryAttack_weapon_sentinel"
-	"OnClientAnimEvent"						   "OnClientAnimEvent_weapon_basic_bolt"
 	"OnWeaponChargeLevelIncreased"                  "OnWeaponChargeLevelIncreased_weapon_doubletake"
 	"OnWeaponChargeBegin" 						    "EnergyChargeWeapon_OnWeaponChargeBegin"
 	"OnWeaponChargeEnd" 						    "OnWeaponChargeEnd_weapon_doubletake"
@@ -501,120 +498,63 @@
 
         optic_cq_hcog_classic
         {
-			"zoom_time_in"							"0.29"
-			"zoom_time_out"   						"0.25"
-
-			"anim_alt_idleAttack"                   "1"
-			"ads_fov_zoomfrac_start"                "0"
-			"ads_fov_zoomfrac_end"                  "1"
-			"viewmodel_offset_zoom_frac_start"      "0"
-			"viewmodel_offset_zoom_frac_end"        "0.5"
-
-			"bodygroup1_set"				"1"
             "bodygroup2_set"				"0"
-            "bodygroup4_set"				"1"
-
+            "bodygroup3_set"				"1"			
+            "custom_int_0"					"1"
 			"ui1_enable"					"0"
-			//"ui10_enable"					"1"
+			"ui10_enable"					"1"
 			"ui3_enable"					"0"
         }
 
         optic_cq_hcog_bruiser
         {
-			"zoom_time_in"							"0.29"
-			"zoom_time_out"   						"0.25"
-
-			"anim_alt_idleAttack"                   "1"
-			"ads_fov_zoomfrac_start"                "0.1"
-			"ads_fov_zoomfrac_end"                  "0.8"
-			"viewmodel_offset_zoom_frac_start"      "0.1"
-			"viewmodel_offset_zoom_frac_end"        "0.6"
-
-            "bodygroup2_set"				"1"
-            "bodygroup3_set"				"0"
+            "bodygroup2_set"				"0"
+            "bodygroup3_set"				"1"					
+            "custom_int_0"					"2"
 			"ui1_enable"					"0"
+			"ui11_enable"					"1"
 			"ui3_enable"					"0"
-
-			"ui7_enable"		"0"
         }
 
         optic_cq_holosight
         {
-			"zoom_time_in"							"0.29"
-			"zoom_time_out"   						"0.25"
+            "bodygroup2_set"				"0"
+            "bodygroup3_set"				"1"					
+            "custom_int_0"					"3"
+			"ui1_enable"					"0"
+			"ui12_enable"					"1"
+			"ui3_enable"					"0"
 
-			"anim_alt_idleAttack"                   "1"
-			"ads_fov_zoomfrac_start"                "0"
-			"ads_fov_zoomfrac_end"                  "0.65"
-			"viewmodel_offset_zoom_frac_start"      "0"
-			"viewmodel_offset_zoom_frac_end"        "0.65"
-
-            "bodygroup2_set"				"1"
-            "bodygroup3_set"				"1"
-			"ui1_enable"					"1"
-			"ui3_enable"					"1"
-
-			"ui8_enable"					"0"
         }
 
         optic_cq_holosight_variable
         {
-			"zoom_time_in"							"0.29"
-			"zoom_time_out"   						"0.25"
-
-			"anim_alt_idleAttack"                   "1"
-			"ads_fov_zoomfrac_start"                "0.1"
-			"ads_fov_zoomfrac_end"                  "0.75"
-			"viewmodel_offset_zoom_frac_start"      "0.1"
-			"viewmodel_offset_zoom_frac_end"        "0.75"
-
             "bodygroup2_set"				"0"
-            "bodygroup3_set"				"1"
+            "bodygroup3_set"				"1"					
+            "custom_int_0"					"4"
 			"ui1_enable"					"0"
-			//"ui13_enable"					"1"
+			"ui13_enable"					"1"
 			"ui3_enable"					"0"
-
-			"ui9_enable"		"0"
         }
 
         optic_ranged_hcog
         {
-			"zoom_time_in"							"0.34"
-			"zoom_time_out"   						"0.29"
-
-			"anim_alt_idleAttack"                   "1"
-			"ads_fov_zoomfrac_start"                "0.1"
-			"ads_fov_zoomfrac_end"                  "0.65"
-			"viewmodel_offset_zoom_frac_start"      "0.1"
-			"viewmodel_offset_zoom_frac_end"        "0.65"
-
             "bodygroup2_set"	            "0"
-            "bodygroup3_set"				"1"
+            "bodygroup3_set"				"1"					
             // Enable Ranged HCOG Hopup RUI
             "custom_int_0"		            "5"
-			//"ui14_enable"					"1"
+			"ui14_enable"					"1"
 			"ui3_enable"					"0"
-
-			"ui16_enable"		"0"
         }
 
         optic_ranged_aog_variable
         {
-			"zoom_time_in"  "0.36"
-			"zoom_time_out" "0.3"
-
-			"anim_alt_idleAttack"                   "1"
-			"ads_fov_zoomfrac_start"                "0.1"
-			"ads_fov_zoomfrac_end"                  "0.65"
-			"viewmodel_offset_zoom_frac_start"      "0.1"
-			"viewmodel_offset_zoom_frac_end"        "0.65"
-
             "bodygroup2_set"	            "0"
-            "bodygroup3_set"				"1"
+            "bodygroup3_set"				"1"					
             // Enable Ranged AOG Hopup RUI
             "custom_int_0"		            "6"
 			"ui1_enable"					"0"
-			//"ui15_enable"					"1"
+			"ui15_enable"					"1"
 			"ui3_enable"					"0"
         }
 	}
