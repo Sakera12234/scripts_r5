@@ -43,7 +43,7 @@ WeaponData
 
 	// Models
 	"viewmodel"   									"mdl/techart/mshop/weapons/class/lmg/dragon/dragon_base_v.rmdl"
-	"playermodel" 									"mdl/weapons/lmg_hemlok/w_lmg_hemlok.rmdl"
+	"playermodel" 									"mdl/techart/mshop/weapons/class/lmg/dragon/dragon_base_w.rmdl"
 	"holster_type"									"rifle"
 
 	"projectilemodel" 								"mdl/dev/empty_model.rmdl"
@@ -150,6 +150,7 @@ WeaponData
     "ammo_default_total"							"220"
     "ammo_stockpile_max"							"180"
     "uses_ammo_pool"								"0"
+    "ammo_no_remove_from_stockpile"            		"1"
 
     "damage_near_value"   							"28"
     "damage_far_value"								"28"
@@ -508,7 +509,7 @@ WeaponData
             "low_ammo_sound_name_3"                        "rampage_lmg_lowammo_shot3"
 
             "ui3_enable"		                            "0"
-            "ui4_enable"		                            "1"
+            "ui4_enable"		                            "0"
         }
 	    vkp
 	    {
@@ -631,7 +632,7 @@ WeaponData
 	"ui1_draw_cloaked"	"1"
 	UiData1
 	{
-		"ui"								"ui/spitfire_crosshair"
+		"ui"								"ui/r97_reticle"
 		"mesh"						"models/weapons/attachments/dragon_rui_upper"
 		Args
 		{
@@ -639,7 +640,7 @@ WeaponData
 		}
 	}
 
-	"ui2_enable"		"1"
+	"ui2_enable"		"0"
 	UiData2
 	{
 		"ui"								"ui/spitfire_ammo_counter"
@@ -652,7 +653,7 @@ WeaponData
 		}
 	}
 
-		"ui3_enable"		"1"
+		"ui3_enable"		"0"
     	UiData3
     	{
 		"ui"								"ui/spitfire_ammo_counter"

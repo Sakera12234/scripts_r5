@@ -1477,8 +1477,39 @@ WeaponSprings
         "ADS_roll_damping"				"18"
     }
 
+    bow
+    {
+        "hipfire_pitch_springConstant"	"90.0"
+        "hipfire_pitch_damping"			"15.0"
+        "hipfire_yaw_springConstant"	"70.0"
+        "hipfire_yaw_damping"			"15.0"
+        "hipfire_roll_springConstant"	"7500.0"
+        "hipfire_roll_damping"			"25.0"
 
+        "ADS_pitch_springConstant"		"155.0"
+        "ADS_pitch_damping"				"20.0"
+        "ADS_yaw_springConstant"		"100.0"
+        "ADS_yaw_damping"				"18.0"
+        "ADS_roll_springConstant"		"10000.0"
+        "ADS_roll_damping"				"27.0"
+    }
 
+    bow_shatter
+    {
+        "hipfire_pitch_springConstant"	"260.0"
+        "hipfire_pitch_damping"			"20.0"
+        "hipfire_yaw_springConstant"	"185.0"
+        "hipfire_yaw_damping"			"18.0"
+        "hipfire_roll_springConstant"	"7500.0"
+        "hipfire_roll_damping"			"25.0"
+
+        "ADS_pitch_springConstant"		"195.0"
+        "ADS_pitch_damping"				"20.0"
+        "ADS_yaw_springConstant"		"130.0"
+        "ADS_yaw_damping"				"18.0"
+        "ADS_roll_springConstant"		"10000.0"
+        "ADS_roll_damping"				"27.0"
+    }
 
 	launcher
 	{

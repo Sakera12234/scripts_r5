@@ -153,6 +153,7 @@ void function SetupRetailWeapons()
 	SetupDevCommand( "Marksman: 30-30 Repeater", "give mp_weapon_3030" )
 	SetupDevCommand( "Marksman: G7 Scout", "give mp_weapon_g2_retail" )
 	SetupDevCommand( "Marksman: Triple Take", "give mp_weapon_doubletake_retail" )
+	SetupDevCommand( "Marksman: Bocek Bow", "give mp_weapon_bow" )
 
 	// SMGs
 	SetupDevCommand( "SMG: Alternator", "give mp_weapon_alternator_smg_retail" )

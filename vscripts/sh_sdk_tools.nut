@@ -47,6 +47,7 @@ void function Precache_Sdk_Weapons()
 	PrecacheWeapon( $"mp_weapon_rspn101_og" )
 	PrecacheWeapon( $"mp_weapon_3030" )
 	PrecacheWeapon( $"mp_weapon_dragon_lmg" )
+	PrecacheWeapon( $"mp_weapon_bow" )
 	//////////////////////////////////////////////////
 	PrecacheWeapon( $"mp_weapon_defender_sustained" )
 	PrecacheWeapon( $"weapon_cubemap" )
