@@ -423,22 +423,6 @@ void function DEV_SpawnMarvinAtCrosshair(int team = 99)
 	DispatchSpawn( marvin )
 }
 
-void function DEV_SpawnPilotAtCrosshair(int team = 99)
-{
-	entity player = GetPlayerArray()[ 0 ]
-
-	vector origin = GetPlayerCrosshairOrigin( player )
-	vector angles = Vector( 0, 0, 0 )
-
-	entity pilot = CreateElitePilot( team, origin, angles )
-	
-	DispatchSpawn( pilot )
-	
-	array<string> weapons = ["npc_weapon_lstar", "npc_weapon_energy_shotgun", "npc_weapon_hemlok"] //We are giving them original firing range weapons, they are shooting better this way
-	string randomWeapon = weapons[RandomInt(weapons.len())]
-	pilot.GiveWeapon(randomWeapon, WEAPON_INVENTORY_SLOT_ANY)
-}
-
 void function DEV_SpawnSpectreAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
@@ -453,20 +437,6 @@ void function DEV_SpawnSpectreAtCrosshair(int team = 99)
 	//array<string> weapons = ["npc_weapon_lstar", "npc_weapon_energy_shotgun", "npc_weapon_hemlok"] //We are giving them original firing range weapons, they are shooting better this way
 	//string randomWeapon = weapons[RandomInt(weapons.len())]
 	spectre.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
-}
-
-void function DEV_SpawnSuperSpectreAtCrosshair(int team = 99)
-{
-	entity player = GetPlayerArray()[ 0 ]
-
-	vector origin = GetPlayerCrosshairOrigin( player )
-	vector angles = Vector( 0, 0, 0 )
-
-	entity spectre = CreateSuperSpectre( team, origin, angles )
-	
-	DispatchSpawn( spectre )
-	
-	spectre.GiveWeapon("mp_weapon_super_spectre", WEAPON_INVENTORY_SLOT_ANY)
 }
 
 void function DEV_SpawnStalkerAtCrosshair(int team = 99)
