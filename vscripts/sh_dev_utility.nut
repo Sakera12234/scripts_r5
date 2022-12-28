@@ -65,12 +65,14 @@ bool function ClientCommand_GiveHeirloom( entity commandPlayer, array<string> ar
         {
             primaryclass = "mp_weapon_dataknife_kunai_primary"
             meleeclass = "melee_dataknife_kunai"
+			Dev_PrintMessage( commandPlayer, "R5RELOADED CUSTOM HEIRLOOM", "Ported by @Zer0Bytes#4428 (Discord).", 4, "LootVault_Access" )
             break
         }
 		case 1:
 		{
 			primaryclass = "mp_weapon_bolo_sword_primary"
 			meleeclass = "melee_bolo_sword"
+			Dev_PrintMessage( commandPlayer, "R5RELOADED CUSTOM HEIRLOOM", "Ported by @KralRindo (Twitter).", 4, "LootVault_Access" )
 			break
 		}
         case 2:
@@ -83,12 +85,14 @@ bool function ClientCommand_GiveHeirloom( entity commandPlayer, array<string> ar
 		{
 			primaryclass = "mp_weapon_combat_katana_primary"
 			meleeclass = "melee_combat_katana"
+			Dev_PrintMessage( commandPlayer, "R5RELOADED CUSTOM HEIRLOOM", "Ported by @Zer0Bytes#4428 (Discord).", 4, "LootVault_Access" )
 			break
 		}
 		case 4:
 		{
 			primaryclass = "mp_weapon_mjolnir_primary"
 			meleeclass = "melee_mjolnir"
+			Dev_PrintMessage( commandPlayer, "R5RELOADED CUSTOM HEIRLOOM", "Ported by @KralRindo (Twitter).", 4, "LootVault_Access" )
 			break
 		}
 
@@ -99,10 +103,9 @@ bool function ClientCommand_GiveHeirloom( entity commandPlayer, array<string> ar
     commandPlayer.GiveWeapon( primaryclass, WEAPON_INVENTORY_SLOT_PRIMARY_2 )
     commandPlayer.GiveOffhandWeapon( meleeclass, OFFHAND_MELEE )
 
-    EmitSoundOnEntityOnlyToPlayer( commandPlayer, commandPlayer, "LootVault_Access" )
+    //EmitSoundOnEntityOnlyToPlayer( commandPlayer, commandPlayer, "LootVault_Access" )
 
     commandPlayer.SetActiveWeaponBySlot( eActiveInventorySlot.mainHand, WEAPON_INVENTORY_SLOT_PRIMARY_2)
-    //Dev_PrintMessage( player, "R5RELOADED CUSTOM HEIRLOOM", "Ported by @KralRindo. Powered by REPAK", 4, "LootCeremony_LootHologram_Appear_Heirloom" )
 
     return true
 }

@@ -825,11 +825,10 @@ void function SetDevMenu_npc( var _ )
 
 void function SetupHeirloomsDevMenu()
 {
-	SetupDevCommand( "Dataknife Kunai", "giveheirloom 1" )
-	SetupDevCommand( "Boxing Ring Gloves", "giveheirloom 2" )
-	SetupDevCommand( "Bolo Sword", "giveheirloom 3" )
+	SetupDevCommand( "Dataknife Kunai", "giveheirloom 0" )
+	SetupDevCommand( "Bolo Sword", "giveheirloom 1" )
 	SetupDevCommand( "Kral's Mjolnir", "giveheirloom 4" )
-	SetupDevCommand( "Combat Katana", "giveheirloom 5" )
+	SetupDevCommand( "Combat Katana", "giveheirloom 3" )
 }
 
 void function RunCodeDevCommandByAlias( string alias )

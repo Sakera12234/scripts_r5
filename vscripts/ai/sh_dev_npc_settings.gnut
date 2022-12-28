@@ -189,6 +189,9 @@ void function SetupRetailWeapons()
 	SetupDevCommand( "Grenade: Frag", "give mp_weapon_frag_grenade_retail" )
 	SetupDevCommand( "Grenade: Thermite", "give mp_weapon_thermite_grenade_retail" )
 	
+	// Misc
+	SetupDevCommand( "Misc: Boxing Gloves", "giveheirloom 2" )
+	
 	// Dev State
 	SetupDevCommand( "Dev: Sheila", "give mp_weapon_mobile_hmg" )
 	SetupDevCommand( "Dev: Throwing Knife", "give mp_weapon_throwingknife" )
