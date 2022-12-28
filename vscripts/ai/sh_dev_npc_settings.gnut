@@ -114,7 +114,6 @@ void function SetupWeapons()
 	SetupDevCommand( "Sniper: Kraber", "give mp_weapon_sniper" )
 	SetupDevCommand( "Sniper: Longbow", "give mp_weapon_dmr" )
 	SetupDevCommand( "Sniper: Triple Take", "give mp_weapon_doubletake" )
-	SetupDevCommand( "Sniper: Sentinel", "give mp_weapon_sentinel" )
 
 	// Shotguns
 	SetupDevCommand( "Shotgun: EVA-8 Auto", "give mp_weapon_shotgun" )
@@ -134,8 +133,6 @@ void function SetupWeapons()
 
 	// Dev
 	//SetupDevCommand( "Dev: Dev Tool", "give mp_weapon_mdlspawner" )
-	SetupDevCommand( "Dev: Sheila", "give mp_weapon_mobile_hmg" )
-	SetupDevCommand( "Dev: Throwing Knife", "give mp_weapon_throwingknife" )
 	SetupDevCommand( "Dev: Dev Cubemap ", "give weapon_cubemap" )
 	#endif
 }
@@ -160,6 +157,7 @@ void function SetupRetailWeapons()
 	SetupDevCommand( "SMG: Prowler", "give mp_weapon_pdw_retail" )
 	SetupDevCommand( "SMG: R-99", "give mp_weapon_r97_retail" )
 	SetupDevCommand( "SMG: Volt SMG", "give mp_weapon_volt_smg" )
+	SetupDevCommand( "SMG: Car SMG", "give mp_weapon_car" )
 
 	// LMGs
 	SetupDevCommand( "LMG: Devotion", "give mp_weapon_esaw_retail" )
@@ -188,6 +186,10 @@ void function SetupRetailWeapons()
 	SetupDevCommand( "Grenade: Arc Star", "give mp_weapon_grenade_emp_retail" )
 	SetupDevCommand( "Grenade: Frag", "give mp_weapon_frag_grenade_retail" )
 	SetupDevCommand( "Grenade: Thermite", "give mp_weapon_thermite_grenade_retail" )
+	
+	// Dev State
+	SetupDevCommand( "Dev: Sheila", "give mp_weapon_mobile_hmg" )
+	SetupDevCommand( "Dev: Throwing Knife", "give mp_weapon_throwingknife" )
 	#endif
 }
 
@@ -198,7 +200,6 @@ void function SetupR2Weapons()
 	SetupDevCommand( "R1 - Rifle: R-101", "give mp_weapon_rspn101_og" )
 
 	// SMGs
-	SetupDevCommand( "R2 - SMG: Car SMG", "give mp_weapon_car" )
 
 	// LMGs
 

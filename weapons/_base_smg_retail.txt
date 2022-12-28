@@ -114,19 +114,11 @@ WeaponData
     "OnClientAnimEvent"								"OnClientAnimEvent_weapon_basic_bolt"
 
     // Crosshair Spread
-                         
     "spread_stand_hip"								"2.0"
     "spread_stand_hip_run"							"3.0"
     "spread_stand_hip_sprint"                       "5.0"
     "spread_crouch_hip"   							"1.6"
     "spread_air_hip"  								"7.0"
-     
-                                   
-                                      
-                                                         
-                                      
-                                   
-      
 
 	"spread_stand_ads"								"0.35"
 	"spread_crouch_ads"   							"0.25"
@@ -258,13 +250,13 @@ WeaponData
 	"sway_turn_left_rotate_yaw_zoomed"				"-0.085"
 	"sway_turn_right_rotate_yaw_zoomed"				"0.085"
 
-	"sway_min_roll_zoomed"   						"-1"
-	"sway_max_roll_zoomed"   						"1"
-	"sway_turn_left_rotate_roll_zoomed"   			"-1"
-	"sway_turn_right_rotate_roll_zoomed"  			"1"
+	//"sway_min_roll_zoomed"   						"-1"
+	//"sway_max_roll_zoomed"   						"1"
+	//"sway_turn_left_rotate_roll_zoomed"   			"-1"
+	//"sway_turn_right_rotate_roll_zoomed"  			"1"
 
-	"sway_move_right_rotate_roll_zoomed" 			"0.2"
-	"sway_move_left_rotate_roll_zoomed"  			"-0.2"
+	//"sway_move_right_rotate_roll_zoomed" 			"0.2"
+	//"sway_move_left_rotate_roll_zoomed"  			"-0.2"
 
 	"sway_min_pitch_zoomed"  						"-0.015"
 	"sway_max_pitch_zoomed"  						"0.025"

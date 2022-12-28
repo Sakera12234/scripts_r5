@@ -1,5 +1,6 @@
-#base "_base_smg.txt"
+//#base "_base_smg_retail.txt"
 #base "_base_mags_heavy.txt"
+#base "_base_stocks_tactical.txt"
 WeaponData
 {
 	// General
@@ -14,7 +15,7 @@ WeaponData
 	//This secondary ammo pool type is for UI purposes to load into lootData.
 	//We cannot detect the modded ammo_pool_type directly on init without applying the mod so this is a workaround
 	//and must be authored and updated along with the modded value
-	//"secondary_ammo_pool_type"                      "bullet"
+	"secondary_ammo_pool_type"                      "bullet"
 
 	"menu_icon"										"rui/weapon_icons/r5/weapon_car"
 	"hud_icon"										"rui/weapon_icons/r5/weapon_car"
@@ -44,9 +45,12 @@ WeaponData
 	"stat_rof"		        						"38"
 
 	// Models
-	"viewmodel"   									"mdl/weapons/car101/ptpov_car101.rmdl"
+	"viewmodel"   									"mdl/techart/mshop/weapons/class/smg/car/car_base_v.rmdl"
 	"playermodel" 									"mdl/weapons/car101/w_car101.rmdl"
+	//"holster_offset"								"2 0 0"
 	"holster_type"									"rifle"
+
+
 
     // Bolt info
     "bolt_hitsize"									"0.0"
@@ -305,16 +309,8 @@ WeaponData
 
 
 	// Bodygroups:
-	"bodygroup1_name"	"car101_sight_on"
+	"bodygroup1_name"	"sight_front"
 	"bodygroup1_set"	"1"
-	"bodygroup2_name"	"sight_acgs"
-	"bodygroup2_set"	"0"
-	"bodygroup3_name"	"sight_cro"
-	"bodygroup3_set"	"0"
-	"bodygroup4_name"	"sight_holo"
-	"bodygroup4_set"	"0"
-	"bodygroup5_name"	"proscreen"
-	"bodygroup5_set"	"0"
 
     "clip_bodygroup"						"car101_magazine"
     "clip_bodygroup_index_shown"			"0"
@@ -326,8 +322,8 @@ WeaponData
 
 	//"anim_alt_idleAttack" "2"
 
-	//"viewmodel_ads_rui_bottomleft_attachment"	"RUI_BL_CROSSHAIR_CAR101"
-	"viewmodel_ads_centerpoint_attachment"      "sight_on"
+	"viewmodel_ads_rui_bottomleft_attachment"	"RUI_BL_CROSSHAIR_CAR101"
+	"viewmodel_ads_centerpoint_attachment"      "ADS_CENTER_SIGHT_CAR101"
 
 	Mods
 	{
@@ -342,68 +338,108 @@ WeaponData
 			"ammo_no_remove_from_stockpile"	"0"
 			"uses_ammo_pool"				"1"
         }
-
-		pro_screen
-		{
-			"ui8_enable"		"1"
-			"bodygroup5_set"	"1"
-		}
 		
+		ammo_type_swap
+		{
+			//"activitymodifier1p"                    "ammo_type_swap"
+			"reloadempty_time"						"3"
+			"reloadempty_time_late1"				"1.75"
+			"reloadempty_time_late2"				"1.04"
+		}
+
+		alt_ammo
+		{
+			//"ammo_pool_type"							    "bullet"
+		}
+        optic_cq_hcog_classic
+        {
+			"ui1_enable" 							"0"
+        }
+
+        optic_cq_hcog_bruiser
+        {
+			"ui1_enable" 							"0"
+        }
+
+        optic_cq_holosight
+        {
+			"ui1_enable" 							"0"
+        }
+
+        optic_cq_holosight_variable
+        {
+			"ui1_enable" 							"0"
+        }
+
+		optic_cq_threat
+		{
+
+			"ui1_enable" 							"0"
+		}
 		highcal_mag_l1
 		{
 			"ammo_clip_size"   							"22"
 		}
-		
 		highcal_mag_l2
 		{
 			"ammo_clip_size"   							"24"
 		}
-		
 		highcal_mag_l3
 		{
 			"ammo_clip_size"   							"27"
 		}
+        highcal_mag_l4
+        {
+            "ammo_clip_size"   							"27"
+        }
+        bullets_mag_l1
+        {
+        	"ammo_clip_size"   					        "22"
+        }
+        bullets_mag_l2
+        {
+        	"ammo_clip_size"   					        "24"
+        }
+		bullets_mag_l3
+		{
+			"ammo_clip_size"   					        "27"
+		}
+        bullets_mag_l4
+        {
+            "ammo_clip_size"   	    			        "27"
+        }
 	}
 
 	"ui1_enable"		"1"
-	"ui1_draw_cloaked"	"1"
-	UiData1
-	{
+    "ui1_draw_cloaked"	"1"
+    UiData1
+    {
 		"ui"							"ui/alternator_reticle"
-		"mesh"							"models/weapons/attachments/car_smg_rui_upper"
-		Args
-		{
-			vis							player_zoomfrac
-			ammo						weapon_ammo
-			clipSize					weapon_clipSize
-		}
-	}
+        "mesh"							"models/weapons/attachments/car_smg_rui_upper"
+        Args
+        {
+            vis							player_zoomfrac
+            ammo						weapon_ammo
+            clipSize					weapon_clipSize
+            centerOffset				weapon_ads_center_offset
+        }
+    }
 
-	"ui2_enable"		"1"
-	UiData2
-	{
+    "ui2_enable"		"1"
+    "ui2_draw_cloaked"	"1"
+    UiData2
+    {
 		"ui"							"ui/r97_ammo_counter"
-		"mesh"							"models/weapons/attachments/car_smg_rui_lower"
-		Args
-		{
-			vis							player_zoomfrac
-			ammo						weapon_ammo
-			clipSize					weapon_clipSize
-			clipCount					weapon_ammoClipCount
-		}
-	}
-
-	"ui8_enable"		"0"
-	UiData8
-	{
-		"ui"							"ui/pro_screen_panel"
-		"mesh"							"models/weapons/attachments/pro_screen_rui_upper"
-		Args
-		{
-			proValue					proscreen_int0
-			proOwnedByPlayer			proscreen_owner_is_player
-		}
-	}
+        "mesh"							"models/weapons/attachments/car_smg_rui_lower"
+        Args
+        {
+            vis							player_zoomfrac
+            ammo						weapon_ammo
+            clipSize					weapon_clipSize
+            clipCount					weapon_ammoClipCount
+            fireMode     				"eWeaponVar.is_semi_auto"
+        }
+    }
 
 	active_crosshair_count				"1"
 	rui_crosshair_index					"0"

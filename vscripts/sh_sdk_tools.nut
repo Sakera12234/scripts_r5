@@ -8,6 +8,7 @@ global function BecomeRevenant
 global function BecomePilot
 global function BecomeBlisk
 global function BecomeAsh
+global function BecomeCooper
 global function TestAnimation
 
 global const asset TEST_MODEL = $"mdl/Humans/class/medium/combat_dummie_medium.rmdl"
@@ -94,6 +95,8 @@ void function Precache_Sdk_Models()
 	PrecacheModel( $"mdl/humans/pilots/imc_hero_blisk.rmdl" )
 	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_w.rmdl" )
 	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_v.rmdl" )
+	PrecacheModel( $"mdl/humans/heroes/mlt_hero_jack.rmdl" )
+	PrecacheModel( $"mdl/vehicle/olympus_hovercraft/olympus_hovercraft_v2.rmdl" )
 }
 
 void function Precache_Lobby_Models()
@@ -180,6 +183,15 @@ void function BecomePilot(entity player)
 
 	player.SetBodyModelOverride($"mdl/humans/pilots/pilot_medium_reaper_m.rmdl" )
 	player.SetArmsModelOverride($"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
+}
+
+void function BecomeCooper(entity player)
+{
+	if(!IsValid(player))
+		return
+
+	player.SetBodyModelOverride($"mdl/humans/heroes/mlt_hero_jack.rmdl" )
+	//player.SetArmsModelOverride($"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
 }
 
 void function BecomeBlisk(entity player)
