@@ -172,6 +172,7 @@ void function SetupRetailWeapons()
 	SetupDevCommand( "Sniper: Kraber", "give mp_weapon_sniper_retail" )
 	SetupDevCommand( "Sniper: Longbow", "give mp_weapon_dmr_retail" )
 	SetupDevCommand( "Sniper: Sentinel", "give mp_weapon_sentinel" )
+	SetupDevCommand( "Ability: Vantage Ultimate", "give mp_ability_sniper_ult" )
 
 	// Shotguns
 	SetupDevCommand( "Shotgun: EVA-8 Auto", "give mp_weapon_shotgun_retail" )
@@ -274,7 +275,7 @@ void function SetupAbilities()
 	SetupDevCommand( "Lifeline Ultimate", "give mp_ability_care_package" )
 	SetupDevCommand( "Mirage Tactical", "give mp_ability_holopilot" )
 	SetupDevCommand( "Mirage Ultimate", "give mp_ability_mirage_ultimate" )
-	SetupDevCommand( " ", "give mp_ability_heal" ) // blank line so Octance is in the same column
+	SetupDevCommand( "", "" ) // blank line so Octance is in the same column
 	SetupDevCommand( "Octane Tactical", "give mp_ability_heal" )
 	SetupDevCommand( "Octane Ultimate", "give mp_weapon_jump_pad" )
 	SetupDevCommand( "Pathfinder Tactical", "give mp_ability_grapple" )
@@ -284,11 +285,11 @@ void function SetupAbilities()
 	SetupDevCommand( "Wraith Tactical", "give mp_ability_phase_walk" )
 	SetupDevCommand( "Wraith Ultimate", "give mp_weapon_phase_tunnel" )
 
-	SetupDevCommand( "Dev: 3Dash Tactical", "give mp_ability_3dash" )
-	SetupDevCommand( "Dev: Pulse Blade", "give mp_weapon_grenade_sonar" )
-	SetupDevCommand( "Dev: Amped Wall", "give mp_weapon_deployable_cover" )
-	SetupDevCommand( "Dev: Electric Smoke", "give mp_weapon_grenade_electric_smoke" )
-	SetupDevCommand( "Dev: Satchel", "give mp_weapon_satchel" )
+	SetupDevCommand( "Misc: 3Dash Tactical", "give mp_ability_3dash" )
+	SetupDevCommand( "Misc: Pulse Blade", "give mp_weapon_grenade_sonar" )
+	SetupDevCommand( "Misc: Amped Wall", "give mp_weapon_deployable_cover" )
+	SetupDevCommand( "Misc: Electric Smoke", "give mp_weapon_grenade_electric_smoke" )
+	SetupDevCommand( "Misc: Satchel", "give mp_weapon_satchel" )
 	#endif
 }
 
