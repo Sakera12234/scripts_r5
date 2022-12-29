@@ -60,6 +60,7 @@ global enum eDamageSourceId
 	//---------------------------
 
 	// Pilot Weapons
+	mp_ability_sniper_ult
 	mp_weapon_hemlok
 	mp_weapon_lmg
 	mp_weapon_rspn101
@@ -583,6 +584,7 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.melee_titan_sword_aoe ]					= "#DEATH_TITAN_SWORD",
 		[ eDamageSourceId.mp_weapon_volt_smg ] 						= "#WPN_VOLT_SMG",
 		[ eDamageSourceId.mp_weapon_sentinel ] 						= "Sentinel",
+		[ eDamageSourceId.mp_ability_sniper_ult ] 					= "Sniper's Mark",
 		[ eDamageSourceId.mp_weapon_mobile_hmg ] 					= "Sheila",
 		[ eDamageSourceId.mp_weapon_softball ] 						= "Softball",
 		[ eDamageSourceId.mp_weapon_epg ] 							= "EPG",
