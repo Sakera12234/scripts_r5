@@ -431,7 +431,7 @@ WeaponData
     //"bodygroup1_name"                          "scope"
     //"bodygroup1_set"                           "0"
     "bodygroup_ads_scope_name"                 "ads_scopes"
-    "bodygroup_ads_scope_set"                  "3"
+    "bodygroup_ads_scope_set"                  "1"
     //"bodygroup_ammo_index_count"               "6"
 
     // Bodygroup - Clip
