@@ -10,7 +10,6 @@ WeaponData
 	"longdesc"										"#ABL_ULT_SNIPER_LONGDESC"
 	"weaponType" 									"default"
 	"fire_mode"   									"offhandHybrid"
-	"offhand_default_inventory_slot"				"4"
 	"offhand_cancelled_by_melee"					"1"
 	"is_semi_auto"									"1"
 	"offhand_restore_after_melee"                   "1"
@@ -31,7 +30,7 @@ WeaponData
 
 	"OnWeaponActivate"								"OnWeaponActivate_ability_sniper_ult"
 	"OnWeaponDeactivate"							"OnWeaponDeactivate_ability_sniper_ult"
-	//"OnWeaponPrimaryAttack"						"OnWeaponPrimaryAttack_ability_sniper_ult"
+	"OnWeaponPrimaryAttack"						"OnWeaponPrimaryAttack_ability_sniper_ult"
 	"OnWeaponAttemptOffhandSwitch"					"OnWeaponAttemptOffhandSwitch_ability_sniper_ult"
 	"OnWeaponStartZoomIn"                           "OnWeaponStartZoomIn_ability_sniper_ult"
 	"OnWeaponStartZoomOut"                          "OnWeaponStartZoomOut_ability_sniper_ult"
@@ -398,15 +397,15 @@ WeaponData
 
     "viewmodel_offset_ads"		"-0.004 0.1 0.0085"  // HACK not sure if the fullscreen geo should need an offset
 
-    "dof_zoom_nearDepthStart"	"0"
-    "dof_zoom_nearDepthEnd"		"0"
+	"dof_zoom_nearDepthStart"                      "1.0"
+	"dof_zoom_nearDepthEnd"                        "6.5"
 
     "zoom_angle_shift_pitch"    "0.0"
     "zoom_angle_shift_yaw"      "0.0"
 
     "aimassist_adspull_weaponclass"            "none"
 
-    ads_force_firstperson		1
+    //ads_force_firstperson		1
 
     zoomed_convar_sensitivity_index         2
     zoomed_convar_toggle_sensitivity_index  5
@@ -518,7 +517,7 @@ WeaponData
         "ui32_draw_cloaked" "1"
         UiData32
         {
-            "ui" 		"ui/r97_reticle"
+            "ui" 		"ui/sniper_optic_variable_sights"
             "mesh" 		"models/weapons/attachments/sniper_threat_optic_sights"
 
             Args
@@ -532,7 +531,7 @@ WeaponData
                 ammoFrac            weapon_ammofrac
 
 				//sniperZeroDistance   weapon_sniper_range_dot_distance
-				//boltZeroDistance     eWeaponVar.bolt_zero_distance
+				boltZeroDistance     eWeaponVar.bolt_zero_distance
             }
         }
 
