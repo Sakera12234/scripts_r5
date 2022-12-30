@@ -5,12 +5,10 @@ global function DEV_ToggleAkimboWeaponAlt
 global function BecomeLoba
 global function BecomeRampart
 global function BecomeRevenant
-global function BecomePilot
-global function BecomeBlisk
 global function BecomeAsh
-global function BecomeCooper
 global function BecomeCatalyst
 global function TestAnimation
+global function BecomeNova
 
 global const asset TEST_MODEL = $"mdl/Humans/class/medium/combat_dummie_medium.rmdl"
 global const string TEST_ANIM= "Walldeath"
@@ -96,6 +94,9 @@ void function Precache_Sdk_Models()
 	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_v.rmdl" )
 	PrecacheModel( $"mdl/vehicle/olympus_hovercraft/olympus_hovercraft_v2.rmdl" )
 	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_w.rmdl" )
+	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_v.rmdl" )
+	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_nova_base_01.rmdl" )
+	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_nova_01.rmdl" )
 }
 
 void function Precache_Lobby_Models()
@@ -175,31 +176,13 @@ void function Precache_R5_Weapons()
 	PrecacheParticleSystem( $"P_sparks_beacon_dish" )
 }
 
-void function BecomePilot(entity player)
+void function BecomeNova(entity player)
 {
 	if(!IsValid(player))
 		return
 
-	player.SetBodyModelOverride($"mdl/humans/pilots/pilot_medium_reaper_m.rmdl" )
-	player.SetArmsModelOverride($"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
-}
-
-void function BecomeCooper(entity player)
-{
-	if(!IsValid(player))
-		return
-
-	player.SetBodyModelOverride($"mdl/humans/heroes/mlt_hero_jack.rmdl" )
-	//player.SetArmsModelOverride($"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
-}
-
-void function BecomeBlisk(entity player)
-{
-	if(!IsValid(player))
-		return
-
-	player.SetBodyModelOverride($"mdl/humans/pilots/imc_hero_blisk.rmdl" )
-	//player.SetArmsModelOverride($"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
+	player.SetBodyModelOverride($"mdl/Humans/class/medium/pilot_medium_nova_01.rmdl" )
+	player.SetArmsModelOverride($"mdl/Weapons/arms/pov_pilot_medium_nova_base_01.rmdl" )
 }
 
 void function BecomeAsh(entity player)
@@ -244,7 +227,7 @@ void function BecomeCatalyst(entity player)
 		return
 
 	player.SetBodyModelOverride($"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_w.rmdl" )
-	//player.SetArmsModelOverride($"mdl/Weapons/arms/pov_pilot_heavy_revenant.rmdl" )
+	player.SetArmsModelOverride($"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_v.rmdl" )
 }
 
 void function DEV_ToggleAkimboWeapon(entity player)
