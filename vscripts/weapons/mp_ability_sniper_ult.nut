@@ -10,49 +10,27 @@ global function OnWeaponZoomFOVToggle_ability_sniper_ult
 
 global function SniperUlt_GetMarkedDuration
 
-#if SERVER
-                                                       
-#endif
-
 #if CLIENT
 global function OnClientAnimEvent_ability_sniper_ult
-#endif              
-
+#endif
 
 global const string SNIPERULT_WEAPON_NAME = "mp_ability_sniper_ult"
 const string SNIPER_ULT_TOGGLE_ZOOMIN_1P = "weapon_vantageUlt_zoomin_1p"
 const string SNIPER_ULT_TOGGLE_ZOOMOUT_1P = "weapon_vantageUlt_zoomout_1p"
 
-
-                            
-                 
 global  const float SNIPERULT_HEALINGDENIED_DURATION = 15
-                                                    
-                                                        
-  
-  
-                                                       
-                                                        
-                                                                                   
-                                          
-
 
 const float SNIPERULT_WHIZ_BY_SCAN_DURATION = 1
 const float SNIPERULT_PLAYER_MARKED_DURATION = 10
 const float SNIPERULT_VANTAGE_DMG_SCALE = 2
 const float SNIPERULT_TEAM_DMG_SCALE = 1.15
 
-                                                     
-                                                
-                                                                     
-
-    
 const asset FX_SNIPER_ULT_MARK = $"P_van_sniper_mark"
 const asset FX_SNIPER_ULT_MARK_WHIZ_BY = $"P_van_sniper_mark_wizby"
-const asset FX_SNUPER_ULT_MUZZLE_FLASH_1P = $"P_van_sniper_muzzleflash_FP"
-const asset FX_SNUPER_ULT_MUZZLE_FLASH_3P = $"P_van_sniper_muzzleflash_3P"
+const asset FX_SNUPER_ULT_MUZZLE_FLASH_1P = $"P_wpn_muzzleflash_alternator_FP"
+const asset FX_SNUPER_ULT_MUZZLE_FLASH_3P = $"P_wpn_muzzleflash_alternator"
 
-       
+
 const string SNIPERULT_MARKED_SOUND = "Vantage_Ult_TargetLock_1p"
 const string SNIPERULT_MARKED_END_SOUND = "Vantage_Ult_TargetUnlock_1p"
 const string SNIPERULT_MARKED_SOUND_TEAM = "Vantage_Ult_TargetLock_Squad_1p"
@@ -62,60 +40,30 @@ const string SNIPERULT_MARKED_END_SOUND_VICTIM = "Vantage_Ult_TargetUnlock_Victi
 const string SNIPERULT_ZOOM_IN = "weapon_vantageUlt_ads_in"
 const string SNIPERULT_ZOOM_OUT = "weapon_vantageUlt_ads_out"
 
-                                   
-               
-                                                         
-                                                             
-                                                             
-                                           
-                                                
-                                                                                                            
-                                
-
-
 const bool SNIPERULT_DEBUG_DRAW = false
 
 void function SniperUlt_Init()
 {
-	                                   
-	               
-	                                              
-	                                           
-	                                               
-
 	PrecacheParticleSystem( FX_SNIPER_ULT_MARK )
 	PrecacheParticleSystem( FX_SNIPER_ULT_MARK_WHIZ_BY )
 	PrecacheParticleSystem( FX_SNUPER_ULT_MUZZLE_FLASH_1P )
 	PrecacheParticleSystem( FX_SNUPER_ULT_MUZZLE_FLASH_3P )
 
-	                               
-	                                                               
-	                                                            
-
-	#if SERVER
-		                                                                        
-		                                                                                       
-	#endif
-
-
-
-
-	                
 	#if CLIENT
 		RegisterSignal( "SniperUlt_StopHealingDeniedFXSignal" )
 
-		                
+
 		//StatusEffect_RegisterEnabledCallback( eStatusEffect.healing_denied, SniperUlt_HealingDenied_Start1PFX )
 		//StatusEffect_RegisterDisabledCallback( eStatusEffect.healing_denied, SniperUlt_HealingDenied_Stop1PFX )
 	#endif
 
 	#if CLIENT
-		                                                                                 
+
 		SetConVarBool( "rope_visibility_fx_enable", true )
 
 		RegisterSignal( "SniperUlt_Mark_StopSignal" )
 
-		                
+
 		//StatusEffect_RegisterEnabledCallback( eStatusEffect.sonar_round_embedded, SniperUlt_Mark_Client_Start )
 		//StatusEffect_RegisterDisabledCallback( eStatusEffect.sonar_round_embedded, SniperUlt_Mark_Client_Stop )
 	#endif
@@ -130,52 +78,12 @@ void function OnWeaponActivate_ability_sniper_ult( entity weapon )
 		//weapon.SetTargetingLaserEnabled( false )
 	}
 
-	#if SERVER
-	                                      
-
-	                             
-	 
-		                                                       
-	 
-	#endif
 }
 
 void function OnWeaponDeactivate_ability_sniper_ult( entity weapon )
 {
-	#if SERVER
-		                                         
-	#endif
+
 }
-
-#if SERVER
-                                                                                                                                                                                                                                                           
-                                                       
- 
-	                                                
-
-	                         
-		      
-
-	                               
-
-	                                      
-
-	                             
-	 
-		                                  
-		                                    
-
-		                                                                         
-		              
-
-		                             
-		 
-			                                                      
-		 
-	 
- 
-#endif
-
 
 void function OnWeaponStartZoomIn_ability_sniper_ult( entity weapon )
 {
@@ -223,12 +131,12 @@ void function OnWeaponZoomFOVToggle_ability_sniper_ult( entity weapon, float tar
 		if ( weapon.GetOwner() != GetLocalViewPlayer() )
 			return
 
-		if ( targetFOV == weapon.GetWeaponSettingFloat( eWeaponVar.zoom_fov ) )             
+		if ( targetFOV == weapon.GetWeaponSettingFloat( eWeaponVar.zoom_fov ) )
 		{
 			EmitSoundOnEntity( weapon, SNIPER_ULT_TOGGLE_ZOOMOUT_1P )
 			StopSoundOnEntity( weapon, SNIPER_ULT_TOGGLE_ZOOMIN_1P )
 		}
-		else           
+		else
 		{
 			EmitSoundOnEntity( weapon, SNIPER_ULT_TOGGLE_ZOOMIN_1P )
 			StopSoundOnEntity( weapon, SNIPER_ULT_TOGGLE_ZOOMOUT_1P )
@@ -284,8 +192,8 @@ var function OnWeaponPrimaryAttack_ability_sniper_ult( entity weapon, WeaponPrim
 		weapon.PlayWeaponEffect( FX_SNUPER_ULT_MUZZLE_FLASH_1P, FX_SNUPER_ULT_MUZZLE_FLASH_3P, "muzzle_flash" )
 	}
 	#if SERVER
-	                                  
-	                                                                                                                                                        
+
+
 	#endif
 
 	return ammoUsed
@@ -300,7 +208,7 @@ bool function OnWeaponAttemptOffhandSwitch_ability_sniper_ult( entity weapon )
 
 void function OnProjectileCollision_sniper_ult( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical, bool isPassthrough )
 {
-		                                                             
+
 		if ( !IsValid( hitEnt ) )
 			return
 
@@ -308,50 +216,6 @@ void function OnProjectileCollision_sniper_ult( entity projectile, vector pos, v
 		if ( !IsValid( projectileOwner ) )
 			return
 
-
-
-		                                                         
-		                                                                  
-
-		                                                                           
-
-	#if SERVER
-		                                                    
-		                                                   
-		                                           
-		                                        
-
-		                                                                         
-
-		                                                                                              
-
-		                             
-		 
-			                       
-				        
-
-			                                                 
-			  	        
-			  
-			                                                                                   
-			   
-			  	                           
-			  	        
-			   
-
-			                                                                                                           
-			                                                                           
-			                             
-				        
-
-			                                
-
-			                                                                                   
-			                        
-				                                                                                       
-		 
-
-	#endif
 }
 
 float function SniperUlt_GetMarkedDuration()
@@ -359,363 +223,6 @@ float function SniperUlt_GetMarkedDuration()
 	float duration = GetCurrentPlaylistVarFloat( "sniperult_marked_duration", SNIPERULT_PLAYER_MARKED_DURATION )
 	return duration
 }
-
-
-
-#if SERVER
-
-                                                                                      
- 
-
-	                                                                    
-
-	                                 
-	 
-		                                                        
-			                                           
-		                                                                                      
-		 
-			                                                                                                     
-			                                                              
-		 
-
-		      
-	 
-
-	                         
-		      
-
-	                                                      
-	              
-	                                       
-	 
-		                                              
-		 
-			                                                                   
-			 
-
-				                                                        
-				 
-					                      
-					                                            
-					 
-						                                                                                                           
-						                                                                 
-						                                               
-					 
-				 
-				    
-				 
-					                        
-					                                                                                                     
-					                                                              
-				 
-			 
-		 
-	 
-
-
-	                                                                                                  
-		      
-
-	                  
-	                                                        
-		      
-
-	                                                                         
-
-	                                                                                     
-
-	                                        
-	 
-		                                                            
-		                                                                  
-		                                                                  
-
-		                                                                                                   
-		                                                                                                                
-		                      	                                  
-
-		                         
-			                                                             
-	 
-
-	                                                                                   
-	                                              
-	                                                                       
-	                                                                                   
-
-	                    
-	                                                                 
- 
-
-                                                                    
- 
-	                                
-		      
-
-	                                                      
-
-	                                                                                                        
-
-	                             
-	 
-		                                                                 
-		                                                        
-		 
-			                                                                                                           
-			                                                                 
-		 
-		    
-		 
-			                        
-			                                                                                                     
-			                                                              
-		 
-	 
-
-	                                              
-
-	                                                                                       
-
-	                                                   
-	 
-		                                                                 
-	 
-
- 
-
-                                                                                          
- 
-	                               
-
-	                                                                                                                                                                                                    
-	                                    
-	                                                       
-
-	                                                                       
-	                                                                                                      
-
-
-	            
-		                                        
-		 
-			                        
-			 
-				                        
-				 
-					                    
-				 
-
-				                         
-				 
-					                                                                             
-					                                                                                                          
-				 
-			 
-		 
-	 
-	                                   
-	                                                                                    
-	 
-		           
-	 
- 
-
-
-
-                                                                                          
- 
-	                              
-	 
-		                                                
-	 
-	    
-	 
-		                                                                
-	 
- 
-
-                                                                                           
- 
-	                                
-	                               
-
-	                                   
-	                                                
-
-	                                                                                                                                                                                                         
-	                                          
-	                                                             
-
-	            
-		                                     
-		 
-			                        
-				                               
-
-			                              
-			 
-				                          
-			 
-		 
-	 
-
-	                                                                     
-	 
-		           
-	 
- 
-
-
-                                                                                               
- 
-	                                
-	                               
-
-	                                       
-	                              
-	                                                                  
-
-
-	            
-		                                                 
-		 
-			                        
-			 
-				                                            
-			 
-		 
-	 
-
-	                                 
-	                                                
-	 
-		           
-	 
- 
-
-                                                                                                     
- 
-	                                   
-	                                                                                 
-	 
-		                              
-		                                                                                       
-	 
-	    
-	 
-		                                                                           
-	 
- 
-
-                                                                                                           
- 
-	                                  
-	                               
-	                             
-
-	                                       
-	                                          
-
-	                                                                                                                
-	                                                                                                                                                                                                    
-	                                    
-	                                                       
-
-	                                                                       
-	                                                                                                      
-
-
-	                
-		                                                                      
-
-	                                
-
-	            
-		                                                                       
-		 
-			                        
-			 
-				                              
-				                                     
-				                                         
-				                                        
-
-				                        
-				 
-					                    
-				 
-
-				                         
-				 
-					                                                                            
-					                                                                                                          
-
-					                  
-						                                                
-				 
-
-				                                               
-
-				                                                                    
-				                                   
-				 
-					                                  
-				 
-			 
-		 
-	 
-	                                   
-	                                                                                    
-	 
-		                                       
-			      
-
-		                           
-			                                                                                        
-
-		           
-	 
- 
-
-
-                
-                                                                                                              
- 
-	                               
-
-	                                                                                             
-	            
-		                                           
-		 
-			                        
-			 
-				                                               
-			 
-		 
-	 
-
-	             
- 
-
-          
-                                                                              
- 
-	                                                     
-
-	                         
-	 
-		              
-			                                                  
-		    
-			                                                  
-	 
- 
-      
-
-#endif
-
 
 
 #if CLIENT
@@ -729,8 +236,8 @@ void function OnClientAnimEvent_ability_sniper_ult( entity weapon, string name )
 		if ( IsOwnerViewPlayerFullyADSed( weapon ) )
 			return
 
-		  		                                                                                                                  
-		  		                                                                                                                  
+
+
 	}
 }
 #endif
@@ -738,7 +245,7 @@ void function OnClientAnimEvent_ability_sniper_ult( entity weapon, string name )
 
 
 
-                
+
 #if CLIENT
 void function SniperUlt_HealingDenied_Start1PFX( entity ent, int statusEffect, bool actuallyChanged )
 {
@@ -751,14 +258,6 @@ void function SniperUlt_HealingDenied_Start1PFX( entity ent, int statusEffect, b
 	entity viewPlayer = GetLocalViewPlayer()
 
 	int fxHandle
-	                                                                                                                                                                                 
-	                                          
-	  
-	                                                       
-	  
-	                                                                    
-	  
-	                                                                              
 
 	EmitSoundOnEntity( viewPlayer, "wattson_tactical_g" )
 
@@ -794,7 +293,7 @@ void function SniperUlt_HealingDenied_Stop1PFX( entity ent, int statusEffect, bo
 
 	EmitSoundOnEntity( viewPlayer, "wattson_tactical_g_enemy" )
 
-	                                                                            
+
 
 	ent.Signal( "SniperUlt_StopHealingDeniedFXSignal" )
 }
@@ -812,14 +311,8 @@ void function SniperUlt_Mark_Client_Start( entity ent, int statusEffect, bool ac
 	entity viewPlayer = GetLocalViewPlayer()
 
 	int fxHandle
-	                                                                                                                                                                                 
-	                                          
-	                                                       
 
 	EmitSoundOnEntity( viewPlayer, SNIPERULT_MARKED_SOUND_VICTIM )
-
-
-	                            
 
 	thread SniperUlt_Mark_Client_Thread( viewPlayer, fxHandle )
 }
@@ -836,11 +329,6 @@ void function SniperUlt_Mark_Client_Thread( entity player, int fxHandle )
 				return
 
 			EffectStop( fxHandle, false, true )
-
-			                          
-			   
-			  	                                                                        
-			   
 		}
 	)
 
@@ -862,7 +350,7 @@ void function SniperUlt_Mark_Client_Stop( entity ent, int statusEffect, bool act
 
 	EmitSoundOnEntity( viewPlayer, SNIPERULT_MARKED_END_SOUND_VICTIM )
 
-	                           
+
 	ent.Signal( "SniperUlt_Mark_StopSignal" )
 }
 #endif
