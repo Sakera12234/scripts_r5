@@ -9,6 +9,7 @@ global function BecomePilot
 global function BecomeBlisk
 global function BecomeAsh
 global function BecomeCooper
+global function BecomeCatalyst
 global function TestAnimation
 
 global const asset TEST_MODEL = $"mdl/Humans/class/medium/combat_dummie_medium.rmdl"
@@ -87,17 +88,14 @@ void function Precache_Sdk_Models()
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_heavy_revenant.rmdl" )
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_loba.rmdl" )
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_loba.rmdl" )
-	//PrecacheModel( $"mdl/humans/pilots/pilot_medium_reaper_m.rmdl" )
-	//PrecacheModel( $"mdl/humans/pilots/pov_pilot_medium_reaper_m.rmdl" )
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_rampart.rmdl" )
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_rampart.rmdl" )
 	PrecacheModel( $"mdl/props/rampart_gum/rampart_bubblegum.rmdl" )
 	PrecacheModel( $"mdl/props/loba_loot_stick/loba_loot_stick.rmdl" )
-	//PrecacheModel( $"mdl/humans/pilots/imc_hero_blisk.rmdl" )
 	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_w.rmdl" )
 	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_v.rmdl" )
-	//PrecacheModel( $"mdl/humans/heroes/mlt_hero_jack.rmdl" )
 	PrecacheModel( $"mdl/vehicle/olympus_hovercraft/olympus_hovercraft_v2.rmdl" )
+	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_w.rmdl" )
 }
 
 void function Precache_Lobby_Models()
@@ -238,6 +236,15 @@ void function BecomeRevenant(entity player)
 
 	player.SetBodyModelOverride($"mdl/humans/class/heavy/pilot_heavy_revenant.rmdl" )
 	player.SetArmsModelOverride($"mdl/Weapons/arms/pov_pilot_heavy_revenant.rmdl" )
+}
+
+void function BecomeCatalyst(entity player)
+{
+	if(!IsValid(player))
+		return
+
+	player.SetBodyModelOverride($"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_w.rmdl" )
+	//player.SetArmsModelOverride($"mdl/Weapons/arms/pov_pilot_heavy_revenant.rmdl" )
 }
 
 void function DEV_ToggleAkimboWeapon(entity player)
