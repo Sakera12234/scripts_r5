@@ -16,11 +16,11 @@ WeaponData
 	"viewmodel"   								"mdl/weapons/empty_handed/ptpov_boxinghand.rmdl"
 	"playermodel" 								"mdl/weapons/empty_handed/w_empty_handed_human.rmdl"
 
-	//"OnWeaponActivate"							"OnWeaponActivate_melee_boxing_ring"
+	//"OnWeaponActivate"						"OnWeaponActivate_melee_boxing_ring"
 	//"OnWeaponDeactivate"						"OnWeaponDeactivate_melee_boxing_ring"
 
 	// FX
-	"impact_effect_table"						"melee_human"
+	"impact_effect_table" 						"melee_gloves"
 
 	// Behavior
 	"melee_raise_recovery_animtime_normal"		"0.75"
