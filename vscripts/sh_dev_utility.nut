@@ -521,7 +521,10 @@ void function DevRespawnPlayer( entity player, bool shouldForce, void functionre
 	if ( shouldForce && IsAlive( player ) )
 	{
 		player.SetHealth( 0 )
-		wait 1.0
+		wait 0.4
+		thread ResetPlayerInventory( player )
+		wait 0.6
+		
 	}
 	if ( !IsAlive( player ) )
 	{
