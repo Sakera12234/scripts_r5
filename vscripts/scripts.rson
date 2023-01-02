@@ -466,7 +466,6 @@ Scripts:
 	mp/_titan_tether.gnut
 	_hovertank.gnut
 	_health_regen.gnut
-	sh_sdk_tools.nut
 	pilot/_leeching.gnut
 	pilot/_pilot_leeching.gnut
 	pilot/_zipline.gnut
@@ -536,6 +535,7 @@ Scripts:
 	pilot/sh_pilot_passive_voices.gnut
 	mp/sh_desertlands_train.nut
 	sh_scoreboard.gnut
+	sh_sdk_tools.nut
 ]
 
 When: "SERVER || UI"

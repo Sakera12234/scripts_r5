@@ -7,8 +7,9 @@ global function BecomeRampart
 global function BecomeRevenant
 global function BecomeAsh
 global function BecomeCatalyst
-global function TestAnimation
 global function BecomeNova
+global function BecomeValk
+global function TestAnimation
 
 global const asset TEST_MODEL = $"mdl/Humans/class/medium/combat_dummie_medium.rmdl"
 global const string TEST_ANIM= "Walldeath"
@@ -29,8 +30,6 @@ void function Precache_Sdk_Weapons()
 	PrecacheWeapon( $"mp_weapon_bolo_sword_primary" )
 	PrecacheWeapon( $"melee_mjolnir" )
 	PrecacheWeapon( $"mp_weapon_mjolnir_primary" )
-	PrecacheWeapon( $"melee_combat_katana" )
-	PrecacheWeapon( $"mp_weapon_combat_katana_primary" )
 	PrecacheWeapon( $"mp_weapon_melee_boxing_ring")
 	PrecacheWeapon( $"melee_boxing_ring")
 	PrecacheWeapon( $"mp_weapon_dataknife_kunai_primary")
@@ -95,6 +94,8 @@ void function Precache_Sdk_Models()
 	PrecacheModel( $"mdl/vehicle/olympus_hovercraft/olympus_hovercraft_v2.rmdl" )
 	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_w.rmdl" )
 	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_v.rmdl" )
+	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_valkyrie.rmdl" )
+	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl" )
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_nova_base_01.rmdl" )
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_nova_01.rmdl" )
 }
@@ -174,6 +175,15 @@ void function Precache_R5_Weapons()
 	PrecacheWeapon( $"melee_shadowsquad_hands" )
 	PrecacheWeapon( $"mp_weapon_shadow_squad_hands_primary" )
 	PrecacheParticleSystem( $"P_sparks_beacon_dish" )
+}
+
+void function BecomeValk(entity player)
+{
+	if(!IsValid(player))
+		return
+
+	player.SetBodyModelOverride($"mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl" )
+	player.SetArmsModelOverride($"mdl/Weapons/arms/pov_pilot_medium_valkyrie.rmdl" )
 }
 
 void function BecomeNova(entity player)
