@@ -3427,6 +3427,9 @@ string function GetPlayerVoice( entity player )
 			case "mdl/techart/mshop/characters/legends/ash/ash_base_w.rmdl":
 				return "ash"
 				break
+			case "mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl":
+				return "valkyrie"
+				break
 		}
 
 	return player.GetPlayerSettingString( "voice" )
