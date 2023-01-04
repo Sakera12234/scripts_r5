@@ -152,7 +152,13 @@ global function OpenXboxHelp
 global function OpenDevMenu
 #endif // DEVELOPER
 
-array<asset> sdkloadscreens = [$"loadscreens/custom/loadscreen_r5r_community_01", $"loadscreens/custom/loadscreen_r5r_community_02"]
+array<asset> sdkloadscreens = [
+	$"loadscreens/custom/loadscreen_r5r_community_01", 
+	$"loadscreens/custom/loadscreen_r5r_community_02", 
+	$"loadscreens/custom/loadscreen_r5r_community_03", 
+	$"loadscreens/custom/loadscreen_r5r_community_04", 
+	$"loadscreens/custom/loadscreen_r5r_community_05", 
+	$"loadscreens/custom/loadscreen_r5r_community_06"]
 
 struct
 {
