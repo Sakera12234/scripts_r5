@@ -152,6 +152,8 @@ global function OpenXboxHelp
 global function OpenDevMenu
 #endif // DEVELOPER
 
+array<asset> sdkloadscreens = [$"loadscreens/custom/loadscreen_r5r_community_01", $"loadscreens/custom/loadscreen_r5r_community_02"]
+
 struct
 {
 	array<void functionref()>                   partyUpdatedCallbacks
@@ -477,8 +479,8 @@ void function UICodeCallback_LevelInit( string levelname )
 	
 	if ( GetCurrentPlaylistVarBool( "random_loadscreen", true ) )
 	{	
-		if ( RandomFloat( 1.0 ) >= 0.90 ) // 10% chance to load a custom loadscreen
-			SetCustomLoadScreen( $"loadscreens/custom/loadscreen_r5r_community_01" )
+		//if ( RandomFloat( 1.0 ) >= 0.90 ) // 10% chance to load a custom loadscreen
+			SetCustomLoadScreen( sdkloadscreens.getrandom() )
 	}
 }
 
