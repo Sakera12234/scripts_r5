@@ -1,5 +1,3 @@
-
-global function MpWeaponCryoGrenade_Init
 global function OnProjectileCollision_weapon_Cryo_grenade
 global function OnWeaponActivate_CryoGrenade
 global function OnWeaponDeactivate_CryoGrenade
@@ -22,12 +20,6 @@ struct SegmentData
 	vector angles
 	string sound
 	entity moveParent
-}
-
-void function MpWeaponCryoGrenade_Init()
-{
-	//PrecacheParticleSystem( VM_EFFECT )
-	//PrecacheParticleSystem( BURN_EFFECT_ASSET )
 }
 
 void function OnWeaponActivate_CryoGrenade( entity weapon )
