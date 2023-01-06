@@ -83,6 +83,7 @@ void function Precache_Sdk_Models()
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl" )
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_nova_base_01.rmdl" )
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_nova_01.rmdl" )
+	PrecacheModel( $"mdl/props/charm/charm_r5r.rmdl" )
 }
 
 void function Precache_Lobby_Models()

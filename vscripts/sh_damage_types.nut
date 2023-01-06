@@ -81,6 +81,7 @@ global enum eDamageSourceId
 	mp_weapon_frag_grenade
 	mp_weapon_grenade_emp
 	mp_weapon_arc_blast
+	mp_weapon_cryo_grenade
 	mp_weapon_thermite_grenade
 	mp_weapon_nuke_satchel
 	mp_weapon_satchel
@@ -469,6 +470,7 @@ void function DamageTypes_Init()
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_bow]				<- $"rui/weapon_icons/r5/weapon_bow"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_smart_pistol]		<- $"rui/weapon_icons/r5/weapon_smart_pistol"
 	file.damageSourceIDToImage[eDamageSourceId.sp_weapon_arc_tool]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
+	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_cryo_grenade]		<- $"rui/ordnance_icons/grenade_cryo"
 
 	file.damageSourceIDToName =
 	{
