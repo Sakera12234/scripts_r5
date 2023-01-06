@@ -36,9 +36,7 @@ void function Precache_Sdk_Weapons()
 	PrecacheWeapon( $"melee_dataknife_kunai")
 	PrecacheWeapon( $"melee_data_knife" )
 	//////////////////////////////////////////////////
-	PrecacheWeapon( $"mp_weapon_rspn101_og" )
 	PrecacheWeapon( $"mp_ability_sniper_ult" )
-	//////////////////////////////////////////////////
 	PrecacheWeapon( $"mp_weapon_defender_sustained" )
 	PrecacheWeapon( $"weapon_cubemap" )
 	//////////////////////////////////////////////////
