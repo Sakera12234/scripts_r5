@@ -9,6 +9,7 @@ global function BecomeAsh
 global function BecomeCatalyst
 global function BecomeNova
 global function BecomeValk
+global function BecomeFuse
 global function TestAnimation
 
 global const asset TEST_MODEL = $"mdl/Humans/class/medium/combat_dummie_medium.rmdl"
@@ -83,6 +84,8 @@ void function Precache_Sdk_Models()
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl" )
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_nova_base_01.rmdl" )
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_nova_01.rmdl" )
+	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_fuse.rmdl" )
+	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_fuse.rmdl" )
 	PrecacheModel( $"mdl/props/charm/charm_r5r.rmdl" )
 }
 
@@ -136,6 +139,15 @@ void function Precache_R5_Weapons()
 	PrecacheWeapon( $"melee_shadowsquad_hands" )
 	PrecacheWeapon( $"mp_weapon_shadow_squad_hands_primary" )
 	PrecacheParticleSystem( $"P_sparks_beacon_dish" )
+}
+
+void function BecomeFuse(entity player)
+{
+	if(!IsValid(player))
+		return
+
+	player.SetBodyModelOverride($"mdl/Humans/class/medium/pilot_medium_fuse.rmdl" )
+	player.SetArmsModelOverride($"mdl/Weapons/arms/pov_pilot_medium_fuse.rmdl" )
 }
 
 void function BecomeValk(entity player)

@@ -3430,6 +3430,9 @@ string function GetPlayerVoice( entity player )
 			case "mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl":
 				return "valkyrie"
 				break
+			case "mdl/Humans/class/medium/pilot_medium_fuse.rmdl":
+				return "fuse"
+				break
 		}
 
 	return player.GetPlayerSettingString( "voice" )

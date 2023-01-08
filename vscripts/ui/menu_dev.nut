@@ -804,16 +804,14 @@ void function SetupPrototypesDevMenu()
 {
 	SetupDevCommand( "Toggle Akimbo With Current Weapon", "script DEV_ToggleAkimboWeapon(gp()[0])" )
 	SetupDevCommand( "Toggle Akimbo With Holstered Weapon", "script DEV_ToggleAkimboWeaponAlt(gp()[0])" )
-	//SetupDevCommand( "Change Player Model - R2 Pilot", "script BecomePilot(gp()[0])" )
-	//SetupDevCommand( "Change Player Model - Blisk", "script BecomeBlisk(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Revenant", "script BecomeRevenant(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Loba", "script BecomeLoba(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Rampart", "script BecomeRampart(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Horizon", "script BecomeNova(gp()[0])" )
+	SetupDevCommand( "Change Player Model - Fuse", "script BecomeFuse(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Valkyrie", "script BecomeValk(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Ash", "script BecomeAsh(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Catalyst", "script BecomeCatalyst(gp()[0])" )
-	// SetupDevCommand( "Change to Shadow Squad", "script Dev_ShadowFormEnable( GP() )" )
 }
 
 void function SetDevMenu_Heirlooms( var _ )
