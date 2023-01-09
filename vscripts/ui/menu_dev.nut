@@ -366,7 +366,7 @@ void function SetupDefaultDevCommandsMP()
 	SetupDevCommand( "Toggle Third Person Mode", "ToggleThirdPerson" )
 
 	SetupDevMenu( "Prototypes", SetDevMenu_Prototypes )
-	SetupDevMenu( "Custom Heirlooms", SetDevMenu_Heirlooms )
+	SetupDevMenu( "Custom Heirlooms", SetDevMenu_CustomHeirlooms )
 	
 	SetupDevMenu( "Spawn a NPC at Crosshair", SetDevMenu_npc )
 
@@ -814,9 +814,9 @@ void function SetupPrototypesDevMenu()
 	SetupDevCommand( "Change Player Model - Catalyst", "script BecomeCatalyst(gp()[0])" )
 }
 
-void function SetDevMenu_Heirlooms( var _ )
+void function SetDevMenu_CustomHeirlooms( var _ )
 {
-	thread ChangeToThisMenu( SetupHeirloomsDevMenu )
+	thread ChangeToThisMenu( SetupCustomHeirloomsDevMenu )
 }
 
 void function SetDevMenu_npc( var _ )
@@ -824,7 +824,7 @@ void function SetDevMenu_npc( var _ )
 	thread ChangeToThisMenu( SetupNPCDevMenu )
 }
 
-void function SetupHeirloomsDevMenu()
+void function SetupCustomHeirloomsDevMenu()
 {
 	SetupDevCommand( "Dataknife Kunai", "giveheirloom 0" )
 	SetupDevCommand( "Bolo Sword", "giveheirloom 1" )
