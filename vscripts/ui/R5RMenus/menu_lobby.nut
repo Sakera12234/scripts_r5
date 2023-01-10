@@ -106,6 +106,7 @@ void function OpenSelectedPanel(var button)
 	switch(scriptid)
 	{
 		case 0:
+			Play_UpdateCounts()
 			UI_SetPresentationType( ePresentationType.PLAY )
 			CurrentPresentationType = ePresentationType.PLAY
 			break;
@@ -155,7 +156,8 @@ void function SetupLobby()
 	thread TryRunDialogFlowThread()
 
 	//Set Version
-	SetUIVersion()
+	Play_SetUIVersion()
+	Play_UpdateCounts()
 
 	//Set selected legend from playlist
 	ItemFlavor character = GetItemFlavorByHumanReadableRef( GetCurrentPlaylistVarString( "set_legend", "character_wraith" ) )
@@ -239,7 +241,7 @@ void function OnR5RLobby_Back()
 
 void function InPlayersLobby(bool show, string host)
 {
-	Hud_SetVisible( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobby"), show )
-    Hud_SetVisible( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobbyText"), show )
-	Hud_SetText( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobbyText"), "You are in " + host + "'s lobby" )
+	//Hud_SetVisible( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobby"), show )
+    //Hud_SetVisible( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobbyText"), show )
+	//Hud_SetText( Hud_GetChild(GetPanel( "R5RHomePanel" ), "InPlayersLobbyText"), "You are in " + host + "'s lobby" )
 }
