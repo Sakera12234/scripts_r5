@@ -810,6 +810,7 @@ void function SetupPrototypesDevMenu()
 	SetupDevCommand( "Change Player Model - Horizon", "script BecomeNova(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Fuse", "script BecomeFuse(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Valkyrie", "script BecomeValk(gp()[0])" )
+	SetupDevCommand( "Change Player Model - Seer", "script BecomeSeer(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Ash", "script BecomeAsh(gp()[0])" )
 	SetupDevCommand( "Change Player Model - Catalyst", "script BecomeCatalyst(gp()[0])" )
 }
