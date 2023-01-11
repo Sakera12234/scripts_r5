@@ -26,13 +26,9 @@ WeaponData
 	// Menu Stats
 
 	// Models
-	// "viewmodel"										"mdl/weapons/grenades/ptpov_smoke_grenade.rmdl"
-	// "playermodel"									"mdl/weapons/grenades/smoke_grenade.rmdl"
-	// "projectilemodel"								"mdl/weapons/grenades/smoke_grenade_projectile.rmdl"
-
-	"viewmodel"										"mdl/weapons/grenades/ptpov_gibraltar_beacon.rmdl"
-	"playermodel"									"mdl/weapons/grenades/w_gibraltar_beacon.rmdl"
-	"projectilemodel"								"mdl/weapons/grenades/w_gibraltar_beacon_projectile.rmdl"
+	"viewmodel"										"mdl/weapons/grenades/ptpov_smoke_grenade.rmdl"
+	"playermodel"									"mdl/weapons/grenades/smoke_grenade.rmdl"
+	"projectilemodel"								"mdl/weapons/grenades/smoke_grenade_projectile.rmdl"
 
     show_grenade_indicator                          1
     grenade_show_indicator_to_owner                 1
