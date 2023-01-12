@@ -3406,34 +3406,6 @@ string function GetPlayerVoice( entity player )
 		var block = GetSettingsBlockForAsset( CharacterClass_GetSetFile( character ) )
 		return GetSettingsBlockString( block, "voice" )
 	}
-	
-	switch ( player.GetModelName() )
-		{//TODO: REMOVE THIS WHEN CUSTOM SETTINGS POSSIBLE
-			case "mdl/Humans/class/medium/pilot_medium_rampart.rmdl":
-				return "rampart"
-				break
-			case "mdl/Humans/class/medium/pilot_medium_loba.rmdl":
-				return "loba"
-				break
-			case "mdl/humans/class/heavy/pilot_heavy_revenant.rmdl":
-				return "revenant"
-				break
-			case "mdl/techart/mshop/characters/legends/catalyst/catalyst_base_w.rmdl":
-				return "catalyst"
-				break
-			case "mdl/Humans/class/medium/pilot_medium_nova_01.rmdl":
-				return "horizon"
-				break
-			case "mdl/techart/mshop/characters/legends/ash/ash_base_w.rmdl":
-				return "ash"
-				break
-			case "mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl":
-				return "valkyrie"
-				break
-			case "mdl/Humans/class/medium/pilot_medium_fuse.rmdl":
-				return "fuse"
-				break
-		}
 
 	return player.GetPlayerSettingString( "voice" )
 }
