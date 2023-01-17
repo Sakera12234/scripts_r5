@@ -1331,13 +1331,11 @@ var function CreateApexScreenRUIElement( ApexScreenState screen )
 
 	RuiTrackInt( rui, "cameraNearbyEnemySquads", GetLocalViewPlayer(), RUI_TRACK_SCRIPT_NETWORK_VAR_INT, GetNetworkedVariableIndex( "cameraNearbyEnemySquads" ) )
 
-	#if(true)
-		if ( IsFallLTM() )
-		{
-			RuiSetImage( rui, "overlayImg", $"rui/rui_screens/banner_c_shadowfall" )
-			RuiSetFloat3( rui, "logoTint", <1.0, 1.0, 1.0> )
-		}
-	#endif
+	if ( IsFallLTM() )
+	{
+		RuiSetImage( rui, "overlayImg", $"rui/rui_screens/banner_c_shadowfall" )
+		RuiSetFloat3( rui, "logoTint", <1.0, 1.0, 1.0> )
+	}
 
 	if ( screen.overrideInfoIsValid )
 	{

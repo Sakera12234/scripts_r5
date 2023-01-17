@@ -529,6 +529,20 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 
 		return
 	}
+	
+	if ( IsFallLTM() )//TODO: REMOVE THIS FROM HERE LATER ON
+	{
+		thread function() : ( victim, attacker, damageInfo )
+		{
+			thread LegendIsDied( victim, attacker )
+			int droppableItems = GetAllDroppableItems( victim ).len()
+
+			if ( droppableItems > 0 )
+				CreateSurvivalDeathBoxForPlayer( victim, attacker, damageInfo )
+		}()
+
+		return
+	}
 
 	SetPlayerEliminated( victim )
 	PlayerStartSpectating( victim, attacker )

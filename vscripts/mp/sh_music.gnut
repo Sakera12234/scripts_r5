@@ -39,6 +39,10 @@ global function MusicPack_GetPortraitBlend
 global function ServerCallback_PlayMatchEndMusic
 #endif
 
+#if SERVER
+global function GetCustomMusicPackForMode
+#endif
+
 struct FileStruct_LifetimeLevel
 {
 	LoadoutEntry&          musicPackSelectionSlot
@@ -131,11 +135,6 @@ ItemFlavor function GetMusicPackForPlayer( entity player )
 			//
 		}
 	}
-
-	if ( GetCurrentPlaylistVarBool( "force_custom_musicpack", false ) == true )
-	{
-		flav = GetCustomMusicPackForMode()
-	}
 	#else
 	flav = __GetMusicPackForPlayer_RollTheRandom( player )
 	#endif // CLIENT
@@ -157,23 +156,19 @@ bool function GetMusicPackDefaultIsSelectedLoadout( entity player )
 }
 #endif
 
-#if CLIENT
-ItemFlavor function GetCustomMusicPackForMode()
+#if SERVER
+void function GetCustomMusicPackForMode( entity player )
 {
-	ItemFlavor flav
-
-	//
 	if ( IsFallLTM() )
 	{
-		flav = GetItemFlavorByAsset( $"settings/itemflav/musicpack/s03e01.rpak" )
+		ItemFlavor Shadowfall_MusicPack = GetItemFlavorByAsset( $"settings/itemflav/musicpack/s03e01.rpak" )
+		SetItemFlavorLoadoutSlot( ToEHI( player ), Loadout_MusicPack(), Shadowfall_MusicPack )
 	}
 	else
 	{
-		Assert( 0, "Playlist has force_custom_musicpack without a script definition of the music to use for the mode" )
+		ItemFlavor Default_MusicPack = GetItemFlavorByAsset( $"settings/itemflav/musicpack/default.rpak" )
+		SetItemFlavorLoadoutSlot( ToEHI( player ), Loadout_MusicPack(), Default_MusicPack )
 	}
-
-	return flav
-
 }
 #endif
 

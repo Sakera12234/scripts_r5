@@ -2527,11 +2527,8 @@ void function UICallback_UpdateTeammateInfo( var elem )
 	array<entity> team = GetPlayerArrayOfTeam( player.GetTeam() )
 	team.fastremovebyvalue( player )
 
-	#if(true)
-		//
-		if ( IsFallLTM() )
-			team.clear()
-	#endif
+	if ( IsFallLTM() )
+		team.clear()
 
 	if ( teammateIndex < team.len() )
 	{

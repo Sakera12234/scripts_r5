@@ -1,49 +1,24 @@
-#if(true)//
-
 global function ShGameModeShadowSquad_Init
 global function IsShadowVictory
 global function IsPlayerShadowSquad
 global function Gamemode_ShadowSquad_RegisterNetworking
 global function PlayerCanRespawnAsShadow
+global function GivePlayerShadowSkin
 
-//
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#if SERVER
+global function GivePlayerShadowPowers
+global function LegendIsDied
+global function ShadowKilled
+global function evactest
 #endif //
 
-#if(CLIENT)
+#if CLIENT
 	global function ServerCallback_ModeShadowSquad_AnnouncementSplash
 	global function ServerCallback_ModeShadowSquad_RestorePlayerHealthFx
 	global function ServerCallback_ShadowClientEffectsEnable
 	global function ServerCallback_PlaySpectatorAudio
+	global function ServerCallback_PlayerLandedNOCAudio
+	global function ShadowClientEffectsEnable
 
 	const asset ANNOUNCEMENT_LEGEND_ICON = $"rui/gamemodes/shadow_squad/legend_icon"
 	const asset ANNOUNCEMENT_SHADOW_ICON = $"rui/gamemodes/shadow_squad/shadow_icon_orange"
@@ -137,21 +112,12 @@ enum eShadowAnnouncerCustom
 
 global asset FX_SHADOW_FORM_EYEGLOW 				= $""
 global asset FX_SHADOW_TRAIL 					= $""
-#if(false)
 
-
-
-
-
-
-#endif //
-
-#if(CLIENT)
+#if CLIENT
 	global asset SHADOW_SCREEN_FX 					= $""
 	global asset FX_HEALTH_RESTORE					= $""
 	global asset FX_SHIELD_RESTORE					= $""
 #endif
-
 
 const bool DEBUG_SHADOWSPAWNS 					= false
 const bool DEBUG_SHADOWEVAC 					= false
@@ -162,251 +128,47 @@ const int MAX_SHADOW_RESPAWNS					= -1
 global const int LEGEND_REALM					= 1
 global const int SHADOW_REALM					= 2
 
-
-#if(false)
-
-
-
-
-
-
-
-
-#endif //
-
-
 struct
 {
 
-	#if(false)
+	#if SERVER
+#endif //SERVER
 
-
-
-//
-
-
-
-
-
-
-
-
-//
-
-
-
-
-#endif //
-
-	#if(CLIENT)
+	#if CLIENT
 		var countdownRui
 		table< int, array< int > > playerClientFxHandles
-		//
-
-
-	#endif //
+	#endif
 
 } file
 
-//
 void function ShGameModeShadowSquad_Init()
 {
-	#if(false)
-//
-//
-
-
-#endif //
-
-
 	if ( !IsFallLTM() )
 		return
 
+	SurvivalCommentary_SetHost( eSurvivalHostType.NOC )
 	AddCallback_EntitiesDidLoad( EntitiesDidLoad )
-
-	//
-	//
-
-	#if(CLIENT)
+	#if CLIENT
 		SetCommsDialogueEnabled( false ) //
 		AddCallback_OnPlayerLifeStateChanged( OnPlayerLifeStateChanged )
 		AddCallback_OnVictoryCharacterModelSpawned( OnVictoryCharacterModelSpawned )
 		thread ShadowVictorySequenceSetup()
-		//
-		//
-		//
 		AddCreateCallback( "player", ShadowSquad_OnPlayerCreated )
 
 		Obituary_SetIndexOffset( 2 ) //
-
 	#endif //
-
-	#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-#endif //
 }
-//
 
-
-#if(false)
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-#if(CLIENT)
+#if CLIENT
 void function ShadowVictorySequenceSetup()
 {
 	wait 1
 
 	SetVictorySequenceLocation( <10472, 30000, 8500>, <0, 60, 0> )
 	SetVictorySequenceSunSkyIntensity( 0.8, 0.0 )
-
-
-
 }
 #endif //
 
-#if(false)
-
-
-
-
-#endif //
-
-#if(false)
-
-
-//
-
-#endif //
-
-
-//
 void function EntitiesDidLoad()
 {
 	if ( !IsFallLTM() )
@@ -415,152 +177,16 @@ void function EntitiesDidLoad()
 	if ( IsMenuLevel() )
 		return
 
-	#if(false)
-
-
-//
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	#if SERVER
 #endif //
-
 	SurvivalCommentary_SetHost( eSurvivalHostType.NOC )
-
 }
-//
 
-
-#if(false)
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-//
-//
-//
-
-//
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-//
-
-//
-//
-//
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-//
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-//
 void function Gamemode_ShadowSquad_RegisterNetworking()
 {
 	if ( !IsFallLTM() )
 	{
-		//
-		Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity", "bool" )
+		Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity", "bool"  )
 		return
 	}
 
@@ -568,23 +194,21 @@ void function Gamemode_ShadowSquad_RegisterNetworking()
 	Remote_RegisterClientFunction( "ServerCallback_ModeShadowSquad_AnnouncementSplash", "int", 0, 999, "float", 0.0, 5000.0, 16 )
 	Remote_RegisterClientFunction( "ServerCallback_ShadowClientEffectsEnable", "entity", "bool" )
 	Remote_RegisterClientFunction( "ServerCallback_PlaySpectatorAudio", "bool" )
+	Remote_RegisterClientFunction( "ServerCallback_PlayerLandedNOCAudio", "bool" )
 	Remote_RegisterClientFunction( "ServerCallback_ModeShadowSquad_RestorePlayerHealthFx", "bool" )
 	RegisterNetworkedVariable( "playerCanRespawnAsShadow", SNDC_PLAYER_GLOBAL, SNVT_BOOL, false )
-	//
+
 	RegisterNetworkedVariable( "shadowSquadGamePhase", SNDC_GLOBAL, SNVT_UNSIGNED_INT, 0, 0, eShadowSquadGamePhase._count )
 	RegisterNetworkedVariable( "countdownTimerStart", SNDC_GLOBAL, SNVT_TIME, -1 )
 	RegisterNetworkedVariable( "countdownTimerEnd", SNDC_GLOBAL, SNVT_TIME, -1 )
 	RegisterNetworkedVariable( "shadowsWonTheMode", SNDC_GLOBAL, SNVT_BOOL, false )
 
-
-
-	#if(CLIENT)
+	#if CLIENT
 		RegisterNetworkedVariableChangeCallback_int( "shadowSquadGamePhase", OnGamePhaseChanged )
 	#endif //
 }
-//
 
-#if(CLIENT)
+#if CLIENT
 void function OnGamePhaseChanged( entity player, int oldVal, int newVal, bool actuallyChanged )
 {
 	if ( !actuallyChanged )
@@ -592,7 +216,6 @@ void function OnGamePhaseChanged( entity player, int oldVal, int newVal, bool ac
 
 	foreach( guy in GetPlayerArray() )
 	{
-
 		UpdatePlayerHUD( guy )
 
 		if ( newVal == eShadowSquadGamePhase.FINAL_LEGENDS_DECIDED_EVAC_TIMER_STARTED )
@@ -624,524 +247,50 @@ void function OnGamePhaseChanged( entity player, int oldVal, int newVal, bool ac
 }
 #endif //
 
-
 int function GetCurrentGamePhase()
 {
 	return GetGlobalNetInt( "shadowSquadGamePhase" )
 }
 
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-#if(false)
-
-
-
-
-
-
-//
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-#if(false)
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-//
-
-
-//
-
-
-
-
-
-//
-
-
-
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-//
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-#if(false)
-
-
-//
-//
-//
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-//
-//
-//
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-//
-
-
-//
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-//
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(CLIENT)
+#if CLIENT
 void function ServerCallback_PlaySpectatorAudio( bool playRespawnMusic )
 {
-	//
-	//
-	//
 	entity clientPlayer = GetLocalClientPlayer()
 	if ( !IsValid( clientPlayer ) )
 		return
 
-
-	//
-	//
-	//
 	if ( playRespawnMusic )
 	{
-		//
-		EmitSoundOnEntity( clientPlayer, "Music_LTM_31_RespawnAndDrop" )
 		thread SkydiveRespawnCleanup( clientPlayer )
+
+		array <string> dialogueChoices
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_01_01_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_01_02_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_01_03_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_02_01_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_02_02_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_02_03_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_03_01_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_03_02_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_04_01_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_04_02_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_05_01_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_05_02_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_06_01_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_06_02_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_07_01_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_07_02_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_07_03_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_08_01_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_08_02_3p" )
+		dialogueChoices.append( "diag_ap_nocNotify_playerBecomesShadowSquad_08_03_3p" )
+		dialogueChoices.randomize()
+		thread EmitSoundOnEntityDelayed( clientPlayer, dialogueChoices.getrandom(), 2.0 )
 	}
 	else
 	{
 		ServerCallback_PlayMatchEndMusic()
-	}
 
-	//
-	//
-	//
-	if ( !playRespawnMusic && GetGameState() == eGameState.Playing )
-	{
-		//
 		array <string> dialogueChoices
 		dialogueChoices.append( "diag_ap_nocNotify_playerDeathFinal_01_01_3p" )
 		dialogueChoices.append( "diag_ap_nocNotify_playerDeathFinal_01_02_3p" )
@@ -1153,11 +302,37 @@ void function ServerCallback_PlaySpectatorAudio( bool playRespawnMusic )
 		dialogueChoices.randomize()
 		thread EmitSoundOnEntityDelayed( clientPlayer, dialogueChoices.getrandom(), 2.0 )
 	}
+}
 
+void function ServerCallback_PlayerLandedNOCAudio( bool legendalive )
+{
+		entity clientPlayer = GetLocalClientPlayer()
+		if ( !IsValid( clientPlayer ) )
+			return
+			
+		if ( legendalive )
+		{
+			array <string> legendlandedsafely
+			legendlandedsafely.append( "diag_ap_nocNotify_skydiveTaunt_01_01_3p" )
+			legendlandedsafely.append( "diag_ap_nocNotify_skydiveTaunt_01_02_3p" )
+			legendlandedsafely.append( "diag_ap_nocNotify_skydiveTaunt_02_01_3p" )
+			legendlandedsafely.append( "diag_ap_nocNotify_skydiveTaunt_02_02_3p" )
+			legendlandedsafely.randomize()
+			thread EmitSoundOnEntityDelayed( clientPlayer, legendlandedsafely.getrandom(), 2.0 )
+		}
+		else
+		{
+			array <string> dialogueChoices2
+			dialogueChoices2.append( "diag_ap_nocNotify_skydiveTaunt_03_01_3p" )
+			dialogueChoices2.append( "diag_ap_nocNotify_skydiveTaunt_03_02_3p" )
+			dialogueChoices2.append( "diag_ap_nocNotify_skydiveTaunt_03_03_3p" )
+			dialogueChoices2.randomize()
+			thread EmitSoundOnEntityDelayed( clientPlayer, dialogueChoices2.getrandom(), 2.0 )
+		}
+		
 }
 #endif //
 
-//
 void function EmitSoundOnEntityDelayed( entity player, string alias, float delay )
 {
 	wait delay
@@ -1168,12 +343,10 @@ void function EmitSoundOnEntityDelayed( entity player, string alias, float delay
 	if ( GetGameState() != eGameState.Playing )
 		return
 
-
 	EmitSoundOnEntity( player, alias )
 }
-//
 
-#if(CLIENT)
+#if CLIENT
 void function SkydiveRespawnCleanup( entity player )
 {
 	wait ( GetCurrentPlaylistVarFloat( "shadow_squad_respawn_cooldown", 0 ) + 0.25 )
@@ -1195,503 +368,115 @@ void function SkydiveRespawnCleanup( entity player )
 	)
 
 	WaitForever()
-
-
 }
 #endif
 
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-//
-
-
-
-
-
-
-//
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-//
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-
-//
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-//
-
-
-#endif //
-
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-#if(false)
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-//
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-//
-
-
-//
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-//
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-//
-
-
-//
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-//
-
-
-
-
-/*
-
-
-
-
-
-
-*/
-
-
-
-//
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(CLIENT)
+#if CLIENT
 void function ShadowSquadThreatVision( entity player )
 {
-	/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
 }
 #endif //
 
-
-
-#if(CLIENT)
+#if CLIENT
 void function ServerCallback_ShadowClientEffectsEnable( entity player, bool enableFx )
 {
 	thread ShadowClientEffectsEnable( player, enableFx )
 }
 #endif //
 
+void function GivePlayerShadowSkin(entity player)
+{
+	wait 0.01
+	
+	if ( !IsValid( player ) )
+		return
 
-#if(CLIENT)
-void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVictorySequence = false )
+	player.SetSkin( player.GetSkinIndexByName( "ShadowSqaud" ) )
+}
+
+#if SERVER
+void function LegendIsDied( entity player, entity enemy )
+{
+	wait 0.01
+	if ( IsPlayerShadowSquad( enemy ) )
+		enemy.SetHealth( 30 )
+	else if ( IsPlayerShadowSquad( player ) )
+		thread ShadowKilled( player )
+
+	player.SetPlayerNetInt( "respawnStatus", eRespawnStatus.WAITING_FOR_DELIVERY )
+	Remote_CallFunction_NonReplay( player, "ServerCallback_ShowDeathScreen" )
+
+	EmitSoundOnEntityOnlyToPlayer( player, player, "Music_LTM_31_RespawnAndDrop" )
+
+	wait 5.0
+	DecideRespawnPlayer( player )
+	thread GivePlayerShadowSkin( player )
+	thread GivePlayerShadowPowers( player )
+	player.SetOrigin( <RandomIntRange( -26000, 26000 ), RandomIntRange( -26000, 26000 ), 26000> )
+	player.SetAngles( <24, RandomIntRange( -180, 180 ), 0> )
+	thread PlayerSkydiveFromCurrentPosition( player )
+	thread StartShadowFx( player )
+	
+	Remote_CallFunction_NonReplay( player, "ServerCallback_ShadowClientEffectsEnable", player, true )
+
+	wait 0.3
+	Remote_CallFunction_NonReplay( player, "ServerCallback_PlaySpectatorAudio", true )
+	Remote_CallFunction_NonReplay( player, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.RESPAWNING_AS_SHADOW, 10 )
+}
+
+void function GivePlayerShadowPowers( entity player )
+{
+	if ( !IsValid( player ) )
+		return
+
+	player.SetPlayerNetBool( "isPlayerShadowForm", true )
+	
+	TakeAllPassives( player )
+	player.TakeOffhandWeapon(OFFHAND_MELEE)
+	player.TakeNormalWeaponByIndexNow( WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+	player.TakeOffhandWeapon( OFFHAND_TACTICAL )
+	player.TakeOffhandWeapon( OFFHAND_ULTIMATE )
+	player.TakeOffhandWeapon( OFFHAND_SLOT_FOR_CONSUMABLES )
+	GivePassive( player, ePassives.PAS_TRACKING_VISION )
+    player.GiveWeapon( "mp_weapon_shadow_squad_hands_primary", WEAPON_INVENTORY_SLOT_PRIMARY_2 )
+    player.GiveOffhandWeapon( "melee_shadowsquad_hands", OFFHAND_MELEE )
+	player.SetHealth( 30 )
+	//SetTeam( player, TEAM_IMC )//TODO: Implement this for champion screen
+	StatusEffect_AddEndless( player, eStatusEffect.speed_boost, 0.2 )
+}
+
+void function StartShadowFx( entity player )
+{
+	entity eyeFX
+	entity bodyFX
+	array<string> attachNames = [ "EYE_L", "EYE_R" ]
+
+	foreach ( attachName in attachNames )
+	{
+		if ( player.LookupAttachment( attachName ) > 0 )
+		{
+			eyeFX = StartParticleEffectOnEntity_ReturnEntity( player, PrecacheParticleSystem( $"P_BShadow_eye" ), FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( attachName ) )
+			eyeFX.SetOwner( player )
+			eyeFX.kv.VisibilityFlags = (ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY) // Don't show the effects to owner
+		}
+	}
+
+	bodyFX = StartParticleEffectOnEntity_ReturnEntity( player, PrecacheParticleSystem( $"P_Bshadow_body" ), FX_PATTACH_POINT_FOLLOW, player.LookupAttachment( "CHESTFOCUS" ) )
+	bodyFX.SetOwner( player )
+	bodyFX.kv.VisibilityFlags = (ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY) // Don't show the effects to owner
+	
+	//Find a way to disable ragdolls and death anims on shadows
+}
+
+void function ShadowKilled( entity victim )
+{
+	StartParticleEffectOnEntity_ReturnEntity( victim, PrecacheParticleSystem( $"P_Bshadow_death" ), FX_PATTACH_POINT_FOLLOW, victim.LookupAttachment( "CHESTFOCUS" ) )
+}
+
+#endif //
+
+#if CLIENT
+void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVictorySequence = false)
 {
 	AssertIsNewThread()
 	wait 0.25
@@ -1702,22 +487,11 @@ void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVi
 	bool isLocalPlayer = ( player == GetLocalViewPlayer() )
 	vector playerOrigin = player.GetOrigin()
 	int playerTeam = player.GetTeam()
-
-	//
-	//
-	//
 	if ( enableFx )
 	{
-		//
-		//
-		//
 		if ( isLocalPlayer )
 		{
 			HealthHUD_StopUpdate( player )
-
-			//
-			//
-			//
 			EmitSoundOnEntity( player, "ShadowLegend_Shadow_Loop_1P" )
 
 			entity cockpit = player.GetCockpit()
@@ -1733,17 +507,7 @@ void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVi
 			if ( !( playerTeam in file.playerClientFxHandles) )
 				file.playerClientFxHandles[ playerTeam ] <- []
 			file.playerClientFxHandles[playerTeam].append( fxHandle )
-
-			//
-			//
-			//
-			//
-
 		}
-
-		//
-		//
-		//
 		else
 		{
 			//
@@ -1756,40 +520,10 @@ void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVi
 			clientAG.SetParent( player, "", true, 0.0 )
 			clientAG.SetScriptName( STRING_SHADOW_SOUNDS )
 		}
-
-
-		//
-		//
-		//
-
-
-
-
-		//
-		/*
-
-
-
-
-
-
-
-
-
-
-
-*/
-
 	}
 
-	//
-	//
-	//
 	else
 	{
-		//
-		//
-		//
 		if ( isLocalPlayer )
 		{
 			StopSoundOnEntity( player, "ShadowLegend_Shadow_Loop_1P" )
@@ -1808,15 +542,6 @@ void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVi
 				delete file.playerClientFxHandles[ playerTeam ]
 			}
 		}
-
-		//
-		//
-		//
-
-
-		//
-		//
-		//
 		array<entity> children = player.GetChildren()
 		foreach( childEnt in children )
 		{
@@ -1829,342 +554,12 @@ void function ShadowClientEffectsEnable( entity player, bool enableFx, bool isVi
 				continue
 			}
 		}
-
-
 	}
+	thread ShadowSquad_SetHUD( player )
 }
-#endif //
+#endif
 
-
-
-#if(false)
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-
-//
-//
-//
-
-
-
-
-//
-//
-//
-
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-
-//
-//
-//
-
-
-//
-//
-//
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-//
-//
-//
-
-
-
-
-//
-
-
-
-
-
-//
-//
-//
-
-
-
-
-//
-//
-//
-
-//
-
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-#if(CLIENT)
+#if CLIENT
 void function ServerCallback_ModeShadowSquad_RestorePlayerHealthFx( bool useShieldEffect )
 {
 	entity player = GetLocalViewPlayer()
@@ -2200,12 +595,10 @@ void function ServerCallback_ModeShadowSquad_RestorePlayerHealthFx( bool useShie
 	int fxHandle = StartParticleEffectOnEntity( cockpit, GetParticleSystemIndex( healFxAsset ), FX_PATTACH_ABSORIGIN_FOLLOW, -1 )
 	EffectSetControlPointVector( fxHandle, 1, fxColor )
 	thread DelayedDestroyFx( fxHandle, 1.0 )
-
 }
 #endif //
 
-
-#if(CLIENT)
+#if CLIENT
 void function DelayedDestroyFx( int fxHandle, float delay )
 {
 	wait delay
@@ -2213,40 +606,8 @@ void function DelayedDestroyFx( int fxHandle, float delay )
 	if ( EffectDoesExist( fxHandle ) )
 		EffectStop( fxHandle, true, false )
 }
-
 #endif //
 
-
-
-
-#if(false)
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-//
 bool function IsPlayerShadowSquad( entity player )
 {
 	if ( !IsValid( player ) )
@@ -2257,7 +618,6 @@ bool function IsPlayerShadowSquad( entity player )
 
 	return player.GetPlayerNetBool( "isPlayerShadowForm" )
 }
-//
 
 bool function IsPlayerShadowSquadFinalLegend( entity player )
 {
@@ -2274,137 +634,9 @@ bool function IsPlayerShadowSquadFinalLegend( entity player )
 		return false
 
 	return true
-
 }
 
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-#if(CLIENT)
+#if CLIENT
 void function OnVictoryCharacterModelSpawned( entity characterModel, ItemFlavor character, int eHandle )
 {
 	if ( !IsValid( characterModel ) )
@@ -2413,41 +645,31 @@ void function OnVictoryCharacterModelSpawned( entity characterModel, ItemFlavor 
 	if ( !IsShadowVictory() )
 		return
 
-	//
-	//
-	//
 	ItemFlavor skin = GetDefaultItemFlavorForLoadoutSlot( eHandle, Loadout_CharacterSkin( character ) )
 	CharacterSkin_Apply( characterModel, skin )
 
-	//
-	//
-	//
 	if (  characterModel.GetSkinIndexByName( "ShadowSqaud" ) != -1 )
 		characterModel.SetSkin( characterModel.GetSkinIndexByName( "ShadowSqaud" ) )
 	else
 		characterModel.kv.rendercolor = <0, 0, 0>
 
-	//
-	//
-	//
 	int FX_BODY = StartParticleEffectOnEntity( characterModel, GetParticleSystemIndex( FX_SHADOW_TRAIL ), FX_PATTACH_POINT_FOLLOW, characterModel.LookupAttachment( "CHESTFOCUS" ) )
 	int FX_EYE_L = StartParticleEffectOnEntity( characterModel, GetParticleSystemIndex( FX_SHADOW_FORM_EYEGLOW ), FX_PATTACH_POINT_FOLLOW, characterModel.LookupAttachment( "EYE_L" ) )
 	int FX_EYE_R = StartParticleEffectOnEntity( characterModel, GetParticleSystemIndex( FX_SHADOW_FORM_EYEGLOW ), FX_PATTACH_POINT_FOLLOW, characterModel.LookupAttachment( "EYE_R" ) )
-
 }
 #endif //
 
 
-#if(CLIENT)
+#if CLIENT
 void function ShadowSquad_OnPlayerCreated( entity player )
 {
-	//
 	SetCustomPlayerInfoColor( player, GetKeyColor( COLORID_MEMBER_COLOR0, 0 ) )
 }
-#endif //
 
+void function ShadowSquad_SetHUD( entity player )
+{
+}
 
-#if(CLIENT)
 void function OnPlayerLifeStateChanged( entity player, int oldState, int newState )
 {
 	if ( !IsValid( player ) )
@@ -2474,1385 +696,12 @@ void function OnPlayerLifeStateChanged( entity player, int oldState, int newStat
 		SetCustomPlayerInfoTreatment( player, $"rui/gamemodes/shadow_squad/player_info_custom_treatment" )
 		SetCustomPlayerInfoColor( player, <245, 81, 35 > )
 	}
-
-	/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
 }
 #endif //
 
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-
-//
-//
-//
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-//
-//
-//
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-
-/*
-
-
-
-
-
-
-
-
-*/
-
-/*
-
-
-
-
-
-
-
-
-*/
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-#if(false)
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-//
-//
-//
-
-
-//
-
-
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-/*
-
-
-
-
-
-*/
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-//
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-#if(false)
-
-
-
-
-//
-//
-//
-
-
-
-
-//
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-//
-//
-
-
-//
-//
-//
-
-
-
-
-#endif //
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-
-#if(false)
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-//
-
-
-
-//
-
-
-
-//
-
-
-//
-
-
-
-//
-
-
-
-//
-
-
-
-//
-
-
-
-//
-
-
-
-//
-
-
-
-
-
-#endif
-
-
-#if(false)
-
-
-
-
-#endif
-
-
-#if(false)
-
-
-
-
-
-
-
-//
-
-
-
-
-
-//
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-//
-//
-//
-
-
-//
-
-
-
-
-
-
-
-
-
-
-//
-
-
-//
-
-
-//
-//
-//
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-//
-//
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-//
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-#if(CLIENT)
+#if CLIENT
 void function UpdatePlayerHUD( entity player )
 {
-	//
-	//
-	//
 	if ( player.IsBot() )
 		return
 
@@ -3868,9 +717,6 @@ void function UpdatePlayerHUD( entity player )
 	if ( gamePhase == eShadowSquadGamePhase.FREE_FOR_ALL )
 		return
 
-	//
-	//
-	//
 	if ( !IsValid( file.countdownRui ) )
 		file.countdownRui = CreateFullscreenRui( $"ui/generic_timer.rpak" )
 
@@ -3901,8 +747,6 @@ void function UpdatePlayerHUD( entity player )
 				RuiDestroyIfAlive( file.countdownRui )
 				file.countdownRui = null
 			}
-
-			//
 			if ( IsShadowVictory() )
 				SetChampionScreenRuiAsset( $"ui/shadowfall_shadow_champion_screen.rpak" )
 			else
@@ -3913,9 +757,6 @@ void function UpdatePlayerHUD( entity player )
 			return
 	}
 
-	//
-	//
-	//
 	if ( file.countdownRui == null )
 		return
 
@@ -3923,976 +764,30 @@ void function UpdatePlayerHUD( entity player )
 	RuiSetGameTime( file.countdownRui, "startTime", countdownTimerStart )
 	RuiSetGameTime( file.countdownRui, "endTime", countdownTimerEnd )
 	RuiSetColorAlpha( file.countdownRui, "timerColor", SrgbToLinear( <255,233,0> / 255.0 ), 1.0 )
-
 }
 #endif //
 
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
+#if SERVER
+void function evactest()
+{
+	entity evac_loc = GetEntArrayByScriptName( "shadowsquad_evac" ).getrandom()
+	vector origin = evac_loc.GetOrigin()
+	vector angles = evac_loc.GetAngles()
+	entity evac = CreatePropDynamic( $"mdl/vehicle/goblin_dropship/goblin_dropship.rmdl", origin, angles, SOLID_VPHYSICS )
+	thread HandleEvac( evac, origin + <0,0,700>, angles)
+	foreach( player in GetPlayerArray() )
+	{
+		gp()[0].SetOrigin(origin)
+		Remote_CallFunction_NonReplay( player, "ServerCallback_ModeShadowSquad_AnnouncementSplash", eShadowSquadMessage.EVAC_ARRIVED_LEGEND, 10 )
+	}
+}
 #endif
 
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-//
-
-
-
-
-
-
-//
-
-//
-
-//
-//
-
-//
-
-
-
-//
-
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-//
-
-//
-
-
-//
-
-
-
-
-//
-
-
-
-//
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-//
-//
-//
-
-
-
-//
-//
-//
-
-
-
-
-
-
-//
-//
-//
-
-
-//
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-//
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-//
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-//
-
-
-
-
-
-
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-#endif //
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-*/
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-//
-//
-
-
-
-
-
-
-
-
-
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-#endif //
-
-
-/*
-
-
-
-
-
-
-
-
-*/
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-
-
-
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-
-
-
-
-//
-
-
-#endif //
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
-
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-#endif
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
-
-
-
-//
 bool function IsShadowVictory()
 {
 	return GetGlobalNetBool( "shadowsWonTheMode" )
 }
-//
 
-
-
-
-//
 bool function PlayerCanRespawnAsShadow( entity player )
 {
 	if ( !IsValid( player ) )
@@ -4900,139 +795,8 @@ bool function PlayerCanRespawnAsShadow( entity player )
 
 	return player.GetPlayerNetBool( "playerCanRespawnAsShadow" )
 }
-//
 
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-#endif //
-
-
-#if(false)
-
-
-
-
-
-
-
-
-#endif //
-
-#if(false)
-
-
-
-
-
-
-#endif //
-
-
-#if(CLIENT)
+#if CLIENT
 void function ServerCallback_ModeShadowSquad_AnnouncementSplash( int messageIndex, float duration )
 {
 	entity player = GetLocalClientPlayer()
@@ -5178,10 +942,9 @@ void function ServerCallback_ModeShadowSquad_AnnouncementSplash( int messageInde
 #endif //
 
 
-#if(CLIENT)
+#if CLIENT
 void function AnnouncementMessageSweepShadowSquad( entity player, string messageText, string subText, vector titleColor, string soundAlias, float duration, asset icon = $"", asset leftIcon = $"", asset rightIcon = $"" )
 {
-
 	AnnouncementData announcement = Announcement_Create( messageText )
 	announcement.drawOverScreenFade = true
 	Announcement_SetSubText( announcement, subText )
@@ -5196,8 +959,4 @@ void function AnnouncementMessageSweepShadowSquad( entity player, string message
 	Announcement_SetRightIcon( announcement, rightIcon )
 	AnnouncementFromClass( player, announcement )
 }
-#endif //
-
-
-
 #endif //
