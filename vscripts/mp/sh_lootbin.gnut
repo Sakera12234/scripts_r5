@@ -228,6 +228,10 @@ void function InitLootBin( entity lootbin )
 {
 	if ( file.lootBinList.contains( lootbin ) )
 		return
+		
+		
+	if ( GetMapName() == "mp_rr_desertlands_mu1" )
+		lootbin.SetSkin(4)
 
 	var dataTable = GetDataTable( $"datatable/survival_loot.rpak" )
 	int numRows = GetDatatableRowCount( dataTable )
@@ -520,6 +524,8 @@ void function LootBin_PlayOpenSequence( entity lootbin, entity player )
 	entity lootbinParent = lootbin.GetParent()
 	if ( IsValid( lootbinParent ) )
 		waitthread PlayAnim( lootbin, "loot_bin_01_open", lootbinParent, "ref" )
+	else if ( GetMapName() == "mp_rr_desertlands_mu1" )
+		waitthread PlayAnim( lootbin, "loot_bin_01_loba_open_all" )
 	else
 		waitthread PlayAnim( lootbin, "loot_bin_01_open" )
 
@@ -540,6 +546,8 @@ void function LootBin_PlayCloseSequence( entity lootbin )
 	entity lootbinParent = lootbin.GetParent()
 	if ( IsValid( lootbinParent ) )
 		waitthread PlayAnim( lootbin, "loot_bin_01_close", lootbinParent, "ref" )
+	else if ( GetMapName() == "mp_rr_desertlands_mu1" )
+		waitthread PlayAnim( lootbin, "loot_bin_01_loba_close_top" )
 	else
 		waitthread PlayAnim( lootbin, "loot_bin_01_close" )
 
