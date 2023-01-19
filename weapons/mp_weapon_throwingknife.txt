@@ -51,7 +51,7 @@ WeaponData
 
 	// Effects
 	"bounce_effect_table"							"pulse_blade"
-	"impact_effect_table" 							"pulse_blade"
+	"impact_effect_table" 							"impact_throwing_knife"
 
     "projectile_trail_effect_0" 					"P_tracer_proj_sniper_piercer"
 

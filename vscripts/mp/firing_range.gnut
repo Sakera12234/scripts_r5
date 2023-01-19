@@ -9,9 +9,10 @@ global const int FIRINGRANGE_ITEMS_MAX_COLUMNS = 8
 global const int FIRINGRANGE_ORDNANCE_MAX_COLUMNS = 2
 global const int FIRINGRANGE_AMMO_ROWS = 3
 
-global const asset FIRINGRANGE_FLICK_TARGET_ASSET = $"mdl/fx/plasma_sphere_01.rmdl"
+global const asset EDITOR = $"mdl/dev/editor_ref.rmdl"
+global const asset FIRINGRANGE_FLICK_TARGET_ASSET = $"mdl/barriers/shooting_range_target_01.rmdl"
 global const asset FIRINGRANGE_FLICK_TARGET_PARTICLE_HIT = $"P_crypto_drone_explosion"
-global const string FIRINGRANGE_FLICK_TARGET_SOUND = "Player.Hitbeep_headshot.Human_3P_vs_1P"
+global const string FIRINGRANGE_FLICK_TARGET_SOUND = "training_scr_hit_target"
 
 global const asset FIRINGRANGE_BLUE_TARGET_ASSET = $"mdl/barriers/shooting_range_target_02.rmdl"
 global const asset FIRINGRANGE_BLUE_STAND_ASSET = $"mdl/barriers/shooting_range_target_02_stand.rmdl"
@@ -582,7 +583,6 @@ void function PlayTrainingTargetReaction(entity ent, var damageInfo)
 	if (IsValid(attacker) && attacker.IsPlayer())
 	{
 		EmitSoundOnEntityOnlyToPlayer( attacker, attacker, FIRINGRANGE_FLICK_TARGET_SOUND )
-
 		attacker.NotifyDidDamage
 		(
 			ent,
@@ -596,6 +596,22 @@ void function PlayTrainingTargetReaction(entity ent, var damageInfo)
 			DamageInfo_GetDistFromAttackOrigin( damageInfo )
 		)
 	}
+}
+
+void function TurntheTarget(entity target)
+{
+	target.SetAngles(target.GetAngles()+<180,0,0>)
+	EmitSoundOnEntity( target, "training_scr_range_target_spin" )
+	wait 2
+	target.SetAngles(target.GetAngles()-<180,0,0>)
+	EmitSoundOnEntity( target, "training_scr_range_target_spin" )
+}
+
+void function TurntheTargetFlip(entity target)
+{
+	target.SetAngles(<-90,180,0>)
+	wait 2
+	target.SetAngles(<0,180,0>)
 }
 
 void function MoveTrainingTargetAround(entity ent)
@@ -628,6 +644,14 @@ void function MoveTrainingTargetAround(entity ent)
 void function OnTrainingTargetDamagedNothing(entity ent, var damageInfo)
 {
 	PlayTrainingTargetReaction(ent, damageInfo)
+	thread TurntheTarget(ent)
+}
+
+void function OnTrainingTargetDamagedFlip(entity ent, var damageInfo)
+{
+	PlayTrainingTargetReaction(ent, damageInfo)
+	entity ref = ent.GetParent()
+	thread TurntheTargetFlip(ref)
 }
 
 void function OnTrainingTargetDamagedReposition(entity ent, var damageInfo)
@@ -693,6 +717,36 @@ entity function SpawnBigTrainingTarget(vector pos, vector ang, void functionref(
 	return target
 }
 
+entity function SpawnFTrainingTarget(vector pos, vector ang, void functionref( entity, var ) onDamaged )
+{
+	entity target = CreateEntity( "prop_dynamic" )
+	target.kv.solid = 6
+	target.SetValueForModelKey( FIRINGRANGE_FLICK_TARGET_ASSET )
+	target.kv.SpawnAsPhysicsMover = 0
+	target.SetOrigin( pos )
+	target.SetAngles( ang )
+	DispatchSpawn( target )
+	target.SetDamageNotifications( true )
+
+    AddEntityCallback_OnDamaged(target, onDamaged)
+	return target
+}
+
+entity function SpawnFTarget(vector pos, vector ang )
+{
+	entity stand = CreateEntity( "prop_dynamic" )
+	stand.kv.solid = 0
+	stand.SetValueForModelKey( EDITOR )
+	stand.SetOrigin( pos )
+	stand.SetAngles( ang )
+	stand.AllowMantle()
+	DispatchSpawn( stand )
+	entity target = SpawnFTrainingTarget(pos+<0,28,0>,stand.GetAngles(),OnTrainingTargetDamagedFlip)
+	target.SetParent(stand)
+	stand.Hide()
+	return stand
+}
+
 entity function SpawnTarget(vector pos, vector ang )
 {
 	entity stand = CreateEntity( "prop_dynamic" )
@@ -725,8 +779,10 @@ void function SpawnTargets()
 
 		SpawnTarget(t.GetOrigin(), t.GetAngles() )
 	}
-	SpawnTarget(<35819.4961, -6457.02588, -26410.3125>, <0,180,0> )
-	SpawnTarget(<31240.9922, -10316.9521, -27762.9805>, <0,90,0> )
+	foreach(entity f in GetEntArrayByScriptName("shooting_range_folding_target"))
+	{
+		SpawnFTarget(f.GetOrigin(), f.GetAngles() )
+	}
 }
 #endif
 
