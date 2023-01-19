@@ -9,6 +9,7 @@ global function MapEditor_CreateBubbleShieldWithSettings
 global function MapEditor_CreateRespawnableWeaponRack
 global function MapEditor_CreateLinkedZipline
 global function MapEditor_CreateLootBin
+global function CreateFRButton
 
 global enum eMapEditorDoorType
 {
@@ -338,4 +339,19 @@ void function MapEditor_CreateLinkedZipline( array<vector> nodes )
 
 	foreach(entity rope in ropes)
         DispatchSpawn( rope )
+}
+
+entity function CreateFRButton(vector pos, vector ang, string prompt)
+{
+	entity button = CreateEntity("prop_dynamic")
+	button.kv.solid = 6
+	button.SetValueForModelKey(FIRINGRANGE_BUTTON_ASSET)
+	button.SetOrigin(pos)
+	button.SetAngles(ang)
+	DispatchSpawn(button)
+
+	button.SetUsable()
+	button.SetUsableByGroup("pilot")
+	button.SetUsePrompts(prompt, prompt)
+	return button
 }
