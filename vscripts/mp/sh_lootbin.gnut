@@ -525,7 +525,7 @@ void function LootBin_PlayOpenSequence( entity lootbin, entity player )
 	if ( IsValid( lootbinParent ) )
 		waitthread PlayAnim( lootbin, "loot_bin_01_open", lootbinParent, "ref" )
 	else if ( GetMapName() == "mp_rr_desertlands_mu1" )
-		waitthread PlayAnim( lootbin, "loot_bin_01_loba_open_all" )
+		waitthread PlayAnim( lootbin, "loot_bin_01_loba_open_all", lootbinParent, "ref" )
 	else
 		waitthread PlayAnim( lootbin, "loot_bin_01_open" )
 
