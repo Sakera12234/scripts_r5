@@ -1,13 +1,13 @@
 global function FiringRangeGameMode_Init
 
 global const float FIRINGRANGE_DISSOLVE_TIME = 5.0
-global const float FIRINGRANGE_RACK_RESPAWN_TIME = 0.5
+global const float FIRINGRANGE_RACK_RESPAWN_TIME = 0.7
 global const float FIRINGRANGE_RACK_OFFSET = 32
 
 global const int FIRINGRANGE_ATTACHMENTS_MAX_COLUMNS = 6
-global const int FIRINGRANGE_ITEMS_MAX_COLUMNS = 2
+global const int FIRINGRANGE_ITEMS_MAX_COLUMNS = 8
 global const int FIRINGRANGE_ORDNANCE_MAX_COLUMNS = 2
-global const int FIRINGRANGE_AMMO_ROWS = 2
+global const int FIRINGRANGE_AMMO_ROWS = 3
 
 global const asset FIRINGRANGE_FLICK_TARGET_ASSET = $"mdl/fx/plasma_sphere_01.rmdl"
 global const asset FIRINGRANGE_FLICK_TARGET_PARTICLE_HIT = $"P_crypto_drone_explosion"
@@ -192,7 +192,7 @@ void function OnPlayerRespawned(entity player)
 	foreach(string ammo in ["bullet"])
 	{
 		entity loot = SpawnGenericLoot( ammo, player.GetOrigin(), player.GetAngles(),
-			60-SURVIVAL_CountItemsInInventory( player, ammo ) )
+			30-SURVIVAL_CountItemsInInventory( player, ammo ) )
 
 		if(!Survival_PickupItem(loot, player))
 			loot.Destroy()
@@ -351,9 +351,9 @@ void function SpawnOrdnance()
 // Spawn ammo at the left of the racks
 void function SpawnAmmo()
 {
-	const float cornerOffset = -4
-	const float itemOffsetX = 12.0
-	const float itemOffsetY = 20.0
+	const float cornerOffset = -10
+	const float itemOffsetX = 18.0
+	const float itemOffsetY = 18.0
 
 	foreach(RackGroup rackGroup in file.rackSpawns)
 	{
@@ -375,7 +375,7 @@ void function SpawnAmmo()
 			{
 				vector pos = firstPos + rght*itemOffsetX*i + fwd*itemOffsetY*j
 
-				entity loot = SpawnGenericLoot(rackGroup.ammoType, pos, <0,0,0>, ammoStack)
+				entity loot = SpawnGenericLoot(rackGroup.ammoType, pos, <0,90,0>, ammoStack)
 				thread OnPickupGenericThread(loot, rackGroup.ammoType, ammoStack)
 			}
 		}
@@ -386,9 +386,9 @@ void function SpawnAmmo()
 void function SpawnItems()
 {
 	const float otherSideOffset = 512.0
-	const float cornerOffset = 128.0 - 12.0
-	const float itemOffsetX = 32.0
-	const float itemOffsetY = 24.0
+	const float cornerOffset = 13.0
+	const float itemOffsetX = 26.0
+	const float itemOffsetY = 48.0
 	int ammoIndex = 0
 	foreach(RackGroup rackGroup in file.rackSpawns)
 	{
@@ -401,6 +401,7 @@ void function SpawnItems()
 
 		vector firstPos = rack.GetOrigin() + fwd*otherSideOffset + rght*cornerOffset
 
+		int itemStack = 2
 		int col = 0
 		int row = 0
 		for(int i = 0; i<file.items.len(); i++)
@@ -413,9 +414,9 @@ void function SpawnItems()
 
 			LootData item = file.items[i]
 			vector pos = firstPos + rght*itemOffsetX*col - fwd*itemOffsetY*row
-
-			entity loot = SpawnGenericLoot(item.ref, pos, <0,90,0>, 1)
-			thread OnPickupGenericThread(loot, item.ref)
+			vector rot = <0,90,0>
+			entity loot = SpawnGenericLoot(item.ref, pos, rot, itemStack)
+			thread OnPickupGenericThread(loot, item.ref, itemStack)
 
 			col++
 		}
@@ -490,7 +491,7 @@ void function SpawnAttachments()
 
 				vector pos = firstPos - r.GetRightVector()*col*placementOffset + r.GetForwardVector()*row*placementOffset
 
-				entity loot = SpawnGenericLoot( ref, pos, <0,0,0>, 1 )
+				entity loot = SpawnGenericLoot( ref, pos, <0,180,0>, 1 )
 				thread OnPickupGenericThread(loot, ref)
 				col++
 			}
