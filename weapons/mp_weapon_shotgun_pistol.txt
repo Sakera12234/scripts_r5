@@ -22,6 +22,7 @@ WeaponData
 
 	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_weapon_shotgun_pistol"
 	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_weapon_shotgun_pistol"
+	"OnProjectileCollision"                         "OnProjectileCollision_weapon_shotgun_pistol"
 
 	// Menu
 	"menu_category"                                 "handgun"
@@ -300,6 +301,64 @@ WeaponData
 		// "ammo_default_total"							"0"
 		// "ammo_stockpile_max"							"12"
 		// }
+
+		hopup_april_fools
+		{
+
+			"printname"  								    "#NESSIE_GUN_TITLE"
+			"shortprintname"							    "#NESSIE_GUN_TITLE"
+			"description" 								    "#NESSIE_GUN_DESC"
+
+			"ammo_clip_size"   								"2"
+
+			"damage_near_value"   							"0"
+	        "damage_far_value"								"0"
+	        "damage_very_far_value"							"0"
+	        "damage_near_value_titanarmor"					"0"
+	        "damage_far_value_titanarmor" 					"0"
+	        "damage_very_far_value_titanarmor" 				"0"
+
+			"fire_rate"   									"1.6"
+
+			"reload_time"						"*1.2"
+	        "reload_time_late1"				    "*1.2"
+	        "reload_time_late2"				    "*1.2"
+	        "reload_time_late3"				    "*1.2"
+	        "reload_time_late4"				    "*1.2"
+	        "reload_time_late5"				    "*1.2"
+	        "reloadempty_time"				    "*1.2"
+	        "reloadempty_time_late1"			"*1.2"
+	        "reloadempty_time_late2"			"*1.2"
+	        "reloadempty_time_late3"			"*1.2"
+	        "reloadempty_time_late4"			"*1.2"
+	        "reloadempty_time_late5"			"*1.2"
+
+			"fire_sound_1_player_1p"						"weapon_AFLTMpistol_fire_1p"
+			"fire_sound_1_player_3p"						"weapon_AFLTMpistol_fire_3p"
+
+			"low_ammo_sound_name_1"							"AFLTMPistol_LowAmmo_Shot1"
+			"low_ammo_sound_name_2"							"AFLTMPistol_LowAmmo_Shot2"
+
+			"projectilemodel" 							    "mdl/props/nessie/nessie_april_fools.rmdl"
+
+			"projectile_trail_effect_0"						"smkScrn_trail_CH_trail"
+
+			//"impact_effect_table" 		                "melee_human"
+			//"impact_effect_table" 				        "bullet_pb_Random"
+			
+			"projectiles_per_shot"							"1"
+
+			"bounce_effect_table"							"bounce_small_nosound_nowhizby"
+			"impact_effect_table"							"default_nosound_nowhizby"
+
+			"projectile_launch_speed"						"800"
+            "projectile_launch_pitch_offset"                "9.5"
+            "projectile_gravity_scale"                      "0.6"
+			"projectile_first_person_offset_fraction"		"1"
+			"projectile_inherit_owner_velocity_scale"		"1.5"
+
+            "projectile_lifetime"                           "8.5"  // Spider should be dead by then
+		}
 
 		survival_finite_ammo
 		{
